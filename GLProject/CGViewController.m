@@ -7,17 +7,19 @@
 //
 
 #import "CGViewController.h"
+#import "CGView.h"
 
 @interface CGViewController ()
-
 @end
 
 @implementation CGViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	CGView * cgview = [[CGView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.view addSubview:cgview];
 }
 
 - (void)didReceiveMemoryWarning
