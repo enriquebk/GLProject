@@ -46,14 +46,20 @@ const CGVertex_PC Vertices[] = {
 
         render = [[CGRender alloc] initWithLayer:_eaglLayer];
         
-        CGSimpleShader* ss = [[CGSimpleShader alloc] init];
+        engine = [[CGEngine alloc] initWithRender:render];
+        
+        [engine draw];
+        
+        
+        
+       /* CGSimpleShader* ss = [[CGSimpleShader alloc] init];
         CGStaticObject * so = [[CGStaticObject alloc] init];
         so.shader = ss;
 
         so.vbo = [[VBOsManager sharedInstance] addVBO:Vertices withKey:@"model" withType:CGVertexType_PC indices:Indices];
-        [render addObject:so];
-        
-        [self render];
+       // [render addObject:so];
+        */
+       // [self render];
     }
     return self;
 }
@@ -88,15 +94,6 @@ const CGVertex_PC Vertices[] = {
 	else return NO;
 }
 
-- (void)render {
-    
-    [render setClearColor:0.0 g:0.8 b:0.2 a:1.0];
-
-    [render clear];
-    
-    [render render];
-    
-}
 
 
 

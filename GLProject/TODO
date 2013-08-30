@@ -5,3 +5,19 @@ MEJORAR LO DE LOS VBO..
 AGREGAR LISTA DE SHADERS POR DEFECTO
 CRAGAR MD2
 manejar catidad de indices y vertices
+
+//
+Clase 
+hay que tener cuidado con las luces(estan en wordspace y deberían estar en camera space)
+el shader modificado va estar para este finde semana
+
+Propiedades de la camara:
+Posicion
+Pitch (movimiento hacia arriba y abajo)
+yaw "rotacion"
+roll "rotacion con el eje de la camara"
+distancia distancia del foco
+
+Tipos de camara
+camara primera perosna
+camara trakball = siempre enfocada en un punto("foco")

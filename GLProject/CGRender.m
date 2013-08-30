@@ -17,20 +17,27 @@
     self = [super init];
     
     if(self){
-    
-        self.projection = [CC3GLMatrix matrix];
-        float h = 4.0f * layer.frame.size.height / layer.frame.size.width;
-        [self.projection populateFromFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:1 andFar:10];
-        [self.projection translateBy:CC3VectorMake(0, 0, -2)];
         
+       /* self.sceneGraph = [[CGSceneGraph alloc] init];
+        float h = 4.0f * layer.frame.size.height / layer.frame.size.width;
+        [self.sceneGraph.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:1 andFar:10];
+        [self.sceneGraph.camera translate:CC3VectorMake(0, 0, -2)];
+        */
+        
+        self.layer = layer;
         [self setupContext];
-        [self setupRenderBufferWithDrawable:layer];
+        [self setupRenderBufferWithDrawable:self.layer];
         [self setupFrameBuffer];
         
-        objects = [[NSMutableArray alloc] init];
+        float d = (([CGView isRetinaDisplay])?1.0f:2.0f);
+        glViewport(0, 0, layer.frame.size.width/d , layer.frame.size.height/d );
         
-        [self setViewPortX:0 y:0 width:layer.frame.size.width height:layer.frame.size.height];
-       // glViewport(0, 0, layer.frame.size.width, layer.frame.size.height);
+        
+        
+        ///Remove
+       // objects = [[NSMutableArray alloc] init];
+       // self.projection = [CC3GLMatrix matrix];
+        ///
     }
     
     return self;
@@ -77,23 +84,13 @@
                               GL_RENDERBUFFER, _colorRenderBuffer);// It lets you attach the render buffer you created earlier to the frame buffer’s GL_COLOR_ATTACHMENT0 slot.
 }
 
--(void)addObject:(CGObject3D*)o{
-
-    [objects addObject:o];
-}
-
--(void)removeObject:(CGObject3D*)o{
-
-    [objects removeObject:o];
-}
-
 -(void)render{
 
-    for (CGObject3D* o in objects) {
+    /*for (CGObject3D* o in objects) {
         if(o.visible){
             [o drawInRender:self];
         }
-    }
+    }*/
     
     [_context presentRenderbuffer:GL_RENDERBUFFER];//Call a method on the OpenGL context to present the render/color buffer to the UIView’s layer!
 }
@@ -109,6 +106,15 @@
      glClear(GL_COLOR_BUFFER_BIT);//Call glClear to actually perform the clearing. Remember that there can be different types of buffers, such as the render/color buffer we’re displaying, and others we’re not using yet such as depth or stencil buffers. Here we use the GL_COLOR_BUFFER_BIT to specify what exactly to clear – in this case, the current render/color buffer.
 }
 
+
+
+
+
+
+
+
+
+//TODO:REMOVE!!
 -(void) setCameraFrustumLeft: (GLfloat) left
                     andRight: (GLfloat) right
                    andBottom: (GLfloat) bottom
@@ -131,6 +137,17 @@
 
     float d = (([CGView isRetinaDisplay])?1.0f:2.0f);
     glViewport(x, y, w/d , h/d );
+}
+
+
+-(void)_addObject:(CGObject3D*)o{
+    
+    [objects addObject:o];
+}
+
+-(void)_removeObject:(CGObject3D*)o{
+    
+    [objects removeObject:o];
 }
 
 @end
