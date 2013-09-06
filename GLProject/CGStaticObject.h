@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CGObject3D.h"
+#import "CGObject3D_.h"
 
 @interface CGStaticObject : CGObject3D{
 

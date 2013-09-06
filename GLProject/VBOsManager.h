@@ -18,7 +18,7 @@
 
 +(id)sharedInstance;
 
--(CGVertexBufferObject*) VBOFromFile: (NSString*)filename;
+-(CGVertexBufferObject*) VBOFromFile: (NSString*)filename; //Discriminate from extension
 
 -(CGVertexBufferObject*) VBOFromKey: (NSString*)key;
 

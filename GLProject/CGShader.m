@@ -11,7 +11,10 @@
 
 @implementation CGShader
 
--(void)addParametersWithObject:(CGObject3D*) object render:(CGRender*)render{
+
+//-(void)renderObject: in render]
+
+-(void)addParametersWithObject:(CGObject3D_*) object render:(CGRender*)render{
 
     glEnableVertexAttribArray(_positionSlot);
     glEnableVertexAttribArray(_projectionUniform);
@@ -19,7 +22,7 @@
     
     glUniformMatrix4fv(_modelViewUniform, 1, 0, object.modelViewMatrix.glMatrix);
     
-    glUniformMatrix4fv(_projectionUniform, 1, 0, render.projection.glMatrix);
+   // glUniformMatrix4fv(_projectionUniform, 1, 0, render.projection.glMatrix);
     
     //Calls glVertexAttribPointer to feed the correct values to the two input variables for the vertex shader – the Position and SourceColor attributes.
     glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE,

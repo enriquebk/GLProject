@@ -11,7 +11,7 @@
 
 @implementation CGSimpleShader
 
--(id)init{
+-(id)init{//1 unico shader q pregunte todo!
 
     self = [super initWithVertexShader:@"SimpleVertex" fragmentShader:@"SimpleFragment"];
     
@@ -28,7 +28,7 @@
      _colorSlot = glGetAttribLocation(self.handler, CGShaderParameter_SourceColor);
 }
 
--(void)addParametersWithObject:(CGObject3D*) object render:(CGRender*)render{
+-(void)addParametersWithObject:(CGObject3D_*) object render:(CGRender*)render{
     
     if(object.vertexType != CGVertexType_PC){
         NSLog(@"Unable to run shader");

@@ -9,9 +9,10 @@
 #import "CGView.h"
 #import "CC3GLMatrix.h"
 #import "CGVertex.h"
-#import "CGSimpleShader.h"
-#import "CGStaticObject.h"
+#import "CGObject3D.h"
+#import "CGMesh.h"
 #import "VBOsManager.h"
+#import "CGArray.h"
 
 @implementation CGView
 
@@ -44,11 +45,26 @@ const CGVertex_PC Vertices[] = {
     if (self) {
         [self setupLayer];
 
-        render = [[CGRender alloc] initWithLayer:_eaglLayer];
+       render = [[CGRender alloc] initWithLayer:_eaglLayer];
         
-        engine = [[CGEngine alloc] initWithRender:render];
+       
         
-        [engine draw];
+        CGMesh* mesh = [[CGMesh alloc]
+        initWithVertexData:
+            [[CGArray alloc] initWithData:(void*)Vertices withCapacity:sizeof(CGVertex_PC)*4 /*sizeof(Vertices)*/ ]
+        indices:
+                        [[CGArray alloc] initWithData:(void*)Indices withCapacity: sizeof(GLubyte)*6 /*sizeof(Indices)*/ ]];
+        
+        CGObject3D* o = [[CGObject3D alloc] initWithMesh:mesh];
+        
+        
+        [render addObject:o];
+
+        [render setClearColor:0.0 g:0.8 b:0.2 a:1.0];
+        
+        [render clear];
+        
+        [render render];
         
         
         

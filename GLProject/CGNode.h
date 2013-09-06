@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CGNode.h"
 #import "CC3GLMatrix.h"
+
+
+@class CGRender;
 
 @interface CGNode : NSObject
 
@@ -48,7 +50,11 @@
 
 /**
  */
--(void)visit;
+-(void)visit:(CGRender*)render;
+
+/**
+ */
+-(void)render:(CGRender*)render;
 
 /**
  */
@@ -61,5 +67,7 @@
 /**
  */
 -(void)scale:(CC3Vector) aVector;
+
+/* Update:delta propagable ? como cocos2d*/
 
 @end

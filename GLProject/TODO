@@ -21,3 +21,9 @@ distancia distancia del foco
 Tipos de camara
 camara primera perosna
 camara trakball = siempre enfocada en un punto("foco")
+
+DOCUMENTAR Y DIAGRAMAR
+
+tipos de vertices!
+
+1 - key frame - pos col normales - pos normales uv - pos_col (hacer eßßxtencible)

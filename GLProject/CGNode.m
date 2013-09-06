@@ -51,10 +51,17 @@
     return [self.childs count];
 }
 
--(void)visit{
+-(void)visit:(CGRender*)render{
+    
+    [self render:render];
+    
     for (CGNode* n in self.childs) {
-        [n visit];
+        [n visit:render];
     }
+}
+
+-(void)render:(CGRender *)render{
+    //override me
 }
 
 -(void)translate:(CC3Vector) aVector{

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CGRender.h"
-#import "CGObject3D.h"
+#import "CGObject3D_.h"
 
 #define  CGShaderParameter_position "Position"
 #define  CGShaderParameter_projection "Projection"

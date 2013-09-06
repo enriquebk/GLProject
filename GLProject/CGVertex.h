@@ -17,7 +17,7 @@ typedef float CGColor[4];
 
 typedef enum {
     
-    CGVertexType_PNTC = 0, //vertex, normal, texture coords - NOT IMPLEMENTED!
+    CGVertexType_PNTC = 0, //vertex, normal, texture coords, color - NOT IMPLEMENTED!
     CGVertexType_PCT = 1, //vertex, color, texture coords,
     CGVertexType_PNT = 2, //vertex, normal, texture coords
     CGVertexType_PNC = 3, //vertex, normal, color

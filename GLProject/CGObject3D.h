@@ -1,41 +1,31 @@
 //
-//  CGObject3D.h
+//  CGObject3DNode.h
 //  GLProject
 //
-//  Created by Enrique Bermudez on 24/08/13.
+//  Created by Enrique Bermudez on 29/08/13.
 //  Copyright (c) 2013 Enrique Bermudez. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "CGVertexBufferObject.h"
-#import "CGTexture.h"
+#import "CGNode.h"
+#import "CGMesh.h"
 #import "CGShader.h"
-#import "CGRender.h"
-#import "CC3GLMatrix.h"
+#import "CGTexture.h"
 
 @class CGShader;
-@class CGRender;
-
-@interface CGObject3D : NSObject{
-
-    
-}
-
-@property(strong)CC3GLMatrix *modelViewMatrix;
-
-@property(strong)CGTexture* texture;
-
-@property(strong)CGShader* shader;
-
-@property(assign)BOOL visible;
-
-@property(assign)int currentFrame;
-
-@property(readonly)CGVertexType vertexType;
-
--(void)drawInRender:(CGRender*)render;
 
 
--(void)draw __attribute__((unavailable("You should always override this")));
+@interface CGObject3D : CGNode
+
+
+@property(strong)CGMesh* mesh;
+
+@property(strong)CGShader* shaderProgram;
+
+@property(strong)NSMutableArray* textures;
+
+-(id) initWithMesh:(CGMesh*)mesh;
+
+-(void) setTexture:(CGTexture*)texture;
 
 @end

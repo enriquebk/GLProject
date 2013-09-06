@@ -1,48 +1,45 @@
 //
-//  CGObject3D.m
+//  CGObject3DNode.m
 //  GLProject
 //
-//  Created by Enrique Bermudez on 24/08/13.
+//  Created by Enrique Bermudez on 29/08/13.
 //  Copyright (c) 2013 Enrique Bermudez. All rights reserved.
 //
 
 #import "CGObject3D.h"
 
+
+@interface CGMesh (){
+    
+    int currentFrame;
+    float deltaFrame;
+}
+
+@end
+
+/* Other implementation: A node may have an entity like ObjectEntiy LightEntity..*/
 @implementation CGObject3D
 
+-(id)initWithMesh:(CGMesh*)mesh{
 
-- (id)init{
-    
     self = [super init];
     
     if(self){
-        self.visible = YES;
-        self.currentFrame = 0;
-        self.modelViewMatrix = [CC3GLMatrix identity];
+        _mesh = mesh;
+    
+        _shaderProgram = [[CGShader alloc] init];
     }
     
     return self;
 }
 
-
--(void)draw{
-    //glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]),
-    //               GL_UNSIGNED_BYTE, 0);
-    
+-(void)render:(CGRender *)render{
+                  
+    //[self.shaderProgram drawObject:self inRender:render];
 }
 
--(void)drawInRender:(CGRender*)render {
-
-    
-    // Calls glUseProgram to tell OpenGL to actually use this program when given vertex info.
-    glUseProgram(self.shader.handler); //Puedo cambiar el programa que usa opengl para renderizar
-
-    [self.shader addParametersWithObject:self render:render];
-    
-    [self performSelector:@selector(draw) withObject:nil];
-    
-    [self.shader removeParametersWithObject:self render:render];
-
+-(void) setTexture:(CGTexture*)texture{
+    [self.textures insertObject:texture atIndex:0];
 }
 
 @end

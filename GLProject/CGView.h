@@ -11,7 +11,6 @@
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
 #import "CGRender.h"
-#import "CGEngine.h"
 
 @interface CGView : UIView{
 
@@ -23,7 +22,6 @@
     GLuint _colorSlot;
     
     CGRender* render;
-    CGEngine* engine;
     
     //matrix
     GLuint _projectionUniform;

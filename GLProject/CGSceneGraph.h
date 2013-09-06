@@ -8,12 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import "CGNode.h"
-#import "CGCameraNode.h"
+#import "CGCamera.h"
+#import "CGRender.h"
+
+@class CGRender;
+@class CGNode;
+@class CGCamera;
 
 @interface CGSceneGraph : NSObject
 
 @property(strong) CGNode* root;
 
-@property(strong) CGCameraNode* camera;
+@property(strong) CGCamera* camera;
+
+-(void)renderSceneWithCGRender:(CGRender*)render;
 
 @end

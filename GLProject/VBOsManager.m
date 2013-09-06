@@ -39,6 +39,14 @@ static VBOsManager* _VBOsManager;
     CGVertexBufferObject* vbo = [VBOs objectForKey:filename];
     if(vbo){
         return vbo;
+    }else{
+        
+        if(true){ //MD2
+        
+        }else{
+        
+        }
+        
     }
     
     return nil;
@@ -79,5 +87,18 @@ static VBOsManager* _VBOsManager;
     
     return vbo;
 }
+
+- (unsigned int) createBufferFromArray:(const float*)array size:(int)size {
+	// set up buffer to store array
+	GLuint bufferIndex;
+	glGenBuffers(1, &bufferIndex);
+	glBindBuffer(GL_ARRAY_BUFFER, bufferIndex);
+	
+	// Copy data from local memory
+	glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)(size * sizeof(GLfloat)), array, GL_STATIC_DRAW);
+	
+	return bufferIndex;
+}
+
 
 @end

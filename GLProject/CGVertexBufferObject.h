@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #include "CGVertex.h"
 
-@interface CGVertexBufferObject : NSObject{ // static object == vertexbuffer (one object - abstract class)
- 
+@interface CGVertexBufferObject : NSObject{
+    
 }
  
 @property(strong,readonly)NSString* name;//or Filename
@@ -22,7 +22,10 @@
 @property(readonly)int frameCount;
  
 @property(readonly)CGVertexType type;
- 
+
+
+-(id)initWithName:(NSString*)name vertexData:(GLfloat*) vertexData type:(CGVertexType) type frameCount:(int) frameCount;
+
 -(id)initWithName:(NSString*)name vertexData:(GLfloat*) vertexData type:(CGVertexType) type frameCount:(int) frameCount;
 
 -(id)initWithName:(NSString*)name vertexData:(GLfloat*) vertexData type:(CGVertexType) type frameCount:(int) frameCount indices: (GLubyte*) indices;
