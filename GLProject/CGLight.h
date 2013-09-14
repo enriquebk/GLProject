@@ -11,4 +11,8 @@
 
 @interface CGLight : CGNode
 
+@property BOOL active;
+
+//@property(strong)NSMutableArray* unAffectedObjects;
+
 @end

@@ -14,14 +14,14 @@
     self = [super init];
     if (self) {
         self.root = [[CGNode alloc] init];
-        self.camera = [[CGCamera alloc] init];
+        self.camera = [[CGCamera alloc] init]; 
     }
     return self;
 }
 
--(void)renderSceneWithCGRender:(CGRender*)render{
+-(void)renderSceneUsingEngine:(CGEngine*)engine{
 
-    [self.root visit:render];
+    [self.root visit:engine];
 }
 
 @end

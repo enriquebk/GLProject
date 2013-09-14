@@ -40,8 +40,12 @@
     if(self){
         
         self.frameCount = 1;
-        
-        [self loadIndicesData:vertexData.array capacity:vertexData.capacity];
+        self.indicesCount = [indices capacity];
+
+        self.positionOffset = 3;
+        self.colorOffset = 4;
+        self.stride = sizeof(float)*7;
+        [self loadVertexData: vertexData.array capacity:vertexData.capacity];
         [self loadIndicesData:indices.array capacity:indices.capacity];
     }
     
@@ -53,14 +57,14 @@
 
     glGenBuffers(1, [self VBOHandlerRef] );
     glBindBuffer(GL_ARRAY_BUFFER, [self VBOHandler]);
-    glBufferData(GL_ARRAY_BUFFER, cpacity, vertexData, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*cpacity, vertexData, GL_STATIC_DRAW);
 }
 
 -(void)loadIndicesData:(GLubyte* )indices capacity:(int)cpacity{
     
     glGenBuffers(1, [self indicesHandlerRef]); // idem vertexBuffer
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, [self indicesHandler]); // idem vertexBuffer
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte)*6, indices, GL_STATIC_DRAW); // idem vertexBuffer
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte)*cpacity, indices, GL_STATIC_DRAW); // idem vertexBuffer
 }
 
 -(GLuint) VBOHandler{

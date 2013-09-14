@@ -28,6 +28,11 @@
 @property(readonly)GLubyte* indices;
 
 /**
+ * Number of indices
+ */
+@property(nonatomic)int indicesCount;
+
+/**
  * Number of frames 
  */
 @property(nonatomic)int frameCount;

@@ -7,35 +7,11 @@
 //
 
 #import "CGShader.h"
-#import "CGStaticObject.h"
 
 @implementation CGShader
 
 
-//-(void)renderObject: in render]
-
--(void)addParametersWithObject:(CGObject3D_*) object render:(CGRender*)render{
-
-    glEnableVertexAttribArray(_positionSlot);
-    glEnableVertexAttribArray(_projectionUniform);
-    glEnableVertexAttribArray(_modelViewUniform);
-    
-    glUniformMatrix4fv(_modelViewUniform, 1, 0, object.modelViewMatrix.glMatrix);
-    
-   // glUniformMatrix4fv(_projectionUniform, 1, 0, render.projection.glMatrix);
-    
-    //Calls glVertexAttribPointer to feed the correct values to the two input variables for the vertex shader – the Position and SourceColor attributes.
-    glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE,
-                          sizeofVertexType(object.vertexType), 0);
-    
-}
-
--(void)removeParametersWithObject:(CGObject3D*) object render:(CGRender*)render{
-
-    glDisableVertexAttribArray(_positionSlot);
-    glDisableVertexAttribArray(_projectionUniform);
-    glDisableVertexAttribArray(_modelViewUniform);
-}
+//-(void)renderObject: in render
 
 -(id)initWithVertexShader:(NSString*)vs fragmentShader:(NSString*)fs{
 
@@ -71,8 +47,6 @@
         }
     
     }
-    
-    [self setupParameters];
     
     return self;
 }
@@ -118,12 +92,11 @@
     return shaderHandle;
 }
 
--(void)setupParameters{
-
-    _positionSlot = glGetAttribLocation(self.handler, CGShaderParameter_position);
-    _projectionUniform = glGetUniformLocation(self.handler, CGShaderParameter_projection);
-    _modelViewUniform = glGetUniformLocation(self.handler,  CGShaderParameter_modelView);
-    
+-(void)drawObject:(CGObject3D*) object usingEngine:(CGEngine*)engine{
+//Over ride me
+ 
 }
+
+
 
 @end

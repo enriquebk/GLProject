@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "CGNode.h"
 #import "CGCamera.h"
-#import "CGRender.h"
+#import "CGEngine.h"
 
-@class CGRender;
+@class CGEngine;
 @class CGNode;
 @class CGCamera;
 
@@ -21,6 +21,6 @@
 
 @property(strong) CGCamera* camera;
 
--(void)renderSceneWithCGRender:(CGRender*)render;
+-(void)renderSceneUsingEngine:(CGEngine*)engine;
 
 @end

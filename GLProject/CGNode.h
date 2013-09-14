@@ -10,7 +10,7 @@
 #import "CC3GLMatrix.h"
 
 
-@class CGRender;
+@class CGEngine;
 
 @interface CGNode : NSObject
 
@@ -19,6 +19,10 @@
 @property(strong)CGNode* parent;
 
 @property(strong)CC3GLMatrix *matrix;
+
+@property(assign)CC3Vector  position;
+@property(assign)CC3Vector  rotation;
+@property(assign)CC3Vector  scale;
 
 /**
  */
@@ -50,11 +54,11 @@
 
 /**
  */
--(void)visit:(CGRender*)render;
+-(void)visit:(CGEngine*)engine;
 
 /**
  */
--(void)render:(CGRender*)render;
+-(void)renderUsingEngine:(CGEngine*)engine;
 
 /**
  */

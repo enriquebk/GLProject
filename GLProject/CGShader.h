@@ -7,33 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CGRender.h"
-#import "CGObject3D_.h"
+#import "CGEngine.h"
 
-#define  CGShaderParameter_position "Position"
-#define  CGShaderParameter_projection "Projection"
-#define  CGShaderParameter_modelView "Modelview"
 
 @class CGObject3D;
-@class CGRender;
+@class CGEngine;
 
 @interface CGShader : NSObject{
 
-    GLuint _positionSlot;
-    GLuint _projectionUniform;
-    GLuint _modelViewUniform;
 }
 
 @property(assign)GLuint handler;
 
+/* */
 -(id)initWithVertexShader:(NSString*)vs fragmentShader:(NSString*)fs;
 
--(void)addParametersWithObject:(CGObject3D*) object render:(CGRender*)render;
+/* Overide me */
+-(void)drawObject:(CGObject3D*) object usingEngine:(CGEngine*)engine;
 
--(void)removeParametersWithObject:(CGObject3D*) object render:(CGRender*)render;
-
-
-//Overide me
--(void)setupParameters;
+/* */
++ (GLuint)compileShader:(NSString*)shaderName withType:(GLenum)shaderType;
 
 @end

@@ -2,7 +2,7 @@
 //  CGUtils.h
 //  GLProject
 //
-//  Created by Enrique Bermudez on 29/08/13.
+//  Created by Enrique Bermudez on 14/09/13.
 //  Copyright (c) 2013 Enrique Bermudez. All rights reserved.
 //
 
@@ -10,4 +10,6 @@
 
 @interface CGUtils : NSObject
 
+
++ (BOOL) isRetinaDisplay;
 @end

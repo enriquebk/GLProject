@@ -9,5 +9,5 @@
 #import "CGLight.h"
 
 @implementation CGLight
-
+//la luz es un nodo pero es agregado al al shader por defecto... (los objetos oueden no querer iliminarse por esa luz) (array unAffectedObjects)
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "CGObject3D.h"
-
+#import "CGDefaultShader.h"
 
 @interface CGMesh (){
     
@@ -26,16 +26,18 @@
     
     if(self){
         _mesh = mesh;
-    
-        _shaderProgram = [[CGShader alloc] init];
+        _shaderProgram = [[CGDefaultShader alloc] init];
     }
     
     return self;
 }
 
--(void)render:(CGRender *)render{
-                  
-    //[self.shaderProgram drawObject:self inRender:render];
+-(void)renderUsingEngine:(CGEngine *)engine{
+    
+    
+    
+    [self.shaderProgram drawObject:self usingEngine:engine];
+    
 }
 
 -(void) setTexture:(CGTexture*)texture{

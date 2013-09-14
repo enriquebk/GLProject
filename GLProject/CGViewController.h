@@ -19,5 +19,12 @@
     EAGLContext* _context;
     GLuint _colorRenderBuffer;
 }
+@property (weak, nonatomic) IBOutlet UIView *glView;
+- (IBAction)upAction:(id)sender;
+- (IBAction)downAction:(id)sender;
+- (IBAction)leftAction:(id)sender;
+- (IBAction)rightAction:(id)sender;
+- (IBAction)rotLAction:(id)sender;
+- (IBAction)rotRAction:(id)sender;
 
 @end

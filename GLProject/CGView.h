@@ -10,7 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
-#import "CGRender.h"
+#import "CGEngine.h"
+
 
 @interface CGView : UIView{
 
@@ -21,7 +22,7 @@
     GLuint _positionSlot;
     GLuint _colorSlot;
     
-    CGRender* render;
+    CGEngine* engine;
     
     //matrix
     GLuint _projectionUniform;
@@ -30,6 +31,7 @@
 }
 
 
-+ (BOOL) isRetinaDisplay;//Move to utils
+-(CGEngine*) engine;
+
 
 @end

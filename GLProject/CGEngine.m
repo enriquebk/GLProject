@@ -1,27 +1,27 @@
 //
-//  CGRender.m
+//  CGEngine.m
 //  GLProject
 //
 //  Created by Enrique Bermudez on 24/08/13.
 //  Copyright (c) 2013 Enrique Bermudez. All rights reserved.
 //
 
-#import "CGRender.h"
-#import "CGView.h"
-#import "CGSceneGraph.h"
+#import "CGEngine.h"
+#import "CGUtils.h"
 
-@interface CGRender (){
+
+@interface CGEngine (){
     
     EAGLContext* _context;
     GLuint _colorRenderBuffer;
     
 }
-@property(strong)CGSceneGraph* sceneGraph;
+
 @property(strong)CAEAGLLayer* layer;
 
 @end
 
-@implementation CGRender
+@implementation CGEngine
 
 
 -(id)initWithLayer:(CAEAGLLayer*)layer{
@@ -31,16 +31,18 @@
     if(self){
         
         self.layer = layer;
+        
+        self.sceneGraph = [[CGSceneGraph alloc] init];
+        float h = 4.0f * self.layer.frame.size.height / self.layer.frame.size.width;
+        [self.sceneGraph.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:2 andFar:20];
+        [self.sceneGraph.camera translate:CC3VectorMake(0, 0, -5)];
+        
         [self setupContext];
         [self setupRenderBufferWithDrawable:self.layer];
         [self setupFrameBuffer];
         
-        self.sceneGraph = [[CGSceneGraph alloc] init];
-        float h = 4.0f * self.layer.frame.size.height / self.layer.frame.size.width;
-        [self.sceneGraph.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:1 andFar:10];
-        [self.sceneGraph.camera translate:CC3VectorMake(0, 0, -2)];
         
-        float d = (([CGView isRetinaDisplay])?1.0f:2.0f);
+        float d = (([CGUtils isRetinaDisplay])?0.5f:1.0f);
         glViewport(0, 0, layer.frame.size.width/d , layer.frame.size.height/d );
         
     }
@@ -98,6 +100,8 @@
      }
      }*/
     
+    [self.sceneGraph renderSceneUsingEngine:self];
+    
     [_context presentRenderbuffer:GL_RENDERBUFFER];//Call a method on the OpenGL context to present the render/color buffer to the UIView’s layer!
 }
 
@@ -121,6 +125,18 @@
 -(void)removeObject:(CGObject3D*)o{
     
     [self.sceneGraph.root removeChid:o];
+}
+
+-(void)addLight:(CGLight*)l{
+
+}
+
+-(void)addLight:(CGLight*)l withParent:(CGNode*)parent{
+
+}
+
+-(void)removeLight:(CGLight*)l{
+
 }
 
 

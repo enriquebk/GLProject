@@ -8,34 +8,15 @@
 
 #import "CGView.h"
 #import "CC3GLMatrix.h"
-#import "CGVertex.h"
 #import "CGObject3D.h"
 #import "CGMesh.h"
-#import "VBOsManager.h"
+#import "MeshFactory.h"
 #import "CGArray.h"
+#import "CGUtils.h"
+
+
 
 @implementation CGView
-
-
-// A structure to keep track of all our per-vertex information (currently just color and position)
-//typedef struct {
-//    float Position[3];
-//    float Color[4];
-//} Vertex;
-
-// An array with all the info for each vertex
-const CGVertex_PC Vertices[] = {
-    {{0.5, -0.5, 0}, {1, 0, 0, 1}},
-    {{0.5, 0.5, 0}, {0, 1, 0, 1}},
-    {{-0.5, 0.5, 0}, {0, 0, 1, 1}},
-    {{-0.5, -0.5, 0}, {0, 0, 0, 1}}
-};
-
-// An array that gives a list of triangles to create, by specifying the 3 vertices that make up each triangle
- GLubyte Indices[] = {
-    0, 1, 2,
-    2, 3, 0
-};
 
 
 - (id)initWithFrame:(CGRect)frame
@@ -45,37 +26,10 @@ const CGVertex_PC Vertices[] = {
     if (self) {
         [self setupLayer];
 
-       render = [[CGRender alloc] initWithLayer:_eaglLayer];
-        
-       
-        
-        CGMesh* mesh = [[CGMesh alloc]
-        initWithVertexData:
-            [[CGArray alloc] initWithData:(void*)Vertices withCapacity:sizeof(CGVertex_PC)*4 /*sizeof(Vertices)*/ ]
-        indices:
-                        [[CGArray alloc] initWithData:(void*)Indices withCapacity: sizeof(GLubyte)*6 /*sizeof(Indices)*/ ]];
-        
-        CGObject3D* o = [[CGObject3D alloc] initWithMesh:mesh];
-        
-        
-        [render addObject:o];
+        engine = [[CGEngine alloc] initWithLayer:_eaglLayer];
 
-        [render setClearColor:0.0 g:0.8 b:0.2 a:1.0];
-        
-        [render clear];
-        
-        [render render];
-        
-        
-        
-       /* CGSimpleShader* ss = [[CGSimpleShader alloc] init];
-        CGStaticObject * so = [[CGStaticObject alloc] init];
-        so.shader = ss;
 
-        so.vbo = [[VBOsManager sharedInstance] addVBO:Vertices withKey:@"model" withType:CGVertexType_PC indices:Indices];
-       // [render addObject:so];
-        */
-       // [self render];
+        
     }
     return self;
 }
@@ -90,7 +44,7 @@ const CGVertex_PC Vertices[] = {
     _eaglLayer = (CAEAGLLayer*) self.layer;
     _eaglLayer.opaque = YES;
     
-    if ([CGView isRetinaDisplay]) {
+    if ([CGUtils isRetinaDisplay]) {
         
         // Set contentScale Factor to 2
         self.contentScaleFactor = 2.0;
@@ -99,18 +53,10 @@ const CGVertex_PC Vertices[] = {
     }
 }
 
-+ (BOOL) isRetinaDisplay
-{
-	int scale = 1.0;
-	UIScreen *screen = [UIScreen mainScreen];
-	if([screen respondsToSelector:@selector(scale)])
-    scale = screen.scale;
+-(CGEngine*) engine{
     
-	if(scale == 2.0f) return YES;
-	else return NO;
+    return engine;
 }
-
-
 
 
 

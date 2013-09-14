@@ -51,29 +51,43 @@
     return [self.childs count];
 }
 
--(void)visit:(CGRender*)render{
+-(void)visit:(CGEngine*)engine{
     
-    [self render:render];
+    [self renderUsingEngine:engine];//Agregar a cola de renderizado...
+    //TODO: establecer un orden... primero posicionar recorrer y luego dibjuar? la idea es no tener prblemas con el agregado de luces...
     
     for (CGNode* n in self.childs) {
-        [n visit:render];
+        [n visit:engine];
     }
 }
 
--(void)render:(CGRender *)render{
+-(void)renderUsingEngine:(CGEngine *)engine{
     //override me
 }
 
 -(void)translate:(CC3Vector) aVector{
     [self.matrix translateBy:aVector];
+    
+    _position.x+=aVector.x;
+    _position.y+=aVector.y;
+    _position.z+=aVector.z;
 }
 
 -(void)rotate:(CC3Vector) aVector{
     [self.matrix rotateBy:aVector];
+    
+    
+    _rotation.x+=aVector.x;
+    _rotation.y+=aVector.y;
+    _rotation.z+=aVector.z;
 }
 
 -(void)scale:(CC3Vector) aVector{
     [self.matrix scaleBy:aVector];
+    
+    _scale.x+=aVector.x;
+    _scale.y+=aVector.y;
+    _scale.z+=aVector.z;
 }
 
 - (void)removeChid:(CGNode *)child{
