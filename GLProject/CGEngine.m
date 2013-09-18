@@ -32,10 +32,10 @@
         
         self.layer = layer;
         
-        self.sceneGraph = [[CGSceneGraph alloc] init];
         float h = 4.0f * self.layer.frame.size.height / self.layer.frame.size.width;
-        [self.sceneGraph.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:2 andFar:20];
-        [self.sceneGraph.camera translate:CC3VectorMake(0, 0, -5)];
+        self.camera  = [[CGCamera alloc] init];        
+        [self.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:2 andFar:20];
+        [self.camera translate:CC3VectorMake(0, 0, -5)];
         
         [self setupContext];
         [self setupRenderBufferWithDrawable:self.layer];
@@ -44,6 +44,9 @@
         
         float d = (([CGUtils isRetinaDisplay])?0.5f:1.0f);
         glViewport(0, 0, layer.frame.size.width/d , layer.frame.size.height/d );
+        
+        self.displayList = [[NSMutableArray alloc] init];
+        self.lights = [[NSMutableArray alloc] init];
         
     }
     
@@ -94,13 +97,11 @@
 
 -(void)render{
     
-    /*for (CGObject3D* o in objects) {
-     if(o.visible){
-     [o drawInRender:self];
+    for (CGNode* n in self.displayList) {
+        [n renderUsingEngine:self];
      }
-     }*/
     
-    [self.sceneGraph renderSceneUsingEngine:self];
+    //[self.sceneGraph renderSceneUsingEngine:self];
     
     [_context presentRenderbuffer:GL_RENDERBUFFER];//Call a method on the OpenGL context to present the render/color buffer to the UIView’s layer!
 }
@@ -119,24 +120,20 @@
 
 -(void)addObject:(CGObject3D*)o{
     
-    [self.sceneGraph.root addChild:o];
+    [self.displayList addObject:o];
 }
 
 -(void)removeObject:(CGObject3D*)o{
     
-    [self.sceneGraph.root removeChid:o];
+    [self.displayList removeObject:o];
 }
 
 -(void)addLight:(CGLight*)l{
-
-}
-
--(void)addLight:(CGLight*)l withParent:(CGNode*)parent{
-
+    [self.lights addObject:l];
 }
 
 -(void)removeLight:(CGLight*)l{
-
+    [self.lights removeObject:l];
 }
 
 

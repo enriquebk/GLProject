@@ -27,7 +27,15 @@
     
         self.frameCount = 1;
         
-        [self loadIndicesData:vertexData.array capacity:vertexData.capacity];
+        _vertexData = vertexData.array;
+        _indices = NULL;
+        
+        self.positionOffset = 3;
+        self.colorOffset = 4;
+        self.uvOffset = 2;
+        self.stride = sizeof(float)*(self.positionOffset+self.colorOffset+self.uvOffset);
+        
+        [self loadVertexData: vertexData.array capacity:vertexData.capacity];
     }
     
     return self;
@@ -42,9 +50,13 @@
         self.frameCount = 1;
         self.indicesCount = [indices capacity];
 
+        _vertexData = vertexData.array;
+        _indices = indices.array;
+        
         self.positionOffset = 3;
         self.colorOffset = 4;
-        self.stride = sizeof(float)*7;
+        self.uvOffset = 2;
+        self.stride = sizeof(float)*(self.positionOffset+self.colorOffset+self.uvOffset);
         [self loadVertexData: vertexData.array capacity:vertexData.capacity];
         [self loadIndicesData:indices.array capacity:indices.capacity];
     }

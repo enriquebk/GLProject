@@ -11,7 +11,7 @@
 
 @interface TextureManager : NSObject{
     
-    NSDictionary * textures;
+    NSMutableDictionary * textures;
 }
 
 +(id)sharedInstance;

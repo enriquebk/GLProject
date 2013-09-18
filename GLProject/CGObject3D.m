@@ -27,6 +27,7 @@
     if(self){
         _mesh = mesh;
         _shaderProgram = [[CGDefaultShader alloc] init];
+        _textures = [[NSMutableArray alloc]init];
     }
     
     return self;
@@ -34,10 +35,7 @@
 
 -(void)renderUsingEngine:(CGEngine *)engine{
     
-    
-    
     [self.shaderProgram drawObject:self usingEngine:engine];
-    
 }
 
 -(void) setTexture:(CGTexture*)texture{

@@ -10,7 +10,7 @@
 #import "CC3GLMatrix.h"
 #import "CGObject3D.h"
 #import "CGLight.h"
-#import "CGSceneGraph.h"
+#import "CGCamera.h"
 
 @class CGObject3D;
 @class CGSceneGraph;
@@ -19,7 +19,12 @@
     
 }
 
-@property(strong)CGSceneGraph* sceneGraph;
+@property(strong)NSMutableArray* lights;
+
+@property(strong)NSMutableArray* displayList;
+
+@property(strong) CGCamera* camera;
+
 
 -(id)initWithLayer:(CAEAGLLayer*)layer;
 
@@ -29,8 +34,6 @@
 
 
 -(void)addLight:(CGLight*)l;
-
--(void)addLight:(CGLight*)l withParent:(CGNode*)parent;
 
 -(void)removeLight:(CGLight*)l;
 

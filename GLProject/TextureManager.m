@@ -19,7 +19,7 @@ static TextureManager* textureManager;
     
     
     if(self){
-        textures = [[NSDictionary alloc] init];
+        textures = [[NSMutableDictionary alloc] init];
     }
     
     return self;
