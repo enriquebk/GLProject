@@ -64,17 +64,29 @@
     
     glUniformMatrix4fv(_modelViewUniform, 1, 0, object.matrix.glMatrix);
     
-    glUniformMatrix4fv(_projectionUniform, 1, 0, engine.camera.matrix.glMatrix);
+    
+    CC3GLMatrix * pvm = [engine.camera.porjectionMatrix copy];//TODO: Optimizar...
+    [pvm multiplyByMatrix:engine.camera.matrix];
+    
+    
+    glUniformMatrix4fv(_projectionUniform, 1, 0, pvm.glMatrix);
     
     //Calls glVertexAttribPointer to feed the correct values to the two input variables for the vertex shader – the Position and SourceColor attributes.
     
-    glVertexAttribPointer(_positionSlot, object.mesh.positionOffset, GL_FLOAT, GL_FALSE,
-                          object.mesh.stride , 0);
+    glVertexAttribPointer(_positionSlot, object.mesh.positionOffset/*cantidad de elementos del atributo*/, GL_FLOAT, GL_FALSE,
+                          object.mesh.stride ,  0);
     glVertexAttribPointer(_colorSlot, object.mesh.colorOffset, GL_FLOAT, GL_FALSE,
-                          object.mesh.stride,(GLvoid*) (sizeof(float) * object.mesh.positionOffset));
+                          object.mesh.stride,(GLvoid*) ( sizeof(float) * object.mesh.positionOffset));
     //#ifdef TEXTURE_MAPPING_ENABLED
     glVertexAttribPointer(_texCoordSlot, object.mesh.uvOffset, GL_FLOAT, GL_FALSE,
-                          object.mesh.stride,(GLvoid*) (sizeof(float) *( object.mesh.positionOffset + object.mesh.colorOffset )));
+                          object.mesh.stride,/*Este es el parametro configutable!!!*/(GLvoid*) (sizeof(float) *( object.mesh.positionOffset + object.mesh.colorOffset )));
+    
+    //#ifdef KEYFRAME_ANIMATION
+    
+    //glVertexAttribPointer(_positionSlot/*_nextFramePositionSlot*/, object.mesh.positionOffset/*cantidad de elementos del atributo*/,
+    //                      GL_FLOAT, GL_FALSE, object.mesh.stride ,
+    //                      (GLvoid*) (sizeof(float) *( object.mesh.positionOffset + object.mesh.colorOffset+object.mesh.uvOffset )));
+    
     
     glBindBuffer(GL_ARRAY_BUFFER, [object.mesh VBOHandler]);
     
@@ -82,9 +94,9 @@
         
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, [object.mesh indicesHandler]);
         
-        glDrawElements(GL_TRIANGLES, object.mesh.indicesCount ,GL_UNSIGNED_BYTE, 0);
+        glDrawElements(object.mesh.drawMode, object.mesh.indices.capacity ,GL_UNSIGNED_BYTE, 0);
     }else{
-        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+        glDrawArrays(object.mesh.drawMode, object.frameIndex*object.mesh.stride*(object.mesh.vertexCount/object.mesh.frameCount) , object.mesh.vertexCount/object.mesh.frameCount);
     }
     
     

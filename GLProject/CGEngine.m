@@ -14,6 +14,7 @@
     
     EAGLContext* _context;
     GLuint _colorRenderBuffer;
+    GLuint _depthRenderBuffer;
     
 }
 
@@ -34,10 +35,11 @@
         
         float h = 4.0f * self.layer.frame.size.height / self.layer.frame.size.width;
         self.camera  = [[CGCamera alloc] init];        
-        [self.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:2 andFar:20];
-        [self.camera translate:CC3VectorMake(0, 0, -5)];
+        [self.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:4 andFar:200];
+        [self.camera translate:CC3VectorMake(0, 0, -30)];
         
         [self setupContext];
+        [self setupDepthBuffer];
         [self setupRenderBufferWithDrawable:self.layer];
         [self setupFrameBuffer];
         
@@ -47,6 +49,8 @@
         
         self.displayList = [[NSMutableArray alloc] init];
         self.lights = [[NSMutableArray alloc] init];
+        
+        glEnable(GL_DEPTH_TEST);
         
     }
     
@@ -60,6 +64,8 @@
 - (void)setupContext {
     EAGLRenderingAPI api = kEAGLRenderingAPIOpenGLES2;
     _context = [[EAGLContext alloc] initWithAPI:api];
+    
+    
     // When you create a context, you specify what version of the API you want to use. Here, you specify that you want to use OpenGL ES 2.0.
     
     if (!_context) {
@@ -76,6 +82,7 @@
 /*  Create a render buffer, which is an OpenGL object that stores the rendered image to present to the screen
  */
 - (void)setupRenderBufferWithDrawable:(id<EAGLDrawable>)drawble {
+   
     glGenRenderbuffers(1, &_colorRenderBuffer);//Create a new render buffer object. This returns a unique integer for the the render buffer (we store it here in _colorRenderBuffer). Sometimes you’ll see this unique integer referred to as an “OpenGL name.”
     
     glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer);// Call glBindRenderbuffer to tell OpenGL “whenever I refer to GL_RENDERBUFFER, I really mean _colorRenderBuffer.”
@@ -93,6 +100,13 @@
     
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                               GL_RENDERBUFFER, _colorRenderBuffer);// It lets you attach the render buffer you created earlier to the frame buffer’s GL_COLOR_ATTACHMENT0 slot.
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _depthRenderBuffer);
+}
+
+- (void)setupDepthBuffer {
+    glGenRenderbuffers(1, &_depthRenderBuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, _depthRenderBuffer);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, self.layer.frame.size.width*([CGUtils isRetinaDisplay]?2:1), self.layer.frame.size.height*([CGUtils isRetinaDisplay]?2:1));
 }
 
 -(void)render{
@@ -100,8 +114,6 @@
     for (CGNode* n in self.displayList) {
         [n renderUsingEngine:self];
      }
-    
-    //[self.sceneGraph renderSceneUsingEngine:self];
     
     [_context presentRenderbuffer:GL_RENDERBUFFER];//Call a method on the OpenGL context to present the render/color buffer to the UIView’s layer!
 }
@@ -114,7 +126,8 @@
 
 -(void)clear{
     
-    glClear(GL_COLOR_BUFFER_BIT);//Call glClear to actually perform the clearing. Remember that there can be different types of buffers, such as the render/color buffer we’re displaying, and others we’re not using yet such as depth or stencil buffers. Here we use the GL_COLOR_BUFFER_BIT to specify what exactly to clear – in this case, the current render/color buffer.
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   // glClear(GL_COLOR_BUFFER_BIT);//Call glClear to actually perform the clearing. Remember that there can be different types of buffers, such as the render/color buffer we’re displaying, and others we’re not using yet such as depth or stencil buffers. Here we use the GL_COLOR_BUFFER_BIT to specify what exactly to clear – in this case, the current render/color buffer.
 }
 
 

@@ -10,6 +10,13 @@
 
 @implementation CGCamera
 
+-(id)init{
+    self = [super init];
+    if (self) {
+        self.porjectionMatrix = [CC3GLMatrix identity];
+    }
+    return self;
+}
 
 -(void) setCameraFrustumLeft: (GLfloat) left
                     andRight: (GLfloat) right
@@ -18,6 +25,7 @@
                      andNear: (GLfloat) near
                       andFar: (GLfloat) far{
     
-    [self.matrix populateFromFrustumLeft:left andRight:right andBottom:bottom andTop:top andNear:near andFar:far];
+    
+    [self.porjectionMatrix populateFromFrustumLeft:left andRight:right andBottom:bottom andTop:top andNear:near andFar:far];
 }
 @end

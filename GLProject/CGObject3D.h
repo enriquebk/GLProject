@@ -24,6 +24,8 @@
 
 @property(strong)NSMutableArray* textures;
 
+@property(assign)int frameIndex;
+
 -(id) initWithMesh:(CGMesh*)mesh;
 
 -(void) setTexture:(CGTexture*)texture;

@@ -12,6 +12,9 @@
     
     GLuint VBOHandler;
     GLuint indicesHandler;
+    
+    int strideFloatsCount;
+
 }
 
 @end
@@ -24,18 +27,7 @@
     self = [super init];
     
     if(self){
-    
-        self.frameCount = 1;
-        
-        _vertexData = vertexData.array;
-        _indices = NULL;
-        
-        self.positionOffset = 3;
-        self.colorOffset = 4;
-        self.uvOffset = 2;
-        self.stride = sizeof(float)*(self.positionOffset+self.colorOffset+self.uvOffset);
-        
-        [self loadVertexData: vertexData.array capacity:vertexData.capacity];
+        [self configureWithVertexData:vertexData];
     }
     
     return self;
@@ -47,22 +39,34 @@
     
     if(self){
         
-        self.frameCount = 1;
-        self.indicesCount = [indices capacity];
+        [self configureWithVertexData:vertexData];
 
-        _vertexData = vertexData.array;
-        _indices = indices.array;
+        _indices = indices;
         
-        self.positionOffset = 3;
-        self.colorOffset = 4;
-        self.uvOffset = 2;
-        self.stride = sizeof(float)*(self.positionOffset+self.colorOffset+self.uvOffset);
-        [self loadVertexData: vertexData.array capacity:vertexData.capacity];
         [self loadIndicesData:indices.array capacity:indices.capacity];
     }
     
     return self;
 }
+
+-(void)configureWithVertexData:(CGArray*)vertexData{
+
+    self.frameCount = 1;
+
+    _vertexData = vertexData;
+    
+    self.positionOffset = 3;
+    self.colorOffset = 4;
+    self.uvOffset = 2;
+    self.normalOffset = 0;
+    
+    self.drawMode = GL_TRIANGLES;
+    
+    [self updateVertexStrideAndStride];
+    
+    [self loadVertexData: vertexData.array capacity:vertexData.capacity];
+}
+
 
 
 -(void)loadVertexData:(GLfloat *)vertexData capacity:(int)cpacity{
@@ -95,6 +99,33 @@
 
 -(GLuint*) indicesHandlerRef{
     return &indicesHandler;
+}
+
+-(void)setPositionOffset:(int)positionOffset{
+    _positionOffset = positionOffset;
+    [self updateVertexStrideAndStride];
+}
+
+-(void)setNormalOffset:(int)normalOffset{
+    _normalOffset = normalOffset;
+    [self updateVertexStrideAndStride];
+}
+
+-(void)setColorOffset:(int)colorOffset{
+    _colorOffset = colorOffset;
+    [self updateVertexStrideAndStride];
+}
+
+-(void)setUvOffset:(int)uvOffset{
+    _uvOffset = uvOffset;
+    [self updateVertexStrideAndStride];
+}
+
+-(void)updateVertexStrideAndStride{
+
+    strideFloatsCount = self.positionOffset+self.colorOffset+self.uvOffset+self.normalOffset;
+    _stride = sizeof(float)*strideFloatsCount;
+    _vertexCount = (self.vertexData.capacity/strideFloatsCount)/self.frameCount;
 }
 
 @end

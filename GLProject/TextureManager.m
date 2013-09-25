@@ -42,25 +42,22 @@ static TextureManager* textureManager;
         return texture;
     }
     
+    UIImage * img = [UIImage imageNamed:fileName]; //TODO: remoce image named
+    
     // 1
-    CGImageRef imageRef = [UIImage imageNamed:fileName].CGImage; //todo: remove image named
+    CGImageRef imageRef = img.CGImage;
     if (!imageRef) {
         NSLog(@"Failed to load image %@", fileName);
         exit(1);
     }
     
     // 2
-    size_t width = CGImageGetWidth(imageRef);
-    size_t height = CGImageGetHeight(imageRef);
+    size_t width = [self nearestPowerOf2: CGImageGetWidth(imageRef)];
+    size_t height = [self nearestPowerOf2:CGImageGetHeight(imageRef)];
     
-    GLubyte * spriteData = (GLubyte *) calloc(width*height*4, sizeof(GLubyte));
+    void * spriteData =  malloc(width*height*4);
     
-    CGContextRef imageContext = CGBitmapContextCreate(spriteData, width, height, 8, width*4, CGImageGetColorSpace(imageRef), kCGImageAlphaPremultipliedLast);
-    
-    // 3
-    CGContextDrawImage(imageContext, CGRectMake(0, 0, width, height), imageRef);
-    
-    CGContextRelease(imageContext);
+    [self copyImage:img toRawData:spriteData width:width height:height];
     
     // 4
     GLuint texName;
@@ -86,5 +83,31 @@ static TextureManager* textureManager;
     
 }
 
+
+- (unsigned int) nearestPowerOf2:(unsigned int)value {
+	unsigned int i;
+	unsigned int po2Value = value;
+	if ((po2Value != 1) && (po2Value & (po2Value - 1))) {
+		i = 1;
+		while (i < po2Value) {
+			i *= 2;
+		}
+		po2Value = i;
+	}
+	return po2Value;
+}
+
+- (void) copyImage:(UIImage *)image toRawData:(void *)data width:(unsigned int)width height:(unsigned int)height {
+	unsigned int imageWidth = CGImageGetWidth(image.CGImage);
+	unsigned int imageHeight = CGImageGetHeight(image.CGImage);
+	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+	CGContextRef context = CGBitmapContextCreate(data, width, height, 8, width * 4, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+	CGColorSpaceRelease(colorSpace);
+	CGContextClearRect(context, CGRectMake(0, 0, width, height));
+	CGContextTranslateCTM(context, 0, height - imageHeight);
+	CGContextDrawImage(context, CGRectMake(0, 0, imageWidth, imageHeight), image.CGImage);
+	CGContextRelease(context);
+}
 
 @end

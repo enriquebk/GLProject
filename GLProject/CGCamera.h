@@ -12,6 +12,8 @@
 
 @interface CGCamera : CGNode
 
+@property(strong)CC3GLMatrix *porjectionMatrix;
+
 -(void) setCameraFrustumLeft: (GLfloat) left
                     andRight: (GLfloat) right
                    andBottom: (GLfloat) bottom

@@ -28,6 +28,7 @@
         _mesh = mesh;
         _shaderProgram = [[CGDefaultShader alloc] init];
         _textures = [[NSMutableArray alloc]init];
+        _frameIndex = 0;
     }
     
     return self;

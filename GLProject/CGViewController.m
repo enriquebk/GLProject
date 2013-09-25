@@ -53,6 +53,9 @@ GLubyte Indices[] = {
     cgview =[[CGView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.glView addSubview:cgview];
     
+    //glEnable(GL_DEPTH_TEST);
+    //
+    glDepthFunc(GL_LEQUAL);
     
     CGMesh* mesh = [[CGMesh alloc]
                     initWithVertexData:
@@ -63,12 +66,22 @@ GLubyte Indices[] = {
     
     [MeshFactory addMesh:mesh withName:@"CGMeshplane"];
     
-    o= [[CGObject3D alloc] initWithMesh:[MeshFactory meshNamed:@"CGMeshplane"]];
+    //o= [[CGObject3D alloc] initWithMesh:[MeshFactory meshNamed:@"CGMeshplane"]];
     
-    [o.textures addObject:[[TextureManager sharedInstance] textureFromFileName:@"tile_floor.png"]];
+    o= [[CGObject3D alloc] initWithMesh:[MeshFactory meshMD2Named:@"knight"]];
     
+    [o.matrix rotateByZ:-90];
+    [o.matrix rotateByY:-90];
+    //[o.matrix rotateByX:70];
+    
+    [o scale:CC3VectorMake(0.05, 0.05, 0.05)];
+    
+    [o.textures addObject:[[TextureManager sharedInstance] textureFromFileName:@"knight.jpg"]];
+    //[o.textures addObject:[[TextureManager sharedInstance] textureFromFileName:@"tile_floor"]];
     
     [cgview.engine addObject:o];
+    
+    [cgview.engine setClearColor:0.0 g:0.8 b:0.2 a:1.0];
     
     [self runLoop];
 }
@@ -81,10 +94,6 @@ GLubyte Indices[] = {
 
 - (void)render:(CADisplayLink*)displayLink {
     
-    [o rotate:CC3VectorMake(0, 0, -1)];
-    
-    [cgview.engine setClearColor:0.0 g:0.8 b:0.2 a:1.0];
-    
     [cgview.engine clear];
     
     [self hadleEvents:displayLink];
@@ -92,6 +101,8 @@ GLubyte Indices[] = {
     [cgview.engine render];
 }
 
+
+//TODO: La rotacion de la camara anda mal (modificar pipeline? p*v*m*p?)
 - (void)hadleEvents:(CADisplayLink*)displayLink{
 
     if(rotUp || rotDown || rotLeft || rotRight ){
@@ -106,27 +117,25 @@ GLubyte Indices[] = {
         
         if(rotUp || rotDown ){
         
+            //Respect the rotation YXZ order
+            
             [ cgview.engine.camera.matrix rotateByY:-cgview.engine.camera.rotation.y];
             
             [ cgview.engine.camera rotate:CC3VectorMake(rotUp?-1:1,0,0)];
             
             [ cgview.engine.camera.matrix rotateByY:r.y];
+
         
         }else if(rotLeft || rotRight ){
             
-            [ cgview.engine.camera.matrix rotateByX:-cgview.engine.camera.rotation.x];
-            
             [ cgview.engine.camera rotate:CC3VectorMake(0,rotLeft?-1:1,0)];
             
-            [ cgview.engine.camera.matrix rotateByX:r.x];
         }
         
         [ cgview.engine.camera translate:CC3VectorMake(
                                                        p.x,
                                                        p.y,
                                                        p.z)];
-    
-        
     }
 
     if(moveBwd || moveFwd){

@@ -26,6 +26,7 @@
 		A70378B017C32F220074E183 /* CGView.m in Sources */ = {isa = PBXBuildFile; fileRef = A70378AF17C32F220074E183 /* CGView.m */; };
 		A70378B617C33A160074E183 /* CGViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A70378B217C33A150074E183 /* CGViewController.xib */; };
 		A70378B717C33A160074E183 /* CGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A70378B417C33A150074E183 /* CGViewController.m */; };
+		A71443CD17ED41FA006478B9 /* knight.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A71443CC17ED41FA006478B9 /* knight.jpg */; };
 		A7289B4417E56B6C00DD5BCA /* arrow-down.png in Resources */ = {isa = PBXBuildFile; fileRef = A7289B4017E56B6C00DD5BCA /* arrow-down.png */; };
 		A7289B4517E56B6C00DD5BCA /* arrow-left.png in Resources */ = {isa = PBXBuildFile; fileRef = A7289B4117E56B6C00DD5BCA /* arrow-left.png */; };
 		A7289B4617E56B6C00DD5BCA /* arrow-right.png in Resources */ = {isa = PBXBuildFile; fileRef = A7289B4217E56B6C00DD5BCA /* arrow-right.png */; };
@@ -53,6 +54,8 @@
 		A7E0438A17D0190000D07BB2 /* CGCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E0438917D0190000D07BB2 /* CGCamera.m */; };
 		A7E0438E17D01AF800D07BB2 /* CGLight.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E0438D17D01AF800D07BB2 /* CGLight.m */; };
 		A7EA71A917D9536E007E6E0E /* CGArray.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EA71A817D9536E007E6E0E /* CGArray.m */; };
+		A7FBF0C917EBF31900787ABD /* MD2Loader.c in Sources */ = {isa = PBXBuildFile; fileRef = A7FBF0C717EBF31900787ABD /* MD2Loader.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		A7FBF0CC17EBF53500787ABD /* knight.md2 in Resources */ = {isa = PBXBuildFile; fileRef = A7FBF0CA17EBF53500787ABD /* knight.md2 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +95,7 @@
 		A70378B217C33A150074E183 /* CGViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CGViewController.xib; sourceTree = "<group>"; };
 		A70378B317C33A150074E183 /* CGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGViewController.h; sourceTree = "<group>"; };
 		A70378B417C33A150074E183 /* CGViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGViewController.m; sourceTree = "<group>"; };
+		A71443CC17ED41FA006478B9 /* knight.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = knight.jpg; sourceTree = "<group>"; };
 		A7289B4017E56B6C00DD5BCA /* arrow-down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-down.png"; sourceTree = "<group>"; };
 		A7289B4117E56B6C00DD5BCA /* arrow-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-left.png"; sourceTree = "<group>"; };
 		A7289B4217E56B6C00DD5BCA /* arrow-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow-right.png"; sourceTree = "<group>"; };
@@ -138,6 +142,10 @@
 		A7E0438D17D01AF800D07BB2 /* CGLight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGLight.m; sourceTree = "<group>"; };
 		A7EA71A717D9536E007E6E0E /* CGArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGArray.h; sourceTree = "<group>"; };
 		A7EA71A817D9536E007E6E0E /* CGArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGArray.m; sourceTree = "<group>"; };
+		A7FBF0C617EBF31900787ABD /* anorms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = anorms.h; sourceTree = "<group>"; };
+		A7FBF0C717EBF31900787ABD /* MD2Loader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MD2Loader.c; sourceTree = "<group>"; };
+		A7FBF0C817EBF31900787ABD /* MD2Loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD2Loader.h; sourceTree = "<group>"; };
+		A7FBF0CA17EBF53500787ABD /* knight.md2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = knight.md2; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,8 +224,10 @@
 		A703787317C32CFE0074E183 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A71443CC17ED41FA006478B9 /* knight.jpg */,
 				A7C6F86E17E6C4E900F3FB0A /* tile_floor.png */,
 				A7289B4017E56B6C00DD5BCA /* arrow-down.png */,
+				A7FBF0CA17EBF53500787ABD /* knight.md2 */,
 				A7289B4117E56B6C00DD5BCA /* arrow-left.png */,
 				A7289B4217E56B6C00DD5BCA /* arrow-right.png */,
 				A7289B4317E56B6C00DD5BCA /* arrow-up.png */,
@@ -338,12 +348,23 @@
 		A7E0438217D0129900D07BB2 /* Mesh */ = {
 			isa = PBXGroup;
 			children = (
+				A7FBF0C517EBF2EF00787ABD /* MD2 */,
 				A73EE5A717C6E750009C1E5E /* MeshFactory.h */,
 				A73EE5A817C6E750009C1E5E /* MeshFactory.m */,
 				A7E0437F17D0129100D07BB2 /* CGMesh.h */,
 				A7E0438017D0129100D07BB2 /* CGMesh.m */,
 			);
 			name = Mesh;
+			sourceTree = "<group>";
+		};
+		A7FBF0C517EBF2EF00787ABD /* MD2 */ = {
+			isa = PBXGroup;
+			children = (
+				A7FBF0C617EBF31900787ABD /* anorms.h */,
+				A7FBF0C717EBF31900787ABD /* MD2Loader.c */,
+				A7FBF0C817EBF31900787ABD /* MD2Loader.h */,
+			);
+			name = MD2;
 			sourceTree = "<group>";
 		};
 		A7FE405E17D5B034006A0005 /* Textures */ = {
@@ -431,6 +452,7 @@
 			files = (
 				A7289B4617E56B6C00DD5BCA /* arrow-right.png in Resources */,
 				A703787717C32CFE0074E183 /* InfoPlist.strings in Resources */,
+				A7FBF0CC17EBF53500787ABD /* knight.md2 in Resources */,
 				A7C6F86F17E6C4E900F3FB0A /* tile_floor.png in Resources */,
 				A703787F17C32CFE0074E183 /* Default.png in Resources */,
 				A7289B4417E56B6C00DD5BCA /* arrow-down.png in Resources */,
@@ -441,6 +463,7 @@
 				A7289B4717E56B6C00DD5BCA /* arrow-up.png in Resources */,
 				A7D046EB17C40E53007390B0 /* SimpleVertex.glsl in Resources */,
 				A7289B4517E56B6C00DD5BCA /* arrow-left.png in Resources */,
+				A71443CD17ED41FA006478B9 /* knight.jpg in Resources */,
 				A7D046ED17C40F85007390B0 /* SimpleFragment.glsl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -490,6 +513,7 @@
 				A7DAD78F17C48A1B000FE1B7 /* CC3GLMatrix.m in Sources */,
 				A774B26B17DE6999001EFAA4 /* CGDefaultShader.m in Sources */,
 				A7DAD79017C48A1B000FE1B7 /* CC3Kazmath.c in Sources */,
+				A7FBF0C917EBF31900787ABD /* MD2Loader.c in Sources */,
 				A7C5151917E4A9E400F8F6EE /* CGUtils.m in Sources */,
 				A7DAD79117C48A1B000FE1B7 /* CC3Math.m in Sources */,
 				A73EE5A917C6E751009C1E5E /* TextureManager.m in Sources */,

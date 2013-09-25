@@ -20,22 +20,22 @@
 /**
  * An array with all the info for each vertex
  */
-@property(readonly)GLfloat* vertexData;
+@property(strong,readonly)CGArray* vertexData;
 
 /**
  * An array that gives a list of triangles to create, by specifying the 3 vertices that make up each triangle
  */
-@property(readonly)GLubyte* indices;
-
-/**
- * Number of indices
- */
-@property(nonatomic)int indicesCount;
+@property(strong,readonly)CGArray* indices;
 
 /**
  * Number of frames 
  */
 @property(nonatomic)int frameCount;
+
+/**
+ * Number of vertex in a frame
+ */
+@property(nonatomic,readonly)int vertexCount;
 
 /**
  * Contains the stride of the vertex data. The stride is the size in bytes of all data that is necessary
@@ -44,7 +44,7 @@
  * [px0, py0, pz0, nx0, ny0, nz0, u0, v0, px1, py1, pz1, nx1, ny1, nz1, u1, v1, ... ]. If all of this data is
  * reprensented by floating point values, the stride is equal to (8 * sizeof(float)), ie 3 position, 3 normal and 2 uv.
  */
-@property (nonatomic) unsigned int stride;
+@property (nonatomic, readonly) unsigned int stride;
 
 /**
  * Contains the offset in bytes for the position data of a vertex.
@@ -71,7 +71,7 @@
 
 /**
  * Contains the offset in bytes for the size data of a vertex.
- * This is used uniquely for particle data and not for meshse.
+ * This is used uniquely for particle data and not for meshes.
  */
 @property (nonatomic) int frameSizeOffset;
 
@@ -84,6 +84,11 @@
  *  Next frame normal offset
  */
 @property (nonatomic) int nextFrameNormalOffset;
+
+/**
+ *  Draw mode [GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, GL_TRIANGLES], by default the draw mode is GL_TRIANGLES.
+ */
+@property (nonatomic) GLenum drawMode;
 
 /**
  * Buffer that keep track of the vertex data in the gpu memory

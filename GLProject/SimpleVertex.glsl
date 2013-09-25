@@ -2,6 +2,9 @@
 attribute vec4 Position;
 attribute vec4 SourceColor;
 
+attribute vec4 nextFramePosition;
+
+
 varying vec4 DestinationColor;
 
 uniform mat4 Projection;
