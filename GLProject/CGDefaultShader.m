@@ -9,24 +9,28 @@
 #import "CGDefaultShader.h"
 #import "CGTexture.h"
 
-#define  CGShaderParameter_position     "Position"
-#define  CGShaderParameter_projection   "Projection"
-#define  CGShaderParameter_modelView    "Modelview"
-#define  CGShaderParameter_SourceColor  "SourceColor"
-#define  CGShaderParameter_TextCoord    "TexCoordIn"
-#define  CGShaderParameter_Texture      "Texture"
+#define  CGShaderParameter_position         "Position"
+#define  CGShaderParameter_projection       "modelViewProjectionMatrix"
+#define  CGShaderParameter_SourceColor      "SourceColor"
+#define  CGShaderParameter_TextCoord        "TexCoordIn"
+#define  CGShaderParameter_Texture          "Texture"
+#define  CGShaderParameter_NextFramePos     "nextFramePosition"
+#define  CGShaderParameter_KeyframeFactor   "kf_factor"
+#define  CGShaderParameter_TextureEnable    "TextureCount"
 
 @interface CGDefaultShader (){
     
     GLuint _positionSlot;
-    GLuint _colorSlot;
     GLuint _texCoordSlot;
+    GLuint _nextFramePosSlot;
     
     
     //Globals
+    GLuint _colorSlot;
+    GLuint _keyframeFactor;
     GLuint _projectionUniform;
-    GLuint _modelViewUniform;
     GLuint _textureUniform;
+    GLuint _textureEnableUniform;
 }
 
 @end
@@ -48,47 +52,68 @@
     
     glUseProgram(self.handler);
     
-    glEnableVertexAttribArray(_projectionUniform);
-    glEnableVertexAttribArray(_modelViewUniform);
-    
-    glEnableVertexAttribArray(_colorSlot);
+    //Habilito las variables de vertice (los uniforms no se habilitan)
     glEnableVertexAttribArray(_positionSlot);
     glEnableVertexAttribArray(_texCoordSlot);
+    glEnableVertexAttribArray(_nextFramePosSlot);
     
-    CGTexture* t = [object.textures objectAtIndex:0];
-    
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, t.handler);
-    glUniform1i(_textureUniform, 0);
-    
-    
-    glUniformMatrix4fv(_modelViewUniform, 1, 0, object.matrix.glMatrix);
-    
-    
-    CC3GLMatrix * pvm = [engine.camera.porjectionMatrix copy];//TODO: Optimizar...
-    [pvm multiplyByMatrix:engine.camera.matrix];
-    
-    
-    glUniformMatrix4fv(_projectionUniform, 1, 0, pvm.glMatrix);
-    
-    //Calls glVertexAttribPointer to feed the correct values to the two input variables for the vertex shader – the Position and SourceColor attributes.
-    
-    glVertexAttribPointer(_positionSlot, object.mesh.positionOffset/*cantidad de elementos del atributo*/, GL_FLOAT, GL_FALSE,
-                          object.mesh.stride ,  0);
-    glVertexAttribPointer(_colorSlot, object.mesh.colorOffset, GL_FLOAT, GL_FALSE,
-                          object.mesh.stride,(GLvoid*) ( sizeof(float) * object.mesh.positionOffset));
-    //#ifdef TEXTURE_MAPPING_ENABLED
-    glVertexAttribPointer(_texCoordSlot, object.mesh.uvOffset, GL_FLOAT, GL_FALSE,
-                          object.mesh.stride,/*Este es el parametro configutable!!!*/(GLvoid*) (sizeof(float) *( object.mesh.positionOffset + object.mesh.colorOffset )));
-    
-    //#ifdef KEYFRAME_ANIMATION
-    
-    //glVertexAttribPointer(_positionSlot/*_nextFramePositionSlot*/, object.mesh.positionOffset/*cantidad de elementos del atributo*/,
-    //                      GL_FLOAT, GL_FALSE, object.mesh.stride ,
-    //                      (GLvoid*) (sizeof(float) *( object.mesh.positionOffset + object.mesh.colorOffset+object.mesh.uvOffset )));
-    
+    if ([object.textures count]>0) {
+        CGTexture* t = [object.textures objectAtIndex:0];
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, t.handler);
+        glUniform1i(_textureUniform, 0);
+    }
     
     glBindBuffer(GL_ARRAY_BUFFER, [object.mesh VBOHandler]);
+    
+    CC3GLMatrix * _modelViewMatrix = [engine.camera.viewMatrix copy];//TODO: Optimizar...
+    [_modelViewMatrix multiplyByMatrix:object.matrix];
+    CC3GLMatrix * _modelViewProjectionMatrix = [engine.camera.porjectionMatrix copy];
+    [_modelViewProjectionMatrix multiplyByMatrix:_modelViewMatrix];
+    
+    
+    glUniformMatrix4fv(_projectionUniform, 1, 0, _modelViewProjectionMatrix.glMatrix);
+    
+    int frameOffset = ((object.frameIndex)*object.mesh.stride*object.mesh.vertexCount);
+    
+    
+    // Position /////////////////////////////
+    //Calls glVertexAttribPointer to feed the correct values to the two input variables for the vertex shader – the Position and SourceColor attributes.
+    glVertexAttribPointer(_positionSlot, VBO_POSITION_SIZE, GL_FLOAT, GL_FALSE,
+                          object.mesh.stride ,  (GLvoid*) (frameOffset + object.mesh.positionOffset));
+    ////////////////////////////////////////
+    
+    
+    // Color ///////////////////////////////
+    glUniform4f(_colorSlot, object.color.r, object.color.g, object.color.b, object.color.a);
+    ////////////////////////////////////////
+    
+    
+    // TEXTURE_MAPPING ////////////////////
+    if ([object.textures count]>0) {
+        glUniform1f(_textureEnableUniform, [object.textures count]);
+        glVertexAttribPointer(_texCoordSlot,VBO_UV_SIZE, GL_FLOAT, GL_FALSE,
+                            object.mesh.stride,(GLvoid*) (frameOffset  + object.mesh.uvOffset));
+    }else{
+        glUniform1f(_textureEnableUniform, 0);
+        glVertexAttribPointer(_texCoordSlot,1, GL_FLOAT, GL_FALSE,
+                              1,(GLvoid*) (0));
+    }
+    //////////////////////////////////////
+    
+    
+    // KEYFRAME_ANIMATION ////
+    int nextFrameOffset = (object.mesh.frameCount>1?object.nextFrameOffSet:0);
+
+    glVertexAttribPointer(_nextFramePosSlot, VBO_POSITION_SIZE,
+                              GL_FLOAT, GL_FALSE,  object.mesh.stride  ,
+                              (GLvoid*) ((object.frameIndex+nextFrameOffset)* object.mesh.stride*(object.mesh.vertexCount) ));
+
+    glUniform1f(_keyframeFactor, (object.mesh.frameCount>1)?object.frameFactor:0.0f);
+    //////////////////////////
+    
+    
+    /* --- Draw --- */
     
     if (object.mesh.indices) {
         
@@ -96,26 +121,32 @@
         
         glDrawElements(object.mesh.drawMode, object.mesh.indices.capacity ,GL_UNSIGNED_BYTE, 0);
     }else{
-        glDrawArrays(object.mesh.drawMode, object.frameIndex*object.mesh.stride*(object.mesh.vertexCount/object.mesh.frameCount) , object.mesh.vertexCount/object.mesh.frameCount);
+        
+        if(object.frameIndex<object.mesh.frameCount){
+            glDrawArrays(object.mesh.drawMode, 0, (object.mesh.vertexCount));
+        }else{
+            NSLog(@"[ERROR] current frame is %d and total frame count is %d",object.frameIndex,object.mesh.frameCount);
+        }
     }
+    /* --- --- --- */
     
-    
-    glDisableVertexAttribArray(_colorSlot);
     glDisableVertexAttribArray(_positionSlot);
     glDisableVertexAttribArray(_texCoordSlot);
-    
-    glDisableVertexAttribArray(_projectionUniform);
-    glDisableVertexAttribArray(_modelViewUniform);
+    glDisableVertexAttribArray(_nextFramePosSlot);
 }
 
 -(void)setupParameters{
     
     _positionSlot = glGetAttribLocation(self.handler, CGShaderParameter_position);
     _projectionUniform = glGetUniformLocation(self.handler, CGShaderParameter_projection);
-    _modelViewUniform = glGetUniformLocation(self.handler,  CGShaderParameter_modelView);
-    _colorSlot = glGetAttribLocation(self.handler, CGShaderParameter_SourceColor);
+     
+    _colorSlot =  glGetUniformLocation(self.handler, CGShaderParameter_SourceColor);
+    _nextFramePosSlot= glGetAttribLocation(self.handler, CGShaderParameter_NextFramePos);
+    _keyframeFactor = glGetUniformLocation(self.handler, CGShaderParameter_KeyframeFactor);
+    
     _texCoordSlot = glGetAttribLocation(self.handler, CGShaderParameter_TextCoord);
     _textureUniform = glGetUniformLocation(self.handler, CGShaderParameter_Texture);
+    _textureEnableUniform = glGetUniformLocation(self.handler, CGShaderParameter_TextureEnable);
 }
 
 @end

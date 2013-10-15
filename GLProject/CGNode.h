@@ -20,9 +20,9 @@
 
 @property(strong)CC3GLMatrix *matrix;
 
-@property(assign)CC3Vector  position;
-@property(assign)CC3Vector  rotation;
-@property(assign)CC3Vector  scale;
+@property(assign,nonatomic)CC3Vector  position;
+@property(assign,nonatomic)CC3Vector  rotation;
+@property(assign,nonatomic)CC3Vector  scale;
 
 /**
  */
@@ -54,15 +54,15 @@
 
 /**
  */
--(void)visit:(CGEngine*)engine;
-
-/**
- */
 -(void)renderUsingEngine:(CGEngine*)engine;
 
 /**
  */
 -(void)translate:(CC3Vector) aVector;
+
+/**
+ */
+-(void)translateAroundLocalAxis:(CC3Vector) aVector;
 
 /**
  */

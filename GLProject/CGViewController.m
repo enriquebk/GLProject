@@ -17,6 +17,11 @@
     CGView * cgview;
     float pos;
     CGObject3D* o;
+    
+    float direction;
+    CGObject3D* floor;
+    
+    CGObject3D* plane;
 }
 
 @end
@@ -26,10 +31,18 @@
 
 // An array with all the info for each vertex
 const float Vertices[] = {
-    0.5, -0.5, 0.0,     1.0, 0.0, 0.0, 1.0,  1.0, 0.0,
-    0.5, 0.5, 0.0,      0.0, 1.0, 0.0, 1.0,  1.0, 1.0,
-    -0.5, 0.5, 0.0,     0.0, 0.0, 1.0, 1.0,  0.0, 1.0,
-    -0.5, -0.5, 0.0,    0.0, 0.0, 0.0, 1.0,   0.0, 0.0
+        0.5,   -0.5,    0.0,    1.0, 0.0,
+        0.5,    0.5,    0.0,    1.0, 1.0,
+       -0.5,    0.5,    0.0,    0.0, 1.0,
+       -0.5,   -0.5,    0.0,    0.0, 0.0  };
+
+
+// An array with all the info for each vertex
+const float _Vertices[] = {
+    0.5, -0.5, 0.0,      10.0, 0.0,
+    0.5, 0.5, 0.0,        10.0, 10.0,
+    -0.5, 0.5, 0.0,       0.0, 10.0,
+    -0.5, -0.5, 0.0,       0.0, 0.0
 };
 
 //TODO: manage structures.. like Vertice...
@@ -59,29 +72,90 @@ GLubyte Indices[] = {
     
     CGMesh* mesh = [[CGMesh alloc]
                     initWithVertexData:
-                    [[CGArray alloc] initWithData:(void*)Vertices
-                                     withCapacity:9*4 /*floats per vertices * Vertices count*/]];
-               //     indices:
-               //     [[CGArray alloc] initWithData:(void*)Indices withCapacity: sizeof(GLubyte)*6]];
+                    [[CGArray alloc] initWithData:(void*)_Vertices
+                                     withCapacity:5*4 /*floats per vertices * Vertices count*/]
+                   // indices:
+                   // [``8 initWithData:(void*)Indices withCapacity: sizeof(GLubyte)*6]
+                    ];
+
+    
+    CGMesh* _mesh = [[CGMesh alloc]
+                    initWithVertexData:
+                    [[CGArray alloc] initWithData:(void*)_Vertices
+                                     withCapacity:5*4] /*floats per vertices * Vertices count*/
+                                          indices:
+                      [[CGArray alloc] initWithData:(void*)Indices withCapacity: sizeof(GLubyte)*6] ];
+    //_mesh.uvOffset = VBO_NULL_ELEMENT;
     
     [MeshFactory addMesh:mesh withName:@"CGMeshplane"];
+    [MeshFactory addMesh:_mesh withName:@"CGMeshplane2"];
+    
+    
+    
+  //   plane = [[CGObject3D alloc] initWithMesh:[MeshFactory meshNamed:@"CGMeshplane2"]];
+ //   [cgview.engine addObject:plane];
+ //   [plane scale:CC3VectorMake(2, 2, 2)];
+ //   [plane rotate:cc3v(-90, 0, 0)];
+    //plane.mesh.drawMode = GL_TRIANGLE_FAN;
+ //   plane.color = (ccColor4F){1.0f, 0.0f, 0.0f, 1.0f};
+    
+    floor= [[CGObject3D alloc] initWithMesh:[MeshFactory meshNamed:@"CGMeshplane"]];//init with mesh named
+    [floor.textures addObject:[[TextureManager sharedInstance] textureFromFileName:@"tile_floor"]];
+    floor.mesh.drawMode = GL_TRIANGLE_FAN;
+    [cgview.engine addObject:floor];
+   /* [floor scale:CC3VectorMake(30, 30, 30)];
+
+    [floor rotate:cc3v(-90, 0, 0)];
+    [floor scale:CC3VectorMake(30, 30, 30)];
+*/
+   [floor rotate:cc3v(-90, 0, 0)];
+
+    /*Ver como hacer...*/ // optimizar matrices.. no hacer tida la muktiplicacion de marices vectores modificar lo q compete.
+    GLfloat* m = floor.matrix.glMatrix;
+    
+    
+    
+    m[12] = 2.5;
+    m[13] = -7.1f;
+    m[14] = -2.5;
+    
+     [floor scale:CC3VectorMake(200, 200, 200)];
+    
+  //  [floor translate:cc3v(2.5, -10, -2.5)];
+    
+    
+    
+    
+    
+    
+    //[floor scale:CC3VectorMake( 3.01, 3.01, 3.01)];
+    
     
     //o= [[CGObject3D alloc] initWithMesh:[MeshFactory meshNamed:@"CGMeshplane"]];
     
     o= [[CGObject3D alloc] initWithMesh:[MeshFactory meshMD2Named:@"knight"]];
     
-    [o.matrix rotateByZ:-90];
-    [o.matrix rotateByY:-90];
+    [o.matrix rotateByZ:90];
+    //[o.matrix rotateByY:-90];
     //[o.matrix rotateByX:70];
     
-    [o scale:CC3VectorMake(0.05, 0.05, 0.05)];
+    [o scale:CC3VectorMake(0.3, 0.3, 0.3)];
     
     [o.textures addObject:[[TextureManager sharedInstance] textureFromFileName:@"knight.jpg"]];
     //[o.textures addObject:[[TextureManager sharedInstance] textureFromFileName:@"tile_floor"]];
     
-    [cgview.engine addObject:o];
+   [cgview.engine addObject:o];
     
-    [cgview.engine setClearColor:0.0 g:0.8 b:0.2 a:1.0];
+
+    [cgview.engine setClearColor:12.0f/255 g:183.0f/255 b:242.0f/255 a:1.0];
+    
+    //[o setAnimationWithName:@"Stand"];
+    [o setAnimationWithName:@"Run"];
+    
+    direction =1.0f;
+    
+    
+    [ cgview.engine.camera translate:CC3VectorMake(0,-2,0)];
     
     [self runLoop];
 }
@@ -96,7 +170,48 @@ GLubyte Indices[] = {
     
     [cgview.engine clear];
     
+   // [floor translate:cc3v(0.01, 0, 0.01)];
+   //  [floor rotate:cc3v(-1, 0, 1)];
+    
+   // [floor rotate:cc3v(1, 0, 0)];
+    
+   // [floor scale:CC3VectorMake( 1.01, 1.01, 1.01)];
+    
     [self hadleEvents:displayLink];
+    
+    //TODO: Clase que maneje las animaciones (Animation manager) por objeto; (animation completation)
+    
+    float pers = o.animationCompletePercentage;
+    
+   
+    if([o.currentAnimation.name isEqualToString:@"Run"]){
+        pers    += direction*0.015f;
+        if(pers >1.0f){
+            pers = 0.0f;
+        }
+    }else if([o.currentAnimation.name isEqualToString:@"Stand"]){
+        pers    += direction*0.01f;
+        if(direction == 1.0f && o.currentAnimation.finalFrame == o.frameIndex){
+            direction = -1.0f;
+            pers    += direction*0.02f;
+        }
+        if(direction == -1.0f && o.currentAnimation.initialFrame == o.frameIndex &&pers <0.0f ){
+            direction = 1.0f;
+            pers    = 0.0f;
+        }
+    }
+    
+  //  [plane rotate:cc3v(1,2 , 4)];
+    
+   // NSLog(@"%f",pers);
+   
+   
+    
+    // [o.matrix rotateBy:cc3v(1,2 , 4)];
+    
+     //[o translate:cc3v(0 ,0.1 , 0)];
+   
+    o.animationCompletePercentage = pers;
     
     [cgview.engine render];
 }
@@ -119,11 +234,11 @@ GLubyte Indices[] = {
         
             //Respect the rotation YXZ order
             
-            [ cgview.engine.camera.matrix rotateByY:-cgview.engine.camera.rotation.y];
-            
+            [ cgview.engine.camera.viewMatrix rotateByY:-cgview.engine.camera.rotation.y];
+        
             [ cgview.engine.camera rotate:CC3VectorMake(rotUp?-1:1,0,0)];
             
-            [ cgview.engine.camera.matrix rotateByY:r.y];
+            [ cgview.engine.camera.viewMatrix rotateByY:r.y];
 
         
         }else if(rotLeft || rotRight ){

@@ -17,7 +17,6 @@ static MeshFactory* _meshFactory;
 
     self = [super init];
     
-    
     if(self){
         self.meshes = [[NSMutableDictionary alloc] init];
     }
@@ -61,9 +60,9 @@ static MeshFactory* _meshFactory;
         
         struct Md2_model *pModeloAuxiliar = &modeloAuxiliar;
         
-        int defaultStride = 9;
+        int defaultStride = VBO_POSITION_SIZE + VBO_UV_SIZE /*+ VBO_NORMAL_SIZE */;
         
-        float floatsCount =defaultStride*pModeloAuxiliar->header.num_triangulos*3*pModeloAuxiliar->header.num_frames;
+        float floatsCount = defaultStride*pModeloAuxiliar->header.num_triangulos*3*pModeloAuxiliar->header.num_frames;
         
         float* vertices = (void*)malloc(sizeof(float)*floatsCount);
         
@@ -74,6 +73,8 @@ static MeshFactory* _meshFactory;
             struct Md2_frame *pframe;
             pframe = &(pModeloAuxiliar->frames[i]);
             
+            
+            NSLog( @"frame = %d  %@",i,[NSString stringWithUTF8String: pModeloAuxiliar->frames[i].name]);
             for( int j = 0; j< pModeloAuxiliar->header.num_triangulos; j++){
                 
                 struct Md2_triangle *ptri;
@@ -85,16 +86,12 @@ static MeshFactory* _meshFactory;
                     
                     pvert = &(pframe->verts[ptri->vertex[vIndex]]);
                 
-                //Position
-                    vertices[arrayIndex++] = (float)pvert->v[0];
-                    vertices[arrayIndex++] = (float)pvert->v[1];
-                    vertices[arrayIndex++] = (float)pvert->v[2];
-                //color
-                    vertices[arrayIndex++] = 1.0f;
-                    vertices[arrayIndex++] = 1.0f;
-                    vertices[arrayIndex++] = 1.0f;
-                    vertices[arrayIndex++] = 1.0f;
-                //UV cords
+                    //Position - MD2's coords
+                    vertices[arrayIndex++] = (float)((pframe->scale[2] * pvert->v[2]) + pframe->translate[2]);
+                    vertices[arrayIndex++] = (float)((pframe->scale[1] * pvert->v[1]) + pframe->translate[1]);
+                    vertices[arrayIndex++] = (float)((pframe->scale[0] * pvert->v[0]) + pframe->translate[0]);
+                    
+                    //UV cords
                     vertices[arrayIndex++]  = (float)pModeloAuxiliar->texcoords[ptri->st[vIndex]].u / pModeloAuxiliar->header.ancho_textura;
                     vertices[arrayIndex++] = (float)pModeloAuxiliar->texcoords[ptri->st[vIndex]].v / pModeloAuxiliar->header.alto_textura;
                  }
@@ -109,6 +106,15 @@ static MeshFactory* _meshFactory;
                                          withCapacity:floatsCount ]];
         m.frameCount =pModeloAuxiliar->header.num_frames;
         
+        
+        //TODO: Add missing animations
+        [m.animations addObject: [[CGKeyFrameAnimation alloc] initWithName:@"Stand" initalFrame:0 finalFrame:8]];
+        [m.animations addObject: [[CGKeyFrameAnimation alloc] initWithName:@"Run" initalFrame:40 finalFrame:45]];
+        [m.animations addObject: [[CGKeyFrameAnimation alloc] initWithName:@"Attack" initalFrame:46 finalFrame:53]];
+        [m.animations addObject: [[CGKeyFrameAnimation alloc] initWithName:@"Pain1" initalFrame:54 finalFrame:57]];
+        [m.animations addObject: [[CGKeyFrameAnimation alloc] initWithName:@"Pain2" initalFrame:58 finalFrame:61]];
+        
+        [self addMesh:m withName:name];
     }
     return m;
 }

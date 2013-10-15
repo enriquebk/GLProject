@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "CGArray.h"
+#import "CGKeyFrameAnimation.h"
+
+#define VBO_POSITION_SIZE       3
+#define VBO_NORMAL_SIZE         3
+#define VBO_UV_SIZE             2
+
+#define VBO_NULL_ELEMENT       -1
+
 
 
 @interface CGMesh : NSObject
@@ -26,6 +34,17 @@
  * An array that gives a list of triangles to create, by specifying the 3 vertices that make up each triangle
  */
 @property(strong,readonly)CGArray* indices;
+
+/**
+ * An array that have all the possible animations that the mesh can make.
+ */
+@property(strong)NSMutableArray* animations;
+
+
+/**
+ * Indicates if the mesh can make animations
+ */
+@property(readonly)bool isAnimated;
 
 /**
  * Number of frames 
@@ -63,27 +82,6 @@
  */
 @property (nonatomic) int uvOffset;
 
-/**
- * Contains the offset in bytes for the color data of a vertex.
- * This is used uniquely for particle data and not for meshse.
- */
-@property (nonatomic) int colorOffset;
-
-/**
- * Contains the offset in bytes for the size data of a vertex.
- * This is used uniquely for particle data and not for meshes.
- */
-@property (nonatomic) int frameSizeOffset;
-
-/**
- *  Next frame position offset
- */
-@property (nonatomic) int nextFramePosOffset;
-
-/**
- *  Next frame normal offset
- */
-@property (nonatomic) int nextFrameNormalOffset;
 
 /**
  *  Draw mode [GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, GL_TRIANGLES], by default the draw mode is GL_TRIANGLES.

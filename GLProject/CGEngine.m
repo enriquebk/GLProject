@@ -35,8 +35,8 @@
         
         float h = 4.0f * self.layer.frame.size.height / self.layer.frame.size.width;
         self.camera  = [[CGCamera alloc] init];        
-        [self.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:4 andFar:200];
-        [self.camera translate:CC3VectorMake(0, 0, -30)];
+        [self.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:3 andFar:90];
+        [self.camera translate:CC3VectorMake(0, 0, -20)];
         
         [self setupContext];
         [self setupDepthBuffer];
@@ -50,7 +50,11 @@
         self.displayList = [[NSMutableArray alloc] init];
         self.lights = [[NSMutableArray alloc] init];
         
+        // Enable depth buffer
         glEnable(GL_DEPTH_TEST);
+        
+        // Enable back face culling
+       glEnable(GL_CULL_FACE);
         
     }
     
@@ -126,8 +130,7 @@
 
 -(void)clear{
     
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-   // glClear(GL_COLOR_BUFFER_BIT);//Call glClear to actually perform the clearing. Remember that there can be different types of buffers, such as the render/color buffer we’re displaying, and others we’re not using yet such as depth or stencil buffers. Here we use the GL_COLOR_BUFFER_BIT to specify what exactly to clear – in this case, the current render/color buffer.
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//Call glClear to actually perform the clearing. Remember that there can be different types of buffers, such as the render/color buffer we’re displaying, and others we’re not using yet such as depth or stencil buffers. Here we use the GL_COLOR_BUFFER_BIT to specify what exactly to clear – in this case, the current render/color buffer.
 }
 
 

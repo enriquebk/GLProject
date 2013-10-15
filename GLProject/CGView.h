@@ -18,20 +18,11 @@
     CAEAGLLayer* _eaglLayer;
     EAGLContext* _context;
     GLuint _colorRenderBuffer;
-
-    GLuint _positionSlot;
-    GLuint _colorSlot;
     
     CGEngine* engine;
     
-    //matrix
-    GLuint _projectionUniform;
-    GLuint _modelViewUniform;
-    float _currentRotation;
 }
 
-
 -(CGEngine*) engine;
-
 
 @end

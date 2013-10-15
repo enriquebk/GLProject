@@ -15,7 +15,7 @@
 @class CGObject3D;
 @class CGSceneGraph;
 
-@interface CGEngine : NSObject{
+@interface CGEngine : NSObject{ //TODO:rename => renderer
     
 }
 

@@ -1,8 +1,17 @@
-varying lowp vec4 DestinationColor;
 
-varying lowp vec2 TexCoordOut; // New
-uniform sampler2D Texture; // New
+//Pre-calculeted values
+varying lowp vec4 DestinationColor;
+varying lowp vec2 TexCoordOut;
+
+//'Constants'
+uniform sampler2D Texture;
+uniform lowp float TextureCount;
 
 void main(void) {
-    gl_FragColor = DestinationColor * texture2D(Texture, TexCoordOut); // New
+    
+    if(TextureCount >= 1.0){
+        gl_FragColor = DestinationColor * texture2D(Texture, TexCoordOut);
+    }else{
+        gl_FragColor = DestinationColor;
+    }
 }

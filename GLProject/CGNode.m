@@ -51,21 +51,23 @@
     return [self.childs count];
 }
 
--(void)visit:(CGEngine*)engine{
-    
-    [self renderUsingEngine:engine];//Agregar a cola de renderizado...
-    //TODO: establecer un orden... primero posicionar recorrer y luego dibjuar? la idea es no tener prblemas con el agregado de luces...
-    
-    for (CGNode* n in self.childs) {
-        [n visit:engine];
-    }
-}
-
 -(void)renderUsingEngine:(CGEngine *)engine{
     //override me
 }
 
 -(void)translate:(CC3Vector) aVector{
+    GLfloat* m = self.matrix.glMatrix;
+     
+     m[12] = m[12] +  aVector.x;
+     m[13] = m[13] +  aVector.y;
+     m[14] = m[14] +  aVector.z;
+
+    _position.x+=aVector.x;
+    _position.y+=aVector.y;
+    _position.z+=aVector.z;
+}
+
+-(void)translateAroundLocalAxis:(CC3Vector) aVector{
     [self.matrix translateBy:aVector];
     
     _position.x+=aVector.x;
@@ -75,7 +77,6 @@
 
 -(void)rotate:(CC3Vector) aVector{
     [self.matrix rotateBy:aVector];
-    
     
     _rotation.x+=aVector.x;
     _rotation.y+=aVector.y;
@@ -89,6 +90,19 @@
     _scale.y+=aVector.y;
     _scale.z+=aVector.z;
 }
+
+-(void)setPosition:(CC3Vector)position{
+    NSLog(@"TODO: Unimplemented method setPosition:");
+}
+
+-(void)setRotation:(CC3Vector)position{
+    NSLog(@"TODO: Unimplemented method setRotation:");
+}
+
+-(void)setScale:(CC3Vector)position{
+    NSLog(@"TODO: Unimplemented method setScale:");
+}
+
 
 - (void)removeChid:(CGNode *)child{
     [self.childs removeObject:child];

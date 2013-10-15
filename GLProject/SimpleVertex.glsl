@@ -1,20 +1,32 @@
- 
-attribute vec4 Position;
-attribute vec4 SourceColor;
 
+// Vertex's attributes
+attribute vec4 Position;
+attribute vec2 TexCoordIn;
 attribute vec4 nextFramePosition;
 
+//'Constants'
+uniform vec4 SourceColor;
+uniform float kf_factor;
+uniform mat4 modelViewProjectionMatrix;
 
+//Fragment shader params
+varying vec2 TexCoordOut;
 varying vec4 DestinationColor;
 
-uniform mat4 Projection;
-uniform mat4 Modelview;
-
-attribute vec2 TexCoordIn; // New
-varying vec2 TexCoordOut; // New
 
 void main(void) {
+    
     DestinationColor = SourceColor;
-    gl_Position = Projection * Modelview * Position;
-    TexCoordOut = TexCoordIn; // New
+    
+    vec4 vertexPos;
+    
+    if(kf_factor != 0.0){
+        vertexPos = mix(Position, nextFramePosition, kf_factor);
+        vertexPos.w = 1.0;    //Make sure w is exactly 1.0
+    }else{
+        vertexPos = Position;
+    }
+    
+    gl_Position = modelViewProjectionMatrix  * vertexPos;//Renombrar projection to PVMmatriz
+    TexCoordOut = TexCoordIn; 
 }

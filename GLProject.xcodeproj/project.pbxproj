@@ -41,6 +41,7 @@
 		A76FDAE717C9A78600A6F8E4 /* CGShader.m in Sources */ = {isa = PBXBuildFile; fileRef = A76FDAE617C9A78600A6F8E4 /* CGShader.m */; };
 		A774B26B17DE6999001EFAA4 /* CGDefaultShader.m in Sources */ = {isa = PBXBuildFile; fileRef = A774B26A17DE6999001EFAA4 /* CGDefaultShader.m */; };
 		A7C5151917E4A9E400F8F6EE /* CGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C5151817E4A9E400F8F6EE /* CGUtils.m */; };
+		A7C5916517FB77B500045DB8 /* CGKeyFrameAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C5916417FB77B500045DB8 /* CGKeyFrameAnimation.m */; };
 		A7C6F86F17E6C4E900F3FB0A /* tile_floor.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C6F86E17E6C4E900F3FB0A /* tile_floor.png */; };
 		A7D046EB17C40E53007390B0 /* SimpleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A7D046EA17C40E53007390B0 /* SimpleVertex.glsl */; };
 		A7D046ED17C40F85007390B0 /* SimpleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A7D046EC17C40F85007390B0 /* SimpleFragment.glsl */; };
@@ -115,6 +116,8 @@
 		A774B26A17DE6999001EFAA4 /* CGDefaultShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGDefaultShader.m; sourceTree = "<group>"; };
 		A7C5151717E4A9E400F8F6EE /* CGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUtils.h; sourceTree = "<group>"; };
 		A7C5151817E4A9E400F8F6EE /* CGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUtils.m; sourceTree = "<group>"; };
+		A7C5916317FB77B500045DB8 /* CGKeyFrameAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGKeyFrameAnimation.h; sourceTree = "<group>"; };
+		A7C5916417FB77B500045DB8 /* CGKeyFrameAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGKeyFrameAnimation.m; sourceTree = "<group>"; };
 		A7C6F86E17E6C4E900F3FB0A /* tile_floor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile_floor.png; sourceTree = "<group>"; };
 		A7D046EA17C40E53007390B0 /* SimpleVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleVertex.glsl; sourceTree = "<group>"; };
 		A7D046EC17C40F85007390B0 /* SimpleFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleFragment.glsl; sourceTree = "<group>"; };
@@ -348,11 +351,13 @@
 		A7E0438217D0129900D07BB2 /* Mesh */ = {
 			isa = PBXGroup;
 			children = (
+				A7E0437F17D0129100D07BB2 /* CGMesh.h */,
+				A7E0438017D0129100D07BB2 /* CGMesh.m */,
+				A7C5916317FB77B500045DB8 /* CGKeyFrameAnimation.h */,
+				A7C5916417FB77B500045DB8 /* CGKeyFrameAnimation.m */,
 				A7FBF0C517EBF2EF00787ABD /* MD2 */,
 				A73EE5A717C6E750009C1E5E /* MeshFactory.h */,
 				A73EE5A817C6E750009C1E5E /* MeshFactory.m */,
-				A7E0437F17D0129100D07BB2 /* CGMesh.h */,
-				A7E0438017D0129100D07BB2 /* CGMesh.m */,
 			);
 			name = Mesh;
 			sourceTree = "<group>";
@@ -520,6 +525,7 @@
 				A7EA71A917D9536E007E6E0E /* CGArray.m in Sources */,
 				A73EE5AB17C6E751009C1E5E /* MeshFactory.m in Sources */,
 				A76FDAE417C9983B00A6F8E4 /* CGEngine.m in Sources */,
+				A7C5916517FB77B500045DB8 /* CGKeyFrameAnimation.m in Sources */,
 				A7E0437B17CFFE2200D07BB2 /* CGNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

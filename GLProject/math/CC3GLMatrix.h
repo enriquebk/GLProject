@@ -360,7 +360,7 @@
 -(void) translateBy: (CC3Vector) translationVector
 		   rotateBy: (CC3Vector) rotationVector
 			scaleBy: (CC3Vector) scaleVector;
-	
+
 /**
  * Rotates this matrix by the specified amount. Each element of the rotation vector represents
  * an Euler angle in degrees, and rotation is performed in YXZ order, which is the OpenGL default.

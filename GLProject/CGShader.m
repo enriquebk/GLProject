@@ -10,9 +10,6 @@
 
 @implementation CGShader
 
-
-//-(void)renderObject: in render
-
 -(id)initWithVertexShader:(NSString*)vs fragmentShader:(NSString*)fs{
 
     self = [super init];
@@ -96,7 +93,5 @@
 //Over ride me
  
 }
-
-
 
 @end

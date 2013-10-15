@@ -18,16 +18,38 @@
 @interface CGObject3D : CGNode
 
 
+@property(assign)ccColor4F color;
+
 @property(strong)CGMesh* mesh;
 
 @property(strong)CGShader* shaderProgram;
 
-@property(strong)NSMutableArray* textures;
-
-@property(assign)int frameIndex;
-
 -(id) initWithMesh:(CGMesh*)mesh;
 
+
+#pragma mark -
+#pragma mark Texture stuff
+
+@property(strong)NSMutableArray* textures;
+
 -(void) setTexture:(CGTexture*)texture;
+
+
+#pragma mark -
+#pragma mark Animation stuff
+
+
+-(void)setAnimationWithName:(NSString*)animationName;
+
+@property(strong)CGKeyFrameAnimation* currentAnimation;
+
+@property(nonatomic, assign)float animationCompletePercentage;
+
+@property(assign)int    nextFrameOffSet;
+
+@property(assign)int    frameIndex;
+
+@property(assign)float  frameFactor;
+
 
 @end

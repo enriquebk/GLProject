@@ -1,9 +1,10 @@
-CREATE UTILS.H
-CREATE CGSTRUCTURES.H //
-MEJORAR LO DE LOS VBO..  (make mesh loader!!!)
 AGREGAR LISTA DE SHADERS POR DEFECTO
-CRAGAR MD2
-manejar catidad de indices y vertices
+
+
+- Agregar ray pick
+- Utilizar mesh con indices (mas performante..)...
+- poder dar orden al array de objetos
+
 
 //
 Clase 
@@ -23,6 +24,5 @@ camara trakball = siempre enfocada en un punto("foco")
 
 DOCUMENTAR Y DIAGRAMAR
 
-tipos de vertices!
 
 1 - key frame - pos col normales - pos normales uv - pos_col (hacer eßßxtencible)

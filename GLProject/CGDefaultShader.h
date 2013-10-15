@@ -8,7 +8,7 @@
 
 #import "CGShader.h"
 
-@interface CGDefaultShader : CGShader
+@interface CGDefaultShader : CGShader //TODO: Rename RenderProgram
 
 
 @end

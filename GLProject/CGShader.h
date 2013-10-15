@@ -22,10 +22,11 @@
 /* */
 -(id)initWithVertexShader:(NSString*)vs fragmentShader:(NSString*)fs;
 
+/* */
++ (GLuint)compileShader:(NSString*)shaderName withType:(GLenum)shaderType;
+
 /* Overide me */
 -(void)drawObject:(CGObject3D*) object usingEngine:(CGEngine*)engine;
 
-/* */
-+ (GLuint)compileShader:(NSString*)shaderName withType:(GLenum)shaderType;
 
 @end

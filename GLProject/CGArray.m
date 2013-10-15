@@ -23,7 +23,8 @@
 - (id) initWithData:(void *)array withCapacity:(unsigned int)capacity{
     self = [super init];
     
-    _array = array;
+    _array = malloc(capacity*sizeof(float));
+    memcpy( _array, array, capacity*sizeof(float));
     _capacity = capacity;
     
     return self;

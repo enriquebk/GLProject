@@ -50,21 +50,22 @@
 }
 
 -(void)configureWithVertexData:(CGArray*)vertexData{
-
-    self.frameCount = 1;
+    
+    _frameCount = 1;
 
     _vertexData = vertexData;
     
-    self.positionOffset = 3;
-    self.colorOffset = 4;
-    self.uvOffset = 2;
-    self.normalOffset = 0;
+    self.positionOffset = 0;
+    self.normalOffset = VBO_NULL_ELEMENT;
+    self.uvOffset = sizeof(float) * (VBO_POSITION_SIZE);
     
     self.drawMode = GL_TRIANGLES;
     
     [self updateVertexStrideAndStride];
     
     [self loadVertexData: vertexData.array capacity:vertexData.capacity];
+    
+    _animations = [[NSMutableArray alloc] init];
 }
 
 
@@ -111,21 +112,29 @@
     [self updateVertexStrideAndStride];
 }
 
--(void)setColorOffset:(int)colorOffset{
-    _colorOffset = colorOffset;
-    [self updateVertexStrideAndStride];
-}
-
 -(void)setUvOffset:(int)uvOffset{
     _uvOffset = uvOffset;
     [self updateVertexStrideAndStride];
 }
 
+
+-(void)setFrameCount:(int)frameCount{
+    _frameCount = frameCount;
+    [self updateVertexStrideAndStride];
+}
+
 -(void)updateVertexStrideAndStride{
 
-    strideFloatsCount = self.positionOffset+self.colorOffset+self.uvOffset+self.normalOffset;
+    strideFloatsCount = ((self.positionOffset!=VBO_NULL_ELEMENT)?VBO_POSITION_SIZE:0) +
+                        ((self.uvOffset!=VBO_NULL_ELEMENT)?VBO_UV_SIZE:0) +
+                        ((self.normalOffset!=VBO_NULL_ELEMENT)?VBO_NORMAL_SIZE:0);
+    
     _stride = sizeof(float)*strideFloatsCount;
-    _vertexCount = (self.vertexData.capacity/strideFloatsCount)/self.frameCount;
+    _vertexCount = (strideFloatsCount!=0)?((self.vertexData.capacity/strideFloatsCount)/self.frameCount):0;
+}
+
+-(bool)isAnimated{
+    return (self.animations)?([self.animations count]>0?TRUE:FALSE):FALSE;
 }
 
 @end
