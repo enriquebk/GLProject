@@ -26,7 +26,7 @@
     if (self) {
         [self setupLayer];
 
-        engine = [[CGEngine alloc] initWithLayer:_eaglLayer];
+        engine = [[CGRenderer alloc] initWithLayer:_eaglLayer];
 
 
         
@@ -53,7 +53,7 @@
     }
 }
 
--(CGEngine*) engine{
+-(CGRenderer*) engine{
     
     return engine;
 }

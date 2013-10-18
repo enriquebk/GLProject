@@ -115,7 +115,11 @@ static MeshFactory* _meshFactory;
         [m.animations addObject: [[CGKeyFrameAnimation alloc] initWithName:@"Pain2" initalFrame:58 finalFrame:61]];
         
         [self addMesh:m withName:name];
+    }else{
+        
+        NSLog(@"[ERROR] file %@.md2 not found ",name);
     }
+    
     return m;
 }
 

@@ -7,12 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CGEngine.h"
+#import "CGRenderer.h"
 
 
 @class CGObject3D;
-@class CGEngine;
+@class CGRenderer;
 
+
+/*
+ *
+ */
 @interface CGShader : NSObject{
 
 }
@@ -25,8 +29,28 @@
 /* */
 + (GLuint)compileShader:(NSString*)shaderName withType:(GLenum)shaderType;
 
-/* Overide me */
--(void)drawObject:(CGObject3D*) object usingEngine:(CGEngine*)engine;
+/* */
+//+ (GLuint)compileShader:(NSString*)shaderName withType:(GLenum)shaderType precompildedMacros:(NSString*)macros;
 
+/* TODO: Explain... */
++ (CGShader*)shaderNamed:(NSString*)shaderFiles;
+
+
+
+@end
+
+/*
+ *
+ */
+@interface CGShaderManager : NSObject
+
+
+@property(strong)NSMutableDictionary* shaders;
+
+-(CGShader*) shaderWithKey: (NSString*)key;
+
+-(void) addShader:(CGShader*) shader WithKey: (NSString*)key;
+
++(id)sharedInstance;
 
 @end

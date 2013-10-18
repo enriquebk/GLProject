@@ -1,13 +1,15 @@
 //
-//  CGDefaultShader.m
+//  CGDefaultRenderProgram.m
 //  GLProject
 //
-//  Created by Enrique Bermudez on 09/09/13.
+//  Created by Enrique Bermudez on 17/10/13.
 //  Copyright (c) 2013 Enrique Bermudez. All rights reserved.
 //
 
-#import "CGDefaultShader.h"
+#import "CGDefaultRenderProgram.h"
 #import "CGTexture.h"
+
+#define  CGDefaultShaderKey    @"DefaultShader"
 
 #define  CGShaderParameter_position         "Position"
 #define  CGShaderParameter_projection       "modelViewProjectionMatrix"
@@ -18,7 +20,7 @@
 #define  CGShaderParameter_KeyframeFactor   "kf_factor"
 #define  CGShaderParameter_TextureEnable    "TextureCount"
 
-@interface CGDefaultShader (){
+@interface CGDefaultRenderProgram (){
     
     GLuint _positionSlot;
     GLuint _texCoordSlot;
@@ -31,26 +33,36 @@
     GLuint _projectionUniform;
     GLuint _textureUniform;
     GLuint _textureEnableUniform;
+    
+    GLenum _blendFuncSourcefactor;
+    GLenum _blendFuncDestinationfactor;
 }
 
 @end
 
-
-@implementation CGDefaultShader
+@implementation CGDefaultRenderProgram
 
 
 -(id)init{
+    
+    self = [super init];
+    
+    self.shader = [CGShader shaderNamed:CGDefaultShaderKey];
 
-    self = [self initWithVertexShader:@"SimpleVertex" fragmentShader:@"SimpleFragment"];
+    [self setBlendFuncSourceFactor:GL_SRC_ALPHA destinationFactor:GL_ONE_MINUS_SRC_ALPHA];
     
     [self setupParameters];
     
     return self;
 }
 
--(void)drawObject:(CGObject3D*) object usingEngine:(CGEngine*)engine{
+-(void)drawObject:(CGObject3D*) object withRenderer:(CGRenderer*)renderer{
     
-    glUseProgram(self.handler);
+    
+    [super drawObject:object withRenderer:renderer];
+    
+    glEnable(GL_BLEND);
+    glBlendFunc(_blendFuncSourcefactor, _blendFuncDestinationfactor);
     
     //Habilito las variables de vertice (los uniforms no se habilitan)
     glEnableVertexAttribArray(_positionSlot);
@@ -66,13 +78,25 @@
     
     glBindBuffer(GL_ARRAY_BUFFER, [object.mesh VBOHandler]);
     
-    CC3GLMatrix * _modelViewMatrix = [engine.camera.viewMatrix copy];//TODO: Optimizar...
-    [_modelViewMatrix multiplyByMatrix:object.matrix];
-    CC3GLMatrix * _modelViewProjectionMatrix = [engine.camera.porjectionMatrix copy];
-    [_modelViewProjectionMatrix multiplyByMatrix:_modelViewMatrix];
+    CC3GLMatrix * modelMatrix = object.matrix;
     
+    //Apply scene graph //////////////////////
+    CGNode* parent = object.parent;
+    while (parent) {
+        modelMatrix = [modelMatrix copy];
+        [modelMatrix multiplyByMatrix:parent.matrix];
+        parent = parent.parent;
+    }
+    //////////////////////////////////////////
     
-    glUniformMatrix4fv(_projectionUniform, 1, 0, _modelViewProjectionMatrix.glMatrix);
+    // Calculate modelViewProjectionMatrix ///
+    CC3GLMatrix * modelViewMatrix = [renderer.camera.viewMatrix copy];
+    [modelViewMatrix multiplyByMatrix:modelMatrix];
+    CC3GLMatrix * modelViewProjectionMatrix = [renderer.camera.porjectionMatrix copy];
+    [modelViewProjectionMatrix multiplyByMatrix:modelViewMatrix];
+    /////////////////////////////////////////
+    
+    glUniformMatrix4fv(_projectionUniform, 1, 0, modelViewProjectionMatrix.glMatrix);
     
     int frameOffset = ((object.frameIndex)*object.mesh.stride*object.mesh.vertexCount);
     
@@ -93,7 +117,7 @@
     if ([object.textures count]>0) {
         glUniform1f(_textureEnableUniform, [object.textures count]);
         glVertexAttribPointer(_texCoordSlot,VBO_UV_SIZE, GL_FLOAT, GL_FALSE,
-                            object.mesh.stride,(GLvoid*) (frameOffset  + object.mesh.uvOffset));
+                              object.mesh.stride,(GLvoid*) (frameOffset  + object.mesh.uvOffset));
     }else{
         glUniform1f(_textureEnableUniform, 0);
         glVertexAttribPointer(_texCoordSlot,1, GL_FLOAT, GL_FALSE,
@@ -104,11 +128,11 @@
     
     // KEYFRAME_ANIMATION ////
     int nextFrameOffset = (object.mesh.frameCount>1?object.nextFrameOffSet:0);
-
+    
     glVertexAttribPointer(_nextFramePosSlot, VBO_POSITION_SIZE,
-                              GL_FLOAT, GL_FALSE,  object.mesh.stride  ,
-                              (GLvoid*) ((object.frameIndex+nextFrameOffset)* object.mesh.stride*(object.mesh.vertexCount) ));
-
+                          GL_FLOAT, GL_FALSE,  object.mesh.stride  ,
+                          (GLvoid*) ((object.frameIndex+nextFrameOffset)* object.mesh.stride*(object.mesh.vertexCount) ));
+    
     glUniform1f(_keyframeFactor, (object.mesh.frameCount>1)?object.frameFactor:0.0f);
     //////////////////////////
     
@@ -137,16 +161,21 @@
 
 -(void)setupParameters{
     
-    _positionSlot = glGetAttribLocation(self.handler, CGShaderParameter_position);
-    _projectionUniform = glGetUniformLocation(self.handler, CGShaderParameter_projection);
-     
-    _colorSlot =  glGetUniformLocation(self.handler, CGShaderParameter_SourceColor);
-    _nextFramePosSlot= glGetAttribLocation(self.handler, CGShaderParameter_NextFramePos);
-    _keyframeFactor = glGetUniformLocation(self.handler, CGShaderParameter_KeyframeFactor);
+    _positionSlot = glGetAttribLocation(self.shader.handler, CGShaderParameter_position);
+    _projectionUniform = glGetUniformLocation(self.shader.handler, CGShaderParameter_projection);
     
-    _texCoordSlot = glGetAttribLocation(self.handler, CGShaderParameter_TextCoord);
-    _textureUniform = glGetUniformLocation(self.handler, CGShaderParameter_Texture);
-    _textureEnableUniform = glGetUniformLocation(self.handler, CGShaderParameter_TextureEnable);
+    _colorSlot =  glGetUniformLocation(self.shader.handler, CGShaderParameter_SourceColor);
+    _nextFramePosSlot= glGetAttribLocation(self.shader.handler, CGShaderParameter_NextFramePos);
+    _keyframeFactor = glGetUniformLocation(self.shader.handler, CGShaderParameter_KeyframeFactor);
+    
+    _texCoordSlot = glGetAttribLocation(self.shader.handler, CGShaderParameter_TextCoord);
+    _textureUniform = glGetUniformLocation(self.shader.handler, CGShaderParameter_Texture);
+    _textureEnableUniform = glGetUniformLocation(self.shader.handler, CGShaderParameter_TextureEnable);
+}
+
+-(void)setBlendFuncSourceFactor:(GLenum)sourceFactor destinationFactor:(GLenum) destinationFactor{
+    _blendFuncSourcefactor = sourceFactor;
+    _blendFuncDestinationfactor = destinationFactor;
 }
 
 @end

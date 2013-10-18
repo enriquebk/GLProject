@@ -89,9 +89,46 @@
     return shaderHandle;
 }
 
--(void)drawObject:(CGObject3D*) object usingEngine:(CGEngine*)engine{
-//Over ride me
++ (CGShader*)shaderNamed:(NSString*)shaderFiles{
  
+    CGShader* shader = [[CGShaderManager sharedInstance] shaderWithKey:shaderFiles];
+    
+    if(!shader){
+        NSString* vertexShaderName = [NSString stringWithFormat:@"%@_v",shaderFiles];
+        NSString* fragmentShaderName = [NSString stringWithFormat:@"%@_f",shaderFiles];
+        shader = [[CGShader alloc] initWithVertexShader:vertexShaderName fragmentShader:fragmentShaderName];
+    }
+    
+    return shader;
+}
+
+@end
+
+
+@implementation CGShaderManager
+
+static CGShaderManager* sm;
+
++ (id)sharedInstance{
+    
+    if(sm){
+        return sm;
+    }
+    
+    sm = [[CGShaderManager alloc] init];
+    sm.shaders = [[NSMutableDictionary alloc] init];
+    return sm;
+}
+
+
+-(CGShader*) shaderWithKey: (NSString*)key{
+    
+    return  [self.shaders objectForKey:key];
+}
+
+-(void) addShader:(CGShader*) shader WithKey: (NSString*)key{
+    
+    [self.shaders setObject:shader forKey:key];
 }
 
 @end

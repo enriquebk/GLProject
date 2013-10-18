@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "CGNode.h"
 #import "CGMesh.h"
-#import "CGShader.h"
+#import "CGRenderProgram.h"
 #import "CGTexture.h"
 
-@class CGShader;
+@class CGRenderProgram;
 
 
 @interface CGObject3D : CGNode
@@ -22,7 +22,7 @@
 
 @property(strong)CGMesh* mesh;
 
-@property(strong)CGShader* shaderProgram;
+@property(strong)CGRenderProgram* renderProgram;
 
 -(id) initWithMesh:(CGMesh*)mesh;
 

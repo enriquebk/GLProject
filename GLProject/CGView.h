@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
-#import "CGEngine.h"
+#import "CGRenderer.h"
 
 
 @interface CGView : UIView{
@@ -19,10 +19,10 @@
     EAGLContext* _context;
     GLuint _colorRenderBuffer;
     
-    CGEngine* engine;
+    CGRenderer* engine;
     
 }
 
--(CGEngine*) engine;
+-(CGRenderer*) engine;
 
 @end

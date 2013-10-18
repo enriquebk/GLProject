@@ -1,5 +1,5 @@
 //
-//  CGEngine.h
+//  CGRenderer.h
 //  GLProject
 //
 //  Created by Enrique Bermudez on 24/08/13.
@@ -15,7 +15,7 @@
 @class CGObject3D;
 @class CGSceneGraph;
 
-@interface CGEngine : NSObject{ //TODO:rename => renderer
+@interface CGRenderer : NSObject{ //TODO:rename => renderer
     
 }
 
@@ -24,6 +24,8 @@
 @property(strong)NSMutableArray* displayList;
 
 @property(strong) CGCamera* camera;
+
+@property(assign)GLuint currentShaderHandler;
 
 
 -(id)initWithLayer:(CAEAGLLayer*)layer;

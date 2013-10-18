@@ -10,7 +10,7 @@
 #import "CC3GLMatrix.h"
 
 
-@class CGEngine;
+@class CGRenderer;
 
 @interface CGNode : NSObject
 
@@ -54,7 +54,7 @@
 
 /**
  */
--(void)renderUsingEngine:(CGEngine*)engine;
+-(void)drawWithRenderer:(CGRenderer *)renderer;
 
 /**
  */
@@ -71,7 +71,5 @@
 /**
  */
 -(void)scale:(CC3Vector) aVector;
-
-/* Update:delta propagable ? como cocos2d*/
 
 @end

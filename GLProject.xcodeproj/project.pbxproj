@@ -37,9 +37,8 @@
 		A73EE5AB17C6E751009C1E5E /* MeshFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A73EE5A817C6E750009C1E5E /* MeshFactory.m */; };
 		A73EE5AC17C6E751009C1E5E /* MeshFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A73EE5A817C6E750009C1E5E /* MeshFactory.m */; };
 		A76FDADD17C952B000A6F8E4 /* CGTexture.m in Sources */ = {isa = PBXBuildFile; fileRef = A76FDADC17C952B000A6F8E4 /* CGTexture.m */; };
-		A76FDAE417C9983B00A6F8E4 /* CGEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A76FDAE317C9983B00A6F8E4 /* CGEngine.m */; };
+		A76FDAE417C9983B00A6F8E4 /* CGRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = A76FDAE317C9983B00A6F8E4 /* CGRenderer.m */; };
 		A76FDAE717C9A78600A6F8E4 /* CGShader.m in Sources */ = {isa = PBXBuildFile; fileRef = A76FDAE617C9A78600A6F8E4 /* CGShader.m */; };
-		A774B26B17DE6999001EFAA4 /* CGDefaultShader.m in Sources */ = {isa = PBXBuildFile; fileRef = A774B26A17DE6999001EFAA4 /* CGDefaultShader.m */; };
 		A7C5151917E4A9E400F8F6EE /* CGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C5151817E4A9E400F8F6EE /* CGUtils.m */; };
 		A7C5916517FB77B500045DB8 /* CGKeyFrameAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C5916417FB77B500045DB8 /* CGKeyFrameAnimation.m */; };
 		A7C6F86F17E6C4E900F3FB0A /* tile_floor.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C6F86E17E6C4E900F3FB0A /* tile_floor.png */; };
@@ -54,7 +53,13 @@
 		A7E0438117D0129100D07BB2 /* CGMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E0438017D0129100D07BB2 /* CGMesh.m */; };
 		A7E0438A17D0190000D07BB2 /* CGCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E0438917D0190000D07BB2 /* CGCamera.m */; };
 		A7E0438E17D01AF800D07BB2 /* CGLight.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E0438D17D01AF800D07BB2 /* CGLight.m */; };
+		A7E17CB4180E006E00FA6802 /* weapon.md2 in Resources */ = {isa = PBXBuildFile; fileRef = A7E17CB3180DFF8700FA6802 /* weapon.md2 */; };
+		A7E17CB6180E290400FA6802 /* knight_retocado.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A7E17CB5180E290400FA6802 /* knight_retocado.jpg */; };
 		A7EA71A917D9536E007E6E0E /* CGArray.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EA71A817D9536E007E6E0E /* CGArray.m */; };
+		A7EA756E181082C700643168 /* CGRenderProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EA756D181082C700643168 /* CGRenderProgram.m */; };
+		A7EA7571181095FB00643168 /* CGDefaultRenderProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EA7570181095FB00643168 /* CGDefaultRenderProgram.m */; };
+		A7EA757518109E8300643168 /* DefaultShader_f.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A7EA757218109E8300643168 /* DefaultShader_f.glsl */; };
+		A7EA757618109E8300643168 /* DefaultShader_v.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A7EA757318109E8300643168 /* DefaultShader_v.glsl */; };
 		A7FBF0C917EBF31900787ABD /* MD2Loader.c in Sources */ = {isa = PBXBuildFile; fileRef = A7FBF0C717EBF31900787ABD /* MD2Loader.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A7FBF0CC17EBF53500787ABD /* knight.md2 in Resources */ = {isa = PBXBuildFile; fileRef = A7FBF0CA17EBF53500787ABD /* knight.md2 */; };
 /* End PBXBuildFile section */
@@ -108,12 +113,10 @@
 		A73EE5A817C6E750009C1E5E /* MeshFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeshFactory.m; sourceTree = "<group>"; };
 		A76FDADB17C952B000A6F8E4 /* CGTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGTexture.h; sourceTree = "<group>"; };
 		A76FDADC17C952B000A6F8E4 /* CGTexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGTexture.m; sourceTree = "<group>"; };
-		A76FDAE217C9983B00A6F8E4 /* CGEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGEngine.h; sourceTree = "<group>"; };
-		A76FDAE317C9983B00A6F8E4 /* CGEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGEngine.m; sourceTree = "<group>"; };
+		A76FDAE217C9983B00A6F8E4 /* CGRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGRenderer.h; sourceTree = "<group>"; };
+		A76FDAE317C9983B00A6F8E4 /* CGRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGRenderer.m; sourceTree = "<group>"; };
 		A76FDAE517C9A78600A6F8E4 /* CGShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGShader.h; sourceTree = "<group>"; };
 		A76FDAE617C9A78600A6F8E4 /* CGShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGShader.m; sourceTree = "<group>"; };
-		A774B26917DE6999001EFAA4 /* CGDefaultShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGDefaultShader.h; sourceTree = "<group>"; };
-		A774B26A17DE6999001EFAA4 /* CGDefaultShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGDefaultShader.m; sourceTree = "<group>"; };
 		A7C5151717E4A9E400F8F6EE /* CGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUtils.h; sourceTree = "<group>"; };
 		A7C5151817E4A9E400F8F6EE /* CGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUtils.m; sourceTree = "<group>"; };
 		A7C5916317FB77B500045DB8 /* CGKeyFrameAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGKeyFrameAnimation.h; sourceTree = "<group>"; };
@@ -143,8 +146,16 @@
 		A7E0438917D0190000D07BB2 /* CGCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGCamera.m; sourceTree = "<group>"; };
 		A7E0438C17D01AF800D07BB2 /* CGLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGLight.h; sourceTree = "<group>"; };
 		A7E0438D17D01AF800D07BB2 /* CGLight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGLight.m; sourceTree = "<group>"; };
+		A7E17CB3180DFF8700FA6802 /* weapon.md2 */ = {isa = PBXFileReference; lastKnownFileType = file; path = weapon.md2; sourceTree = "<group>"; };
+		A7E17CB5180E290400FA6802 /* knight_retocado.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = knight_retocado.jpg; sourceTree = "<group>"; };
 		A7EA71A717D9536E007E6E0E /* CGArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGArray.h; sourceTree = "<group>"; };
 		A7EA71A817D9536E007E6E0E /* CGArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGArray.m; sourceTree = "<group>"; };
+		A7EA756C181082C700643168 /* CGRenderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGRenderProgram.h; sourceTree = "<group>"; };
+		A7EA756D181082C700643168 /* CGRenderProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGRenderProgram.m; sourceTree = "<group>"; };
+		A7EA756F181095FB00643168 /* CGDefaultRenderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGDefaultRenderProgram.h; sourceTree = "<group>"; };
+		A7EA7570181095FB00643168 /* CGDefaultRenderProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGDefaultRenderProgram.m; sourceTree = "<group>"; };
+		A7EA757218109E8300643168 /* DefaultShader_f.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DefaultShader_f.glsl; sourceTree = "<group>"; };
+		A7EA757318109E8300643168 /* DefaultShader_v.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DefaultShader_v.glsl; sourceTree = "<group>"; };
 		A7FBF0C617EBF31900787ABD /* anorms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = anorms.h; sourceTree = "<group>"; };
 		A7FBF0C717EBF31900787ABD /* MD2Loader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MD2Loader.c; sourceTree = "<group>"; };
 		A7FBF0C817EBF31900787ABD /* MD2Loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD2Loader.h; sourceTree = "<group>"; };
@@ -227,6 +238,10 @@
 		A703787317C32CFE0074E183 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7D046EA17C40E53007390B0 /* SimpleVertex.glsl */,
+				A7D046EC17C40F85007390B0 /* SimpleFragment.glsl */,
+				A7E17CB3180DFF8700FA6802 /* weapon.md2 */,
+				A7E17CB5180E290400FA6802 /* knight_retocado.jpg */,
 				A71443CC17ED41FA006478B9 /* knight.jpg */,
 				A7C6F86E17E6C4E900F3FB0A /* tile_floor.png */,
 				A7289B4017E56B6C00DD5BCA /* arrow-down.png */,
@@ -286,8 +301,8 @@
 				A7E0438217D0129900D07BB2 /* Mesh */,
 				A76FDAEE17CAFEE700A6F8E4 /* Shaders */,
 				A7E0437417CFFDA000D07BB2 /* Core */,
-				A76FDAE217C9983B00A6F8E4 /* CGEngine.h */,
-				A76FDAE317C9983B00A6F8E4 /* CGEngine.m */,
+				A76FDAE217C9983B00A6F8E4 /* CGRenderer.h */,
+				A76FDAE317C9983B00A6F8E4 /* CGRenderer.m */,
 				A70378AE17C32F220074E183 /* CGView.h */,
 				A70378AF17C32F220074E183 /* CGView.m */,
 			);
@@ -297,22 +312,13 @@
 		A76FDAEE17CAFEE700A6F8E4 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
-				A7ABB4EE17E2999500EB449B /* Files */,
 				A76FDAE517C9A78600A6F8E4 /* CGShader.h */,
 				A76FDAE617C9A78600A6F8E4 /* CGShader.m */,
-				A774B26917DE6999001EFAA4 /* CGDefaultShader.h */,
-				A774B26A17DE6999001EFAA4 /* CGDefaultShader.m */,
+				A7EA756C181082C700643168 /* CGRenderProgram.h */,
+				A7EA756D181082C700643168 /* CGRenderProgram.m */,
+				A7EA75781810A5E900643168 /* RenderPrograms */,
 			);
 			name = Shaders;
-			sourceTree = "<group>";
-		};
-		A7ABB4EE17E2999500EB449B /* Files */ = {
-			isa = PBXGroup;
-			children = (
-				A7D046EA17C40E53007390B0 /* SimpleVertex.glsl */,
-				A7D046EC17C40F85007390B0 /* SimpleFragment.glsl */,
-			);
-			name = Files;
 			sourceTree = "<group>";
 		};
 		A7DAD78317C48A1B000FE1B7 /* Math */ = {
@@ -353,13 +359,32 @@
 			children = (
 				A7E0437F17D0129100D07BB2 /* CGMesh.h */,
 				A7E0438017D0129100D07BB2 /* CGMesh.m */,
+				A73EE5A717C6E750009C1E5E /* MeshFactory.h */,
+				A73EE5A817C6E750009C1E5E /* MeshFactory.m */,
 				A7C5916317FB77B500045DB8 /* CGKeyFrameAnimation.h */,
 				A7C5916417FB77B500045DB8 /* CGKeyFrameAnimation.m */,
 				A7FBF0C517EBF2EF00787ABD /* MD2 */,
-				A73EE5A717C6E750009C1E5E /* MeshFactory.h */,
-				A73EE5A817C6E750009C1E5E /* MeshFactory.m */,
 			);
 			name = Mesh;
+			sourceTree = "<group>";
+		};
+		A7EA75781810A5E900643168 /* RenderPrograms */ = {
+			isa = PBXGroup;
+			children = (
+				A7EA75791810A5F500643168 /* DefaultRender */,
+			);
+			name = RenderPrograms;
+			sourceTree = "<group>";
+		};
+		A7EA75791810A5F500643168 /* DefaultRender */ = {
+			isa = PBXGroup;
+			children = (
+				A7EA756F181095FB00643168 /* CGDefaultRenderProgram.h */,
+				A7EA7570181095FB00643168 /* CGDefaultRenderProgram.m */,
+				A7EA757218109E8300643168 /* DefaultShader_f.glsl */,
+				A7EA757318109E8300643168 /* DefaultShader_v.glsl */,
+			);
+			name = DefaultRender;
 			sourceTree = "<group>";
 		};
 		A7FBF0C517EBF2EF00787ABD /* MD2 */ = {
@@ -460,7 +485,9 @@
 				A7FBF0CC17EBF53500787ABD /* knight.md2 in Resources */,
 				A7C6F86F17E6C4E900F3FB0A /* tile_floor.png in Resources */,
 				A703787F17C32CFE0074E183 /* Default.png in Resources */,
+				A7E17CB4180E006E00FA6802 /* weapon.md2 in Resources */,
 				A7289B4417E56B6C00DD5BCA /* arrow-down.png in Resources */,
+				A7EA757618109E8300643168 /* DefaultShader_v.glsl in Resources */,
 				A703788117C32CFE0074E183 /* Default@2x.png in Resources */,
 				A73D80B417CC65F200939BB0 /* TODO in Resources */,
 				A703788317C32CFE0074E183 /* Default-568h@2x.png in Resources */,
@@ -470,6 +497,8 @@
 				A7289B4517E56B6C00DD5BCA /* arrow-left.png in Resources */,
 				A71443CD17ED41FA006478B9 /* knight.jpg in Resources */,
 				A7D046ED17C40F85007390B0 /* SimpleFragment.glsl in Resources */,
+				A7EA757518109E8300643168 /* DefaultShader_f.glsl in Resources */,
+				A7E17CB6180E290400FA6802 /* knight_retocado.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,7 +545,6 @@
 				A7DAD78E17C48A1B000FE1B7 /* CC3Foundation.m in Sources */,
 				A76FDAE717C9A78600A6F8E4 /* CGShader.m in Sources */,
 				A7DAD78F17C48A1B000FE1B7 /* CC3GLMatrix.m in Sources */,
-				A774B26B17DE6999001EFAA4 /* CGDefaultShader.m in Sources */,
 				A7DAD79017C48A1B000FE1B7 /* CC3Kazmath.c in Sources */,
 				A7FBF0C917EBF31900787ABD /* MD2Loader.c in Sources */,
 				A7C5151917E4A9E400F8F6EE /* CGUtils.m in Sources */,
@@ -524,8 +552,10 @@
 				A73EE5A917C6E751009C1E5E /* TextureManager.m in Sources */,
 				A7EA71A917D9536E007E6E0E /* CGArray.m in Sources */,
 				A73EE5AB17C6E751009C1E5E /* MeshFactory.m in Sources */,
-				A76FDAE417C9983B00A6F8E4 /* CGEngine.m in Sources */,
+				A7EA7571181095FB00643168 /* CGDefaultRenderProgram.m in Sources */,
+				A76FDAE417C9983B00A6F8E4 /* CGRenderer.m in Sources */,
 				A7C5916517FB77B500045DB8 /* CGKeyFrameAnimation.m in Sources */,
+				A7EA756E181082C700643168 /* CGRenderProgram.m in Sources */,
 				A7E0437B17CFFE2200D07BB2 /* CGNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

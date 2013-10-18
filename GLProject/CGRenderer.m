@@ -1,16 +1,16 @@
 //
-//  CGEngine.m
+//  CGRenderer.m
 //  GLProject
 //
 //  Created by Enrique Bermudez on 24/08/13.
 //  Copyright (c) 2013 Enrique Bermudez. All rights reserved.
 //
 
-#import "CGEngine.h"
+#import "CGRenderer.h"
 #import "CGUtils.h"
 
 
-@interface CGEngine (){
+@interface CGRenderer (){
     
     EAGLContext* _context;
     GLuint _colorRenderBuffer;
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation CGEngine
+@implementation CGRenderer
 
 
 -(id)initWithLayer:(CAEAGLLayer*)layer{
@@ -116,8 +116,10 @@
 -(void)render{
     
     for (CGNode* n in self.displayList) {
-        [n renderUsingEngine:self];
-     }
+       
+        [n drawWithRenderer:self];
+     
+    }
     
     [_context presentRenderbuffer:GL_RENDERBUFFER];//Call a method on the OpenGL context to present the render/color buffer to the UIView’s layer!
 }

@@ -51,7 +51,7 @@
     return [self.childs count];
 }
 
--(void)renderUsingEngine:(CGEngine *)engine{
+-(void)drawWithRenderer:(CGRenderer *)renderer{
     //override me
 }
 

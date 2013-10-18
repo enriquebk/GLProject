@@ -68,7 +68,7 @@ GLubyte Indices[] = {
     
     //glEnable(GL_DEPTH_TEST);
     //
-    glDepthFunc(GL_LEQUAL);
+    //glDepthFunc(GL_LEQUAL);
     
     CGMesh* mesh = [[CGMesh alloc]
                     initWithVertexData:
@@ -157,6 +157,14 @@ GLubyte Indices[] = {
     
     [ cgview.engine.camera translate:CC3VectorMake(0,-2,0)];
     
+    
+    /*
+   CGObject3D* w = [[CGObject3D alloc] initWithMesh:[MeshFactory meshMD2Named:@"weapon"]];
+    [o addChild:w];
+    [cgview.engine addObject:w];
+    */
+    //o.color = (ccColor4F){1,1,1,0.5};
+    
     [self runLoop];
 }
 
@@ -170,8 +178,8 @@ GLubyte Indices[] = {
     
     [cgview.engine clear];
     
-   // [floor translate:cc3v(0.01, 0, 0.01)];
-   //  [floor rotate:cc3v(-1, 0, 1)];
+    //[o translate:cc3v(0.01, 0, 0.01)];
+    //[o rotate:cc3v(-1, 0, 1)];
     
    // [floor rotate:cc3v(1, 0, 0)];
     
@@ -185,7 +193,7 @@ GLubyte Indices[] = {
     
    
     if([o.currentAnimation.name isEqualToString:@"Run"]){
-        pers    += direction*0.015f;
+        pers    += 0.015f;
         if(pers >1.0f){
             pers = 0.0f;
         }

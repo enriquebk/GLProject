@@ -7,7 +7,7 @@
 //
 
 #import "CGObject3D.h"
-#import "CGDefaultShader.h"
+#import "CGDefaultRenderProgram.h"
 
 @interface CGMesh (){
     
@@ -26,7 +26,7 @@
     
     if(self){
         _mesh = mesh;
-        _shaderProgram = [[CGDefaultShader alloc] init];
+        _renderProgram = [[CGDefaultRenderProgram alloc] init];
         _textures = [[NSMutableArray alloc]init];
         _frameIndex = 0;
         _frameFactor = 0.0f;
@@ -37,9 +37,9 @@
     return self;
 }
 
--(void)renderUsingEngine:(CGEngine *)engine{
+-(void)drawWithRenderer:(CGRenderer *)renderer{
     
-    [self.shaderProgram drawObject:self usingEngine:engine];
+    [self.renderProgram drawObject:self withRenderer:renderer];
 }
 
 -(void) setTexture:(CGTexture*)texture{
@@ -48,7 +48,7 @@
 
 -(void)setAnimationCompletePercentage:(float)animationCompletePercentage{
 
-    _frameIndex = _currentAnimation.initialFrame + ((float)(_currentAnimation.finalFrame + 1 - _currentAnimation.initialFrame))*(animationCompletePercentage);
+    _frameIndex = floorf( _currentAnimation.initialFrame + ((float)(_currentAnimation.finalFrame + 1 - _currentAnimation.initialFrame))*(animationCompletePercentage));
     
     _frameFactor = fabsf((float)(_frameIndex-_currentAnimation.initialFrame) - (_currentAnimation.finalFrame + 1 - _currentAnimation.initialFrame)*animationCompletePercentage);
 
