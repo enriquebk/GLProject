@@ -11,8 +11,12 @@
 
 @interface CGLight : CGNode
 
+@property(assign)ccColor3B color;
+
 @property BOOL active;
 
-//@property(strong)NSMutableArray* unAffectedObjects;
+@property float intensity;
+
+@property(strong)NSMutableArray* unAffectedObjects;
 
 @end

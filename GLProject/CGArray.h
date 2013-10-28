@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CGArray : NSObject // TODO: make a float array and a unsigned array in the same file..
-
+@interface CGArray : NSObject
 
 /**
  * Initialises an CGArray for a given data with a specified capacity.
@@ -29,5 +28,16 @@
  * @return The number of elements in the array.
  */
 - (unsigned int) capacity;
+
+/**
+ * Returns the size in bytes of an element in the array.
+ * Override this method in order to change the data type of the array.
+ * @return The size in bytes.
+ */
+- (int) elementsSize;
+
+@end
+
+@interface CGFloatArray : CGArray
 
 @end

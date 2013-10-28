@@ -381,8 +381,8 @@
 			children = (
 				A7EA756F181095FB00643168 /* CGDefaultRenderProgram.h */,
 				A7EA7570181095FB00643168 /* CGDefaultRenderProgram.m */,
-				A7EA757218109E8300643168 /* DefaultShader_f.glsl */,
 				A7EA757318109E8300643168 /* DefaultShader_v.glsl */,
+				A7EA757218109E8300643168 /* DefaultShader_f.glsl */,
 			);
 			name = DefaultRender;
 			sourceTree = "<group>";

@@ -19,10 +19,10 @@
     EAGLContext* _context;
     GLuint _colorRenderBuffer;
     
-    CGRenderer* engine;
+    CGRenderer* renderer;
     
 }
 
--(CGRenderer*) engine;
+-(CGRenderer*) renderer;
 
 @end

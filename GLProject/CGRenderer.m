@@ -33,6 +33,9 @@
         
         self.layer = layer;
         
+        self.ambientLightColor = ccc3(255,255,255);
+        self.ambientLightIntensity = 1.0;
+        
         float h = 4.0f * self.layer.frame.size.height / self.layer.frame.size.width;
         self.camera  = [[CGCamera alloc] init];        
         [self.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:3 andFar:90];

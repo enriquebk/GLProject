@@ -9,5 +9,18 @@
 #import "CGLight.h"
 
 @implementation CGLight
-//la luz es un nodo pero es agregado al al shader por defecto... (los objetos oueden no querer iliminarse por esa luz) (array unAffectedObjects)
+
+-(id)init{
+    
+    self = [super init];
+    if(self){
+        _active = true;
+        _unAffectedObjects = [[NSMutableArray alloc] init];
+        _color = ccc3(255, 255 , 255);
+        _intensity = 1.0;
+    }
+    return self;
+}
+
+
 @end

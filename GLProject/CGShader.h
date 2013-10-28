@@ -36,7 +36,6 @@
 + (CGShader*)shaderNamed:(NSString*)shaderFiles;
 
 
-
 @end
 
 /*

@@ -77,7 +77,7 @@
 
 -(void)rotate:(CC3Vector) aVector{
     [self.matrix rotateBy:aVector];
-    
+
     _rotation.x+=aVector.x;
     _rotation.y+=aVector.y;
     _rotation.z+=aVector.z;
@@ -114,6 +114,25 @@
 
 -(void)removeAllChilds{
     [self.childs removeAllObjects];
+}
+
+-(CC3GLMatrix *)transformedMatrix{
+
+    if(self.parent){
+        
+        CC3GLMatrix * newMatrix = self.matrix;
+        
+        CGNode* parent = self.parent;
+        while (parent) {
+            newMatrix = [newMatrix copy];
+            [newMatrix multiplyByMatrix:parent.matrix];
+            parent = parent.parent;
+        }
+        
+        return newMatrix;
+    }
+    
+    return [self.matrix copy];
 }
 
 @end

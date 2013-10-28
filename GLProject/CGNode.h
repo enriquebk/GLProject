@@ -20,7 +20,7 @@
 
 @property(strong)CC3GLMatrix *matrix;
 
-@property(assign,nonatomic)CC3Vector  position;
+@property(assign,nonatomic)CC3Vector  position; //local axis?
 @property(assign,nonatomic)CC3Vector  rotation;
 @property(assign,nonatomic)CC3Vector  scale;
 
@@ -71,5 +71,12 @@
 /**
  */
 -(void)scale:(CC3Vector) aVector;
+
+/**
+ *  Returns the node's matrix applying parent's transformations.
+ *
+ *  @return A copy of the node's matrix with the parent's transformations.
+ */
+-(CC3GLMatrix *)transformedMatrix;
 
 @end

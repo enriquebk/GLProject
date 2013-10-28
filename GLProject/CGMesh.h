@@ -21,19 +21,19 @@
 @interface CGMesh : NSObject
 
 
--(id)initWithVertexData:(CGArray*)vertexData;
+-(id)initWithVertexData:(CGFloatArray*)vertexData;
 
--(id)initWithVertexData:(CGArray*)vertexData indices: (CGArray*)indices;
+-(id)initWithVertexData:(CGFloatArray*)vertexData indices: (CGFloatArray*)indices;
 
 /**
  * An array with all the info for each vertex
  */
-@property(strong,readonly)CGArray* vertexData;
+@property(strong,readonly)CGFloatArray* vertexData;
 
 /**
  * An array that gives a list of triangles to create, by specifying the 3 vertices that make up each triangle
  */
-@property(strong,readonly)CGArray* indices;
+@property(strong,readonly)CGFloatArray* indices;
 
 /**
  * An array that have all the possible animations that the mesh can make.

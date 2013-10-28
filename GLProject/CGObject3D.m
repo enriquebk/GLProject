@@ -8,6 +8,7 @@
 
 #import "CGObject3D.h"
 #import "CGDefaultRenderProgram.h"
+#import "MeshFactory.h"
 
 @interface CGMesh (){
     
@@ -16,7 +17,6 @@
 }
 
 @end
-
 
 @implementation CGObject3D
 
@@ -31,7 +31,10 @@
         _frameIndex = 0;
         _frameFactor = 0.0f;
         _nextFrameOffSet = 1;
-        _color = (ccColor4F){1.0,1.0,1.0,1.0};
+        _color = CCC4FMake(1.0f, 1.0f, 1.0f, 1.0f);
+        _textureScale =  1.0f;
+        _specularFactor = 0.5f;
+        _specularColor = ccc3(255, 255, 255);
     }
     
     return self;
@@ -73,5 +76,51 @@
     NSLog(@"[Error] Animation with name %@ was not found",animationName);
 }
 
+
++ (CGObject3D*) MD2ObjectNamed:(NSString*) filename{
+
+    return [[CGObject3D alloc] initWithMesh:[MeshFactory meshMD2Named:filename]];
+}
+
++ (CGObject3D*) plane{
+ 
+    CGMesh* planeMesh = [MeshFactory meshNamed:@"CGPlane"];
+    
+    if(!planeMesh){
+        const float vertexs[] = {
+        //       position              normal       uv coords
+        //    x      y       z      x    y    z      u    v
+             0.5,  -0.5,   0.0,    0.0, 0.0, 1.0,   1.0, 0.0,
+             0.5,   0.5,   0.0,    0.0, 0.0, 1.0,   1.0, 1.0,
+            -0.5,   0.5,   0.0,    0.0, 0.0, 1.0,   0.0, 1.0,
+            -0.5,  -0.5,   0.0,    0.0, 0.0, 1.0,   0.0, 0.0  };
+
+        GLubyte indices[] = {
+            0, 1, 2,
+            2, 3, 0
+        };
+        int indicesCount = 6;
+        int vertexsCount = 4;
+        int floatsPerVertex = 8;
+        int vertexDataFloatsCount = floatsPerVertex*vertexsCount;
+        
+        CGFloatArray* vertexData = [[CGFloatArray alloc] initWithData:(void*)vertexs withCapacity:vertexDataFloatsCount];
+        
+        CGFloatArray* indexData = [[CGFloatArray alloc] initWithData:(void*)indices withCapacity: indicesCount];
+        
+        planeMesh = [[CGMesh alloc] initWithVertexData: vertexData indices: indexData];
+        
+        planeMesh.drawMode = GL_TRIANGLE_FAN;
+    }
+
+    return [[CGObject3D alloc] initWithMesh:planeMesh];
+}
+
++ (CGObject3D*) box{
+
+    NSLog(@"method + (CGObject3D*) box - unimplemented");
+    
+    return nil;
+}
 
 @end

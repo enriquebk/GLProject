@@ -5,10 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Tabla de normales */
-_Vec3 anorms_table[162] = {
-#include "anorms.h"
-};
 
 int readMd2File (const char *filename, struct Md2_model *modelo)
 {

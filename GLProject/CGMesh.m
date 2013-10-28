@@ -22,7 +22,7 @@
 
 @implementation CGMesh
 
--(id)initWithVertexData:(CGArray*)vertexData{
+-(id)initWithVertexData:(CGFloatArray*)vertexData{
 
     self = [super init];
     
@@ -33,7 +33,7 @@
     return self;
 }
 
--(id)initWithVertexData:(CGArray*)vertexData indices: (CGArray*)indices{
+-(id)initWithVertexData:(CGFloatArray*)vertexData indices: (CGFloatArray*)indices{
 
     self = [super init];
     
@@ -49,15 +49,15 @@
     return self;
 }
 
--(void)configureWithVertexData:(CGArray*)vertexData{
+-(void)configureWithVertexData:(CGFloatArray*)vertexData{
     
     _frameCount = 1;
 
     _vertexData = vertexData;
     
     self.positionOffset = 0;
-    self.normalOffset = VBO_NULL_ELEMENT;
-    self.uvOffset = sizeof(float) * (VBO_POSITION_SIZE);
+    self.normalOffset = sizeof(float) * VBO_POSITION_SIZE;
+    self.uvOffset = sizeof(float) * (VBO_POSITION_SIZE + VBO_NORMAL_SIZE);
     
     self.drawMode = GL_TRIANGLES;
     

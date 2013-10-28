@@ -9,6 +9,12 @@
 #import "MeshFactory.h"
 #include "MD2Loader.h"
 
+/* Tabla de normales */
+_Vec3 _anorms_table[162] = {
+#include "anorms.h"
+};
+
+
 @implementation MeshFactory
 
 static MeshFactory* _meshFactory;
@@ -60,7 +66,7 @@ static MeshFactory* _meshFactory;
         
         struct Md2_model *pModeloAuxiliar = &modeloAuxiliar;
         
-        int defaultStride = VBO_POSITION_SIZE + VBO_UV_SIZE /*+ VBO_NORMAL_SIZE */;
+        int defaultStride = VBO_POSITION_SIZE +  VBO_NORMAL_SIZE + VBO_UV_SIZE;
         
         float floatsCount = defaultStride*pModeloAuxiliar->header.num_triangulos*3*pModeloAuxiliar->header.num_frames;
         
@@ -86,10 +92,18 @@ static MeshFactory* _meshFactory;
                     
                     pvert = &(pframe->verts[ptri->vertex[vIndex]]);
                 
-                    //Position - MD2's coords
+                    //Position
                     vertices[arrayIndex++] = (float)((pframe->scale[2] * pvert->v[2]) + pframe->translate[2]);
                     vertices[arrayIndex++] = (float)((pframe->scale[1] * pvert->v[1]) + pframe->translate[1]);
                     vertices[arrayIndex++] = (float)((pframe->scale[0] * pvert->v[0]) + pframe->translate[0]);
+                    
+                    //Normals
+                    
+                    vertices[arrayIndex++] = _anorms_table[pvert->normalIndex][2];
+                    vertices[arrayIndex++] = _anorms_table[pvert->normalIndex][1];
+                    vertices[arrayIndex++] = _anorms_table[pvert->normalIndex][0];
+                    
+
                     
                     //UV cords
                     vertices[arrayIndex++]  = (float)pModeloAuxiliar->texcoords[ptri->st[vIndex]].u / pModeloAuxiliar->header.ancho_textura;
@@ -102,8 +116,9 @@ static MeshFactory* _meshFactory;
         
         m = [[CGMesh alloc]
                         initWithVertexData:
-                        [[CGArray alloc] initWithData:(void*)vertices
+                        [[CGFloatArray alloc] initWithData:(void*)vertices
                                          withCapacity:floatsCount ]];
+        
         m.frameCount =pModeloAuxiliar->header.num_frames;
         
         

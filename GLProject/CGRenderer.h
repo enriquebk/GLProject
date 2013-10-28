@@ -15,7 +15,7 @@
 @class CGObject3D;
 @class CGSceneGraph;
 
-@interface CGRenderer : NSObject{ //TODO:rename => renderer
+@interface CGRenderer : NSObject{ 
     
 }
 
@@ -26,6 +26,16 @@
 @property(strong) CGCamera* camera;
 
 @property(assign)GLuint currentShaderHandler;
+
+/*
+ * Background light color
+ */
+@property(assign)ccColor3B ambientLightColor;
+
+/*
+ * Background level of light;
+ */
+@property(assign)float ambientLightIntensity;
 
 
 -(id)initWithLayer:(CAEAGLLayer*)layer;

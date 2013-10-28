@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "CGRenderProgram.h"
 
+#define  CGDefaultRenderProgram_max_lights    4
+
 @interface CGDefaultRenderProgram : CGRenderProgram
 
 
