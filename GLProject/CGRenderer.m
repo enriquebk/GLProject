@@ -51,6 +51,7 @@
         glViewport(0, 0, layer.frame.size.width/d , layer.frame.size.height/d );
         
         self.displayList = [[NSMutableArray alloc] init];
+        self.displayListSortSelector = nil;
         self.lights = [[NSMutableArray alloc] init];
         
         // Enable depth buffer
@@ -118,10 +119,12 @@
 
 -(void)render{
     
-    for (CGNode* n in self.displayList) {
-       
+    if(self.displayListSortSelector){
+        [self.displayList sortUsingSelector:self.displayListSortSelector];
+    }
+    
+    for (CGNode<CGDrawableNode>* n in self.displayList) {
         [n drawWithRenderer:self];
-     
     }
     
     [_context presentRenderbuffer:GL_RENDERBUFFER];//Call a method on the OpenGL context to present the render/color buffer to the UIView’s layer!
@@ -139,22 +142,32 @@
 }
 
 
--(void)addObject:(CGObject3D*)o{
+-(void)addNode:(CGNode<CGDrawableNode>*)node{
     
-    [self.displayList addObject:o];
+    [self.displayList addObject:node];
 }
 
--(void)removeObject:(CGObject3D*)o{
+-(void)removeNode:(CGNode<CGDrawableNode>*)node{
     
-    [self.displayList removeObject:o];
+    [self.displayList removeObject:node];
 }
 
--(void)addLight:(CGLight*)l{
-    [self.lights addObject:l];
+-(void)addObject:(CGObject3D*)object{
+    
+    [self.displayList addObject:object];
 }
 
--(void)removeLight:(CGLight*)l{
-    [self.lights removeObject:l];
+-(void)removeObject:(CGObject3D*)object{
+    
+    [self.displayList removeObject:object];
+}
+
+-(void)addLight:(CGLight*)light{
+    [self.lights addObject:light];
+}
+
+-(void)removeLight:(CGLight*)light{
+    [self.lights removeObject:light];
 }
 
 

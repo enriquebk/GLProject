@@ -11,10 +11,14 @@
 #import "CGObject3D.h"
 #import "MeshFactory.h"
 #import "TextureManager.h"
+#import "CGParticleSystem.h"
+
+#import "CGSimpleRenderProgram.h"
 
 @interface CGViewController (){
 
     CGView * cgview;
+    CGRenderer* renderer;
     float pos;
     CGObject3D* knight;
     
@@ -24,6 +28,13 @@
     CGObject3D* plane;
     
     CGLight* light;
+    
+    double currentTime;
+	double renderTime;
+    double frameTimestamp;
+    
+    CGParticleSystem* particleSystem;
+
 }
 
 @end
@@ -56,10 +67,12 @@ GLubyte Indices[] = {
     cgview =[[CGView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.glView addSubview:cgview];
     
+    renderer = cgview.renderer;
+    
     /*
     CGMesh* mesh = [[CGMesh alloc]
                     initWithVertexData:
-                    [[CGFloatArray alloc] initWithData:(void*)Vertices
+                    [[  alloc] initWithData:(void*)Vertices
                                      withCapacity:8*4]];
     mesh.drawMode = GL_TRIANGLE_FAN;
     [MeshFactory addMesh:mesh withName:@"CGMeshplane"];
@@ -68,12 +81,12 @@ GLubyte Indices[] = {
     
     floor = [CGObject3D plane];
     
-    [floor setTexture: [[TextureManager sharedInstance] textureFromFileName:@"tile_floor"]];
+    [floor setTexture: [[TextureManager sharedInstance] textureFromFileName:@"grassTexture.jpg"]];
     [floor rotate:cc3v(-90, 0, 0)];
     [floor translate:cc3v(2.5, -7.1, -2.5)];
     [floor scale:CC3VectorMake(200, 200, 200)];
     floor.textureScale = 10.0f;
-    [cgview.renderer addObject:floor];
+    [renderer addObject:floor];
 
     
     knight= [CGObject3D MD2ObjectNamed:@"knight"];
@@ -84,8 +97,8 @@ GLubyte Indices[] = {
     //[knight setAnimationWithName:@"Stand"];
     [knight setAnimationWithName:@"Run"];
     //knight.color = (ccColor4F){1,0,1,0.5};
-    [cgview.renderer addObject:knight];
-
+    [renderer addObject:knight];
+    //[knight translate:CC3VectorMake(0.0, 10, 0.0)];
     /*
      CGObject3D* w = [[CGObject3D alloc] initWithMesh:[MeshFactory meshMD2Named:@"weapon"]];
      [o addChild:w];
@@ -94,19 +107,37 @@ GLubyte Indices[] = {
     
     light = [[CGLight alloc] init];
     [light translate:cc3v(0, 10, 0)];
-    [cgview.renderer addLight:light];
+    [renderer addLight:light];
 
+    //[light.unAffectedObjects addObject:floor];
     //light.color = ccGREEN ;
     //light.intensity = 0.4;
-   cgview.renderer.ambientLightIntensity = 0.7f;
+    
+    renderer.ambientLightIntensity = 0.7f;
 
     floor.specularFactor = 0.4;
+    floor.lightAffected = NO;
+    //floor.renderProgram = [[CGSimpleRenderProgram alloc]init];
     
     
-    [cgview.renderer setClearColor:12.0f/255 g:183.0f/255 b:242.0f/255 a:1.0];
-    [cgview.renderer.camera translate:CC3VectorMake(0,-2,0)];
+    [renderer setClearColor:12.0f/255 g:183.0f/255 b:242.0f/255 a:1.0];
+    [renderer.camera translate:CC3VectorMake(0,-2,0)];
     
     direction =1.0f;
+
+    CGObject3D* sky = [CGObject3D plane];
+    [sky setTexture: [[TextureManager sharedInstance] textureFromFileName:@"SkyBox-Clouds-front.png"]];
+    [sky translate:cc3v(0.0,-5.0, -40)];
+    [sky scale:cc3v(150,150 , 150)];
+    [sky rotate:cc3v(0,0 , 180)];
+    [renderer addObject:sky];
+    sky.lightAffected = NO;
+    //sky.renderProgram = [[CGSimpleRenderProgram alloc]init];
+    
+    particleSystem = [[CGParticleSystem alloc] init];
+    [particleSystem startEmission];
+    [particleSystem translate:CC3VectorMake(0, 10, 0)];
+    [renderer addNode:particleSystem];
     
     
     [self runLoop];
@@ -116,22 +147,32 @@ GLubyte Indices[] = {
 - (void)runLoop {
     CADisplayLink* displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    frameTimestamp = CACurrentMediaTime();
 }
 
 - (void)render:(CADisplayLink*)displayLink {
     
-    [cgview.renderer clear];
+    
+    currentTime = CFAbsoluteTimeGetCurrent();
+    renderTime = (currentTime - frameTimestamp);
+    
+	frameTimestamp = currentTime;
+    
+    [renderer clear];
     
     [self hadleEvents:displayLink];
     
+    
+    [particleSystem update:renderTime];
     
     // ANIMATION STUFF ////////////////////////
     //TODO: Clase que maneje las animaciones (Animation manager) por objeto; (animation completation)
     
     float pers = knight.animationCompletePercentage;
+
     
     if([knight.currentAnimation.name isEqualToString:@"Run"]){
-        pers    += 0.015f;
+        pers    += 0.3f*renderTime;
         if(pers >1.0f){
             pers = 0.0f;
         }
@@ -149,51 +190,54 @@ GLubyte Indices[] = {
     
     knight.animationCompletePercentage = pers;
    [light translate:cc3v(0.00, 0.0, 0.1)];
+    [particleSystem translate:cc3v(0.00, 0.0, -0.1)];
     
     ////////////////////////////////////////////////////
     [cgview.renderer render];
 }
 
 
-//TODO: La rotacion de la camara anda mal (modificar pipeline? p*v*m*p?)
 - (void)hadleEvents:(CADisplayLink*)displayLink{
 
     if(rotUp || rotDown || rotLeft || rotRight ){
         
-        CC3Vector p = cgview.renderer.camera.position;
-        CC3Vector r = cgview.renderer.camera.rotation;
+        float rotation = 50.0f*renderTime;
         
-        [ cgview.renderer.camera translate:CC3VectorMake(
+        CC3Vector p = renderer.camera.position;
+        CC3Vector r = renderer.camera.rotation;
+        
+        [renderer.camera translate:CC3VectorMake(
                                                        -cgview.renderer.camera.position.x,
                                                        -cgview.renderer.camera.position.y,
                                                        -cgview.renderer.camera.position.z)];
-        
         if(rotUp || rotDown ){
         
             //Respect the rotation YXZ order
             
-            [ cgview.renderer.camera.viewMatrix rotateByY:-cgview.renderer.camera.rotation.y];
+            [renderer.camera.viewMatrix rotateByY:-cgview.renderer.camera.rotation.y];
         
-            [ cgview.renderer.camera rotate:CC3VectorMake(rotUp?-1:1,0,0)];
+            [renderer.camera rotate:CC3VectorMake(rotUp?-rotation:rotation,0,0)];
             
-            [ cgview.renderer.camera.viewMatrix rotateByY:r.y];
+            [renderer.camera.viewMatrix rotateByY:r.y];
 
         
         }else if(rotLeft || rotRight ){
             
-            [ cgview.renderer.camera rotate:CC3VectorMake(0,rotLeft?-1:1,0)];
+            [renderer.camera rotate:CC3VectorMake(0,rotLeft?-rotation:rotation,0)];
             
         }
         
-        [ cgview.renderer.camera translate:CC3VectorMake( p.x, p.y, p.z)];
+        [renderer.camera translate:CC3VectorMake( p.x, p.y, p.z)];
     }
 
+    float movement = 10.0f*renderTime;
+    
     if(moveBwd || moveFwd){
-        [ cgview.renderer.camera translate:CC3VectorMake(0, 0, moveFwd?0.1:-0.1)];
+        [renderer.camera translate:CC3VectorMake(0, 0, moveFwd?movement:-movement)];
     }
     
     if(moveRight || moveLeft){
-        [ cgview.renderer.camera translate:CC3VectorMake(moveRight?-0.1:0.1,0, 0)];
+        [renderer.camera translate:CC3VectorMake(moveRight?-movement:movement,0, 0)];
     }
 }
 

@@ -1,66 +1,72 @@
 
-//uniform int lightsCount; como pasar lights count?
-#define MAX_LIGHTS 4
+#define LIGHT_ON
 
-uniform mediump vec4 ambient_light_color;
-uniform mediump float ambienIntensity;
+#define LIGHTS_COUNT 1
 
-uniform mediump float specularIntensity;//Shiness
-uniform mediump vec4 light_specular; //Object reflected Color
+
+uniform lowp vec4 ambient_light_color;
+uniform lowp float ambienIntensity;
+
+uniform lowp float specularIntensity;//Shiness
+uniform lowp vec4 light_specular; //Object reflected Color
+
+#ifdef LIGHT_ON
 
 //Lights
 struct Light {
-	mediump vec3  position;
-	mediump vec4  color;
-    mediump float intensity;
+	lowp vec3  position;
+	lowp vec4  color;
+    lowp float intensity;
 };
 
-uniform int lightsCount;
-uniform Light lights[MAX_LIGHTS];
+uniform Light lights[LIGHTS_COUNT];
+
+varying lowp vec4 pointPosition; //Punto en camera space
+varying lowp vec3 pointNormal; //Normal en camera space
+
+const lowp float k_shineFactor = 32.0;
+#endif
+
 
 //'Constants'
 uniform sampler2D Texture;
-uniform int TextureCount;//move to int
-uniform mediump vec4 SourceColor;
+uniform mediump vec4 color;
 //Pre-calculeted values
 varying lowp vec2 TexCoordOut;
 
-varying mediump vec4 pointPosition; //Punto en camera space
-varying mediump vec3 pointNormal; //Normal en camera space
-
-
-const mediump float k_shineFactor = 32.0;
 
 void main(void) {
     
-    mediump vec4 frag_diffuse;
+    
 
-    if(TextureCount >= 1){
-        frag_diffuse = texture2D(Texture, TexCoordOut)*SourceColor;// Color del objeto
-    }else{
-        frag_diffuse = SourceColor;
-    }
-    mediump vec4 specular_factor = vec4(0.0,0.0,0.0,0.0);
-    mediump vec4 diffuse_factor = vec4(0.0,0.0,0.0,0.0);
+    
+#ifdef LIGHT_ON
+    
+    lowp vec4 frag_diffuse= texture2D(Texture, TexCoordOut)*color;// Color del objeto
+
+    lowp vec4 specular_factor = vec4(0.0,0.0,0.0,0.0);
+    lowp vec4 diffuse_factor = vec4(0.0,0.0,0.0,0.0);
     
     ///////Lights
     
-    for (int i = 0; i< lightsCount; i++) {
+    lowp vec3 normal = normalize(pointNormal);
+    
+    for (int i = 0; i< LIGHTS_COUNT; i++) {
         
-        mediump float lightIntensity = lights[i].intensity;
+        lowp float lightIntensity = lights[i].intensity;
         
-        mediump vec3 lightVector = (lights[i].position - pointPosition.xyz);
-        mediump float lamberFactor  =  max( dot(normalize(lightVector), normalize(pointNormal)), 0.0 ); //Producto punto nos da el cos del angulo entere 2 vectores
+        lowp vec3 lightVector = (lights[i].position - pointPosition.xyz);
+        lowp float lamberFactor  =  max( dot(normalize(lightVector), normal), 0.0 ); //Producto punto nos da el cos del angulo entere 2 vectores
         
         //Obtengo el color de la luz
         diffuse_factor = diffuse_factor + (lamberFactor * lights[i].color)* lightIntensity;// Color de la luz
         
         //Obtengo el reflejo
-        mediump vec3 eye = normalize(-pointPosition.xyz);
-        mediump vec3 reflection = normalize(eye + lightVector);//Forma economica de obtener el vector reflejo
+        lowp vec3 eye = normalize(-pointPosition.xyz);
+        lowp vec3 reflection = normalize(eye + lightVector);//Forma economica de obtener el vector reflejo
         
         specular_factor = specular_factor +
-        (min(max(pow(dot(reflection,normalize(pointNormal)), k_shineFactor), 0.0),1.0 )* light_specular*specularIntensity);//variable normal normalizada
+        (min(max(pow(dot(reflection,normal), k_shineFactor), 0.0),1.0 )* light_specular*specularIntensity);//variable normal normalizada
         
         //TODO: Agregar disatancia despues de un tiempo q vaya iluminando menos
     }
@@ -68,7 +74,12 @@ void main(void) {
     
     /////////////
     
+     gl_FragColor = specular_factor + frag_diffuse* (diffuse_factor + ambient_light_color*ambienIntensity);
+#else
+    
+    gl_FragColor = texture2D(Texture, TexCoordOut)*color;
+#endif
 
-    gl_FragColor = specular_factor + frag_diffuse* (diffuse_factor + ambient_light_color*ambienIntensity);
+
     
 }

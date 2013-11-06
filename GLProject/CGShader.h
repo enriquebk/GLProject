@@ -27,16 +27,22 @@
 -(id)initWithVertexShader:(NSString*)vs fragmentShader:(NSString*)fs;
 
 /* */
+-(id)initWithVertexShaderSource:(NSString*)vs fragmentShaderSource:(NSString*)fs;
+
+/* */
 + (GLuint)compileShader:(NSString*)shaderName withType:(GLenum)shaderType;
 
 /* */
-//+ (GLuint)compileShader:(NSString*)shaderName withType:(GLenum)shaderType precompildedMacros:(NSString*)macros;
++ (GLuint)compileShaderSource:(NSString*)source withType:(GLenum)shaderType;
 
 /* TODO: Explain... */
 + (CGShader*)shaderNamed:(NSString*)shaderFiles;
 
+/* TODO: Explain... */
++ (CGShader*)shaderWithvertexSource:(NSString*)vs withFragmentSource:(NSString*)fs;
 
 @end
+
 
 /*
  *

@@ -9,6 +9,7 @@
 #import "CGObject3D.h"
 #import "CGDefaultRenderProgram.h"
 #import "MeshFactory.h"
+#import "TextureManager.h"
 
 @interface CGMesh (){
     
@@ -27,7 +28,7 @@
     if(self){
         _mesh = mesh;
         _renderProgram = [[CGDefaultRenderProgram alloc] init];
-        _textures = [[NSMutableArray alloc]init];
+        _texture = [[TextureManager sharedInstance] textureFromFileName:@"1pixel-wit.png"];
         _frameIndex = 0;
         _frameFactor = 0.0f;
         _nextFrameOffSet = 1;
@@ -35,6 +36,7 @@
         _textureScale =  1.0f;
         _specularFactor = 0.5f;
         _specularColor = ccc3(255, 255, 255);
+        _lightAffected = YES;
     }
     
     return self;
@@ -43,10 +45,6 @@
 -(void)drawWithRenderer:(CGRenderer *)renderer{
     
     [self.renderProgram drawObject:self withRenderer:renderer];
-}
-
--(void) setTexture:(CGTexture*)texture{
-    [self.textures insertObject:texture atIndex:0];
 }
 
 -(void)setAnimationCompletePercentage:(float)animationCompletePercentage{

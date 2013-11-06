@@ -64,8 +64,8 @@ static TextureManager* textureManager;
     glGenTextures(1, &texName);
     glBindTexture(GL_TEXTURE_2D, texName);
     
-    /* Texture propertys */
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    /* Texture parameters */
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, spriteData);
     

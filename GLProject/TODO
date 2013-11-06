@@ -1,9 +1,17 @@
 AGREGAR LISTA DE SHADERS POR DEFECTO
 
 
+-DEFAULT RENDER UN SOLO SHADER...! (SI ESTA AFECTADO POR LAS LUCES Y NO RIENE LICES QUE LO AFECTEN INTENCIDAD CERO!)
+
+
 - Agregar ray pick
 - Utilizar mesh con indices (mas performante!)...
-- poder dar orden al array de objetos
+- rotar camara..
+- textures parameters!
+- DOCUMENTAR (metodos, clases propiedades y progmarks)
+- worldSpace position - readonly...
+-performance check..
+- Luces direccionales 
 
 
 //
@@ -22,6 +30,6 @@ Tipos de camara
 camara primera perosna
 camara trakball = siempre enfocada en un punto("foco")
 
-DOCUMENTAR Y DIAGRAMAR
+
 
 

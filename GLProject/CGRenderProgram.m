@@ -12,9 +12,10 @@
 
 -(void)drawObject:(CGObject3D*) object withRenderer:(CGRenderer*)renderer{
     
-    if(self.shader.handler != renderer.currentShaderHandler ){
+   // if(self.shader.handler != renderer.currentShaderHandler ){
         glUseProgram(self.shader.handler);
-    }
+   ////     renderer.currentShaderHandler = self.shader.handler;
+   // }
 }
 
 @end

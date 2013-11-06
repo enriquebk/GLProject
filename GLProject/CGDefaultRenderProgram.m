@@ -15,7 +15,7 @@
 #define  CGShaderParameter_ModelViewProjectionMatrix    "modelViewProjectionMatrix"
 #define  CGShaderParameter_ModelViewMatrix               "modelViewMatrix"
 #define  CGShaderParameter_ViewMatrix                    "viewMatrix"
-#define  CGShaderParameter_SourceColor                  "SourceColor"
+#define  CGShaderParameter_SourceColor                  "color"
 #define  CGShaderParameter_TextCoord                    "TexCoordIn"
 #define  CGShaderParameter_Texture                      "Texture"
 #define  CGShaderParameter_NextFramePos                 "nextFramePosition"
@@ -57,6 +57,12 @@
     GLuint _specularFactor;
     GLuint _specularColor;
     
+    CGShader* shaderLightsOff;
+    CGShader* shaderOneLight;
+    CGShader* shaderTwoLights;
+    CGShader* shaderThreeLights;
+    CGShader* shaderFourLights;
+    
 }
 
 @end
@@ -68,8 +74,37 @@
     
     self = [super init];
     
-    self.shader = [CGShader shaderNamed:CGDefaultShaderKey];
+   /* NSError* error;
+    NSString* shaderPath = [[NSBundle mainBundle] pathForResource:@"DefaultShader_v"
+                                                           ofType:@"glsl"];
+    NSString* vshaderString = [NSString stringWithContentsOfFile:shaderPath
+                                                       encoding:NSUTF8StringEncoding error:&error];
+    shaderPath = [[NSBundle mainBundle] pathForResource:@"DefaultShader_f"
+                                                 ofType:@"glsl"];
 
+    NSString* fshaderString = [NSString stringWithContentsOfFile:shaderPath
+                                                        encoding:NSUTF8StringEncoding error:&error];
+    
+    shaderOneLight = [CGShader shaderWithvertexSource:[@"#define LIGHT_ON " stringByAppendingString:vshaderString]
+                                withFragmentSource:[@"#define LIGHT_ON \n #define LIGHTS_COUNT 1" stringByAppendingString:fshaderString]];
+    
+    shaderTwoLights = [CGShader shaderWithvertexSource:[@"#define LIGHT_ON " stringByAppendingString:vshaderString]
+                                   withFragmentSource:[@"#define LIGHT_ON \n #define LIGHTS_COUNT 2" stringByAppendingString:fshaderString]];
+    
+    shaderThreeLights = [CGShader shaderWithvertexSource:[@"#define LIGHT_ON " stringByAppendingString:vshaderString]
+                                    withFragmentSource:[@"#define LIGHT_ON \n #define LIGHTS_COUNT 3" stringByAppendingString:fshaderString]];
+    shaderFourLights = [CGShader shaderWithvertexSource:[@"#define LIGHT_ON " stringByAppendingString:vshaderString]
+                                      withFragmentSource:[@"#define LIGHT_ON \n #define LIGHTS_COUNT 4" stringByAppendingString:fshaderString]];
+    
+    shaderLightsOff = [CGShader shaderWithvertexSource:vshaderString
+                                   withFragmentSource:fshaderString];
+    self.shader =shaderLightsOff;*/
+    
+    shaderLightsOff = [CGShader shaderNamed:@"SimpleShader"];
+    shaderOneLight = [CGShader shaderNamed:CGDefaultShaderKey];
+    
+    self.shader = [CGShader shaderNamed:CGDefaultShaderKey];
+    
     [self setBlendFuncSourceFactor:GL_SRC_ALPHA destinationFactor:GL_ONE_MINUS_SRC_ALPHA];
     
     [self setupParameters];
@@ -79,6 +114,13 @@
 
 -(void)drawObject:(CGObject3D*) object withRenderer:(CGRenderer*)renderer{
     
+    if(object.lightAffected){
+       self.shader =shaderOneLight;
+    }else{
+       self.shader = shaderLightsOff;
+    }
+    [self setupParameters];
+
     
     [super drawObject:object withRenderer:renderer];
     
@@ -92,21 +134,22 @@
     glEnableVertexAttribArray(_nextFrameNormalSlot);
     glEnableVertexAttribArray(_nextFramePosSlot);
     
-    if ([object.textures count]>0) {
-        CGTexture* t = [object.textures objectAtIndex:0];
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, t.handler);
-        glUniform1i(_textureUniform, 0);
-    }
+    
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, object.texture.handler);
+    glUniform1i(_textureUniform, 0);
+    
     
     glBindBuffer(GL_ARRAY_BUFFER, [object.mesh VBOHandler]);
     
     
     // Calculate modelViewMatrix & modelViewProjectionMatrix ///
     
-    CC3GLMatrix * modelMatrix = [object transformedMatrix];
+    CC3GLMatrix * modelMatrix = [object transformedMatrix]; //World space
+    
     CC3GLMatrix * modelViewMatrix = [renderer.camera.viewMatrix copy];
-    [modelViewMatrix multiplyByMatrix:modelMatrix];
+    
+    [modelViewMatrix multiplyByMatrix:modelMatrix];//Camera space
     
     glUniformMatrix4fv(_modelViewMatrixUniform, 1, 0,modelViewMatrix.glMatrix);
     
@@ -140,15 +183,9 @@
     
     
     // TEXTURE_MAPPING ////////////////////
-    if ([object.textures count]>0) {
-        glUniform1i(_textureEnableUniform, [object.textures count]);
-        glVertexAttribPointer(_texCoordSlot,VBO_UV_SIZE, GL_FLOAT, GL_FALSE,
+    glVertexAttribPointer(_texCoordSlot,VBO_UV_SIZE, GL_FLOAT, GL_FALSE,
                               object.mesh.stride,(GLvoid*) (frameOffset  + object.mesh.uvOffset));
-    }else{
-        glUniform1i(_textureEnableUniform, 0);
-        glVertexAttribPointer(_texCoordSlot,1, GL_FLOAT, GL_FALSE,
-                              1,(GLvoid*) (0));
-    }
+
     //////////////////////////////////////
     
     glUniform1f(_textureScaleUniform, object.textureScale);
@@ -168,6 +205,7 @@
                                          + object.mesh.normalOffset));
     
         glUniform1f(_keyframeFactor, (object.mesh.frameCount>1)?object.frameFactor:0.0f);
+        
     }else{
         
         //Keyframe animation not supported for elements array
@@ -187,37 +225,30 @@
     
     // Lights ////////////////
     
-    glUniform1f(_specularFactor,object.specularFactor);
-    glUniform1f(_specularFactor,object.specularFactor);
-    glUniform1f(_ambientLightIntensity,renderer.ambientLightIntensity ); //remove and stay with color?
-    glUniform4f(_ambientLightColor, renderer.ambientLightColor.r/255.0f, renderer.ambientLightColor.g/255.0f,
-                renderer.ambientLightColor.b/255.0f, 1.0f);
-    glUniform4f(_specularColor, object.specularColor.r/255.0f, object.specularColor.g/255.0f, object.specularColor.b/255.0f, 1.0f);
-    
-    
     int lightIndex = 0;
     int lcount = 0;
     
+
     for (CGLight* l in [renderer lights]) {
-        
+            
         if(![l.unAffectedObjects containsObject:object]){
-        
+            
             lcount++;
-        
+            
             CC3GLMatrix * lightModelMatrix = [l transformedMatrix];
             CC3GLMatrix * lightModelViewMatrix = [renderer.camera.viewMatrix copy];
             [lightModelViewMatrix multiplyByMatrix:lightModelMatrix];
-            
+                
             GLfloat* m = lightModelViewMatrix.glMatrix;
-            
+                
             //Lights position in camera space
             glUniform3f(_lightPositionLocation[lightIndex],m[12],m[13],m[14]);
-            
+                
             glUniform4f(_lightColorLocation[lightIndex], l.color.r/255.0f,l.color.g/255.0f,l.color.b/255.0f, 1.0f);
             
             glUniform1f(_lightIntensityLocation[lightIndex], l.intensity);
                 
-         }
+    }
         
         if (lightIndex >= CGDefaultRenderProgram_max_lights-1) {
             break;
@@ -225,6 +256,14 @@
             lightIndex ++;
         }
     }
+        
+    glUniform1f(_ambientLightIntensity,renderer.ambientLightIntensity ); //remove and stay with color?
+    
+    glUniform4f(_ambientLightColor, renderer.ambientLightColor.r/255.0f, renderer.ambientLightColor.g/255.0f,
+                renderer.ambientLightColor.b/255.0f, 1.0f);
+    glUniform1f(_specularFactor,object.specularFactor);
+
+    glUniform4f(_specularColor, object.specularColor.r/255.0f, object.specularColor.g/255.0f, object.specularColor.b/255.0f, 1.0f);
     
     glUniform1i(_lightsCount, lcount);
     
@@ -250,6 +289,11 @@
     glDisableVertexAttribArray(_positionSlot);
     glDisableVertexAttribArray(_texCoordSlot);
     glDisableVertexAttribArray(_nextFramePosSlot);
+    glDisableVertexAttribArray(_normalSlot);
+    glDisableVertexAttribArray(_nextFrameNormalSlot);
+    glDisableVertexAttribArray(_nextFramePosSlot);
+    glDisable(GL_BLEND);
+
 }
 
 -(void)setupParameters{

@@ -15,7 +15,7 @@
 @class CGRenderProgram;
 
 
-@interface CGObject3D : CGNode
+@interface CGObject3D : CGNode <CGDrawableNode>
 
 @property(strong)CGMesh* mesh;
 
@@ -27,15 +27,16 @@
 #pragma mark -
 #pragma mark Texture stuff
 
-@property(strong)NSMutableArray* textures;
+@property(strong)CGTexture* texture;
 
 @property(assign)float textureScale;
 
-/*Sets primary texture*/
--(void) setTexture:(CGTexture*)texture;
 
 #pragma mark -
 #pragma mark Material stuff
+
+
+@property(assign)bool lightAffected;
 
 /*
  * Specular reflection, the shine of polished or metallic surfaces (value between 0.0 - 1.0).
@@ -69,13 +70,14 @@
 
 
 #pragma mark -
-#pragma mark objects
+#pragma mark Object from 3D Format
 
 + (CGObject3D*) MD2ObjectNamed:(NSString*) filename;
 
 //+ (CGObject3D*) WaveFontObjectNamed:(NSString*) filename;
 
-//Primitives
+#pragma mark -
+#pragma mark Primitives
 
 + (CGObject3D*) plane;
 //+ (CGObject3D*) box;

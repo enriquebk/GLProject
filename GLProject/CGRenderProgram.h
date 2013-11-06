@@ -15,7 +15,7 @@
 @class CGRenderer;
 @class CGShader;
 
-@interface CGRenderProgram : NSObject
+@interface CGRenderProgram : NSObject //TODO: Make protocol, revisar... que tenga la logica del drawableNode...
 
 @property(strong)CGShader* shader;
 

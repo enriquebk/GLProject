@@ -32,7 +32,7 @@
 /**
  * Returns the size in bytes of an element in the array.
  * Override this method in order to change the data type of the array.
- * @return The size in bytes.
+ * @return The size in bytes of an element in the array.
  */
 - (int) elementsSize;
 

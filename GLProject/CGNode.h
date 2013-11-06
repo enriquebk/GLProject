@@ -9,8 +9,23 @@
 #import <Foundation/Foundation.h>
 #import "CC3GLMatrix.h"
 
-
 @class CGRenderer;
+
+#pragma mark -
+#pragma mark Protocol CGDrawableNode
+
+/**
+ */
+@protocol CGDrawableNode <NSObject>
+
+@required
+
+-(void)drawWithRenderer:(CGRenderer *)renderer;
+
+@end
+
+#pragma mark -
+#pragma mark CGNode
 
 @interface CGNode : NSObject
 
@@ -20,7 +35,7 @@
 
 @property(strong)CC3GLMatrix *matrix;
 
-@property(assign,nonatomic)CC3Vector  position; //local axis?
+@property(assign,nonatomic)CC3Vector  position; //TODO: GET WORLD SPACE POSITION
 @property(assign,nonatomic)CC3Vector  rotation;
 @property(assign,nonatomic)CC3Vector  scale;
 
@@ -54,10 +69,6 @@
 
 /**
  */
--(void)drawWithRenderer:(CGRenderer *)renderer;
-
-/**
- */
 -(void)translate:(CC3Vector) aVector;
 
 /**
@@ -80,3 +91,4 @@
 -(CC3GLMatrix *)transformedMatrix;
 
 @end
+

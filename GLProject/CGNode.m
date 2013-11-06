@@ -19,9 +19,7 @@
 -(id)init{
     self = [super init];
     if (self) {
-        self.childs = [[NSMutableArray alloc] init];
-        self.parent = nil;
-        self.matrix = [CC3GLMatrix identity];
+        [self initNode];
     }
     return self;
 }
@@ -30,12 +28,16 @@
     self = [super init];
     
     if (self) {
-        self.childs = [[NSMutableArray alloc] init];
+        [self initNode];
         self.parent = parent;
-        self.matrix = [CC3GLMatrix identity];
-        
     }
     return self;
+}
+
+-(void)initNode{
+    self.childs = [[NSMutableArray alloc] init];
+    self.parent = nil;
+    self.matrix = [CC3GLMatrix identity];
 }
 
 - (void)addChild:(CGNode *)child{
@@ -51,9 +53,6 @@
     return [self.childs count];
 }
 
--(void)drawWithRenderer:(CGRenderer *)renderer{
-    //override me
-}
 
 -(void)translate:(CC3Vector) aVector{
     GLfloat* m = self.matrix.glMatrix;

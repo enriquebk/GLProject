@@ -7,11 +7,6 @@
 //
 
 #import "CGView.h"
-#import "CC3GLMatrix.h"
-#import "CGObject3D.h"
-#import "CGMesh.h"
-#import "MeshFactory.h"
-#import "CGArray.h"
 #import "CGUtils.h"
 
 
