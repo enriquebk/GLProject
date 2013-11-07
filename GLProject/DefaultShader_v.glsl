@@ -1,5 +1,5 @@
 
-#define LIGHT_ON
+//#define LIGHT_ON
 
 // Vertex's attributes
 attribute vec4 Position;

@@ -97,6 +97,7 @@ GLubyte Indices[] = {
     //[knight setAnimationWithName:@"Stand"];
     [knight setAnimationWithName:@"Run"];
     //knight.color = (ccColor4F){1,0,1,0.5};
+    knight.specularFactor = 1.0f;
     [renderer addObject:knight];
     //[knight translate:CC3VectorMake(0.0, 10, 0.0)];
     /*
@@ -106,17 +107,26 @@ GLubyte Indices[] = {
      */
     
     light = [[CGLight alloc] init];
+    light.intensity = 0.7f;
     [light translate:cc3v(0, 10, 0)];
     [renderer addLight:light];
+    
+    
+    CGLight* light2= [[CGLight alloc] init];
+    light2.intensity = 1.9f;
+    [light2 translate:cc3v(0, 10, 2)];
+    light2.color = ccc3(255, 0,10);
+    [renderer addLight:light2];
 
     //[light.unAffectedObjects addObject:floor];
     //light.color = ccGREEN ;
     //light.intensity = 0.4;
     
-    renderer.ambientLightIntensity = 0.7f;
+    renderer.ambientLightIntensity = 0.1f;
 
-    floor.specularFactor = 0.4;
-    floor.lightAffected = NO;
+    floor.specularFactor = 0.2;
+    //floor.lightAffected = NO;
+   // [light.unAffectedObjects addObject: floor];
     //floor.renderProgram = [[CGSimpleRenderProgram alloc]init];
     
     

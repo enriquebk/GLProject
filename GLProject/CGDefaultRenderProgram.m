@@ -31,7 +31,6 @@
     GLuint _nextFrameNormalSlot;
     GLuint _texCoordSlot;
     
-    
     //Globals
     GLuint _colorSlot;
     GLuint _keyframeFactor;
@@ -52,7 +51,6 @@
     GLuint _lightIntensityLocation[CGDefaultRenderProgram_max_lights];
     
     GLuint _ambientLightIntensity;
-    GLuint _lightsCount;
     GLuint _ambientLightColor;
     GLuint _specularFactor;
     GLuint _specularColor;
@@ -74,7 +72,7 @@
     
     self = [super init];
     
-   /* NSError* error;
+    NSError* error;
     NSString* shaderPath = [[NSBundle mainBundle] pathForResource:@"DefaultShader_v"
                                                            ofType:@"glsl"];
     NSString* vshaderString = [NSString stringWithContentsOfFile:shaderPath
@@ -98,12 +96,9 @@
     
     shaderLightsOff = [CGShader shaderWithvertexSource:vshaderString
                                    withFragmentSource:fshaderString];
-    self.shader =shaderLightsOff;*/
+
+    self.shader = shaderOneLight;
     
-    shaderLightsOff = [CGShader shaderNamed:@"SimpleShader"];
-    shaderOneLight = [CGShader shaderNamed:CGDefaultShaderKey];
-    
-    self.shader = [CGShader shaderNamed:CGDefaultShaderKey];
     
     [self setBlendFuncSourceFactor:GL_SRC_ALPHA destinationFactor:GL_ONE_MINUS_SRC_ALPHA];
     
@@ -114,14 +109,29 @@
 
 -(void)drawObject:(CGObject3D*) object withRenderer:(CGRenderer*)renderer{
     
-    if(object.lightAffected){
-       self.shader =shaderOneLight;
-    }else{
-       self.shader = shaderLightsOff;
+    int lightsCount = 0;
+    
+    for (CGLight* l in [renderer lights]) {
+        
+        if(![l.unAffectedObjects containsObject:object]){
+            lightsCount++;
+        }
     }
+    
+    if(!object.lightAffected){
+        self.shader = shaderLightsOff;
+    }else if(lightsCount == 1){
+        self.shader = shaderOneLight;
+    }else if(lightsCount == 2){
+        self.shader = shaderTwoLights;
+    }else if(lightsCount == 3){
+        self.shader = shaderThreeLights;
+    }else if(lightsCount == 4){
+        self.shader = shaderFourLights;
+    }
+    
     [self setupParameters];
 
-    
     [super drawObject:object withRenderer:renderer];
     
     glEnable(GL_BLEND);
@@ -169,13 +179,13 @@
     glVertexAttribPointer(_positionSlot, VBO_POSITION_SIZE, GL_FLOAT, GL_FALSE,
                           object.mesh.stride ,  (GLvoid*) (frameOffset + object.mesh.positionOffset));
     /////////////////////////////////////////
-    
+    if(object.lightAffected){
     // Normals /////////////////////////////
     //Calls glVertexAttribPointer to feed the correct values to the two input variables for the vertex shader
     glVertexAttribPointer(_normalSlot, VBO_NORMAL_SIZE, GL_FLOAT, GL_FALSE,
                           object.mesh.stride ,  (GLvoid*) (frameOffset + object.mesh.normalOffset));
     /////////////////////////////////////////
-    
+    }
     
     // Color ///////////////////////////////
     glUniform4f(_colorSlot, object.color.r, object.color.g, object.color.b, object.color.a);
@@ -226,47 +236,54 @@
     // Lights ////////////////
     
     int lightIndex = 0;
-    int lcount = 0;
-    
 
-    for (CGLight* l in [renderer lights]) {
-            
-        if(![l.unAffectedObjects containsObject:object]){
-            
-            lcount++;
-            
-            CC3GLMatrix * lightModelMatrix = [l transformedMatrix];
-            CC3GLMatrix * lightModelViewMatrix = [renderer.camera.viewMatrix copy];
-            [lightModelViewMatrix multiplyByMatrix:lightModelMatrix];
-                
-            GLfloat* m = lightModelViewMatrix.glMatrix;
-                
-            //Lights position in camera space
-            glUniform3f(_lightPositionLocation[lightIndex],m[12],m[13],m[14]);
-                
-            glUniform4f(_lightColorLocation[lightIndex], l.color.r/255.0f,l.color.g/255.0f,l.color.b/255.0f, 1.0f);
-            
-            glUniform1f(_lightIntensityLocation[lightIndex], l.intensity);
-                
-    }
+    
+    if(object.lightAffected){
         
-        if (lightIndex >= CGDefaultRenderProgram_max_lights-1) {
-            break;
-        }else{
-            lightIndex ++;
+        for (CGLight* l in [renderer lights]) {
+            
+            if(![l.unAffectedObjects containsObject:object]){
+                
+                CC3GLMatrix * lightModelMatrix = [l transformedMatrix];
+                CC3GLMatrix * lightModelViewMatrix = [renderer.camera.viewMatrix copy];
+                [lightModelViewMatrix multiplyByMatrix:lightModelMatrix];
+                    
+                GLfloat* m = lightModelViewMatrix.glMatrix;
+                    
+                //Lights position in camera space
+                glUniform3f(_lightPositionLocation[lightIndex],m[12],m[13],m[14]);
+                    
+                glUniform4f(_lightColorLocation[lightIndex], l.color.r/255.0f,l.color.g/255.0f,l.color.b/255.0f, 1.0f);
+                
+                glUniform1f(_lightIntensityLocation[lightIndex], l.intensity);
+                    
+            }
+            
+            if(lightIndex+1>=lightsCount){
+                break;
+            }
+            
+            lightIndex++;
         }
-    }
-        
-    glUniform1f(_ambientLightIntensity,renderer.ambientLightIntensity ); //remove and stay with color?
-    
-    glUniform4f(_ambientLightColor, renderer.ambientLightColor.r/255.0f, renderer.ambientLightColor.g/255.0f,
-                renderer.ambientLightColor.b/255.0f, 1.0f);
-    glUniform1f(_specularFactor,object.specularFactor);
 
-    glUniform4f(_specularColor, object.specularColor.r/255.0f, object.specularColor.g/255.0f, object.specularColor.b/255.0f, 1.0f);
+    }
     
-    glUniform1i(_lightsCount, lcount);
+    if(!object.lightAffected){
+        glUniform1f(_ambientLightIntensity,1.0f ); //remove and stay with color?
+        glUniform4f(_ambientLightColor, 1.0f,1.0f,1.0f, 1.0f);
+    }else{
     
+        glUniform1f(_ambientLightIntensity,renderer.ambientLightIntensity ); //remove and stay with color?
+    
+        glUniform4f(_ambientLightColor, renderer.ambientLightColor.r/255.0f, renderer.ambientLightColor.g/255.0f,
+                renderer.ambientLightColor.b/255.0f, 1.0f);
+    }
+    
+    if(object.lightAffected){
+        glUniform1f(_specularFactor,object.specularFactor);
+
+        glUniform4f(_specularColor, object.specularColor.r/255.0f, object.specularColor.g/255.0f, object.specularColor.b/255.0f, 1.0f);
+    }
     //////////////////////////
     
     /* --- Draw --- */
@@ -334,7 +351,6 @@
     
     _ambientLightIntensity = glGetUniformLocation(self.shader.handler, "ambienIntensity");
     _ambientLightColor = glGetUniformLocation(self.shader.handler, "ambient_light_color");
-    _lightsCount = glGetUniformLocation(self.shader.handler, "lightsCount");
     _specularFactor = glGetUniformLocation(self.shader.handler, "specularIntensity");
     _specularColor = glGetUniformLocation(self.shader.handler, "light_specular");
 

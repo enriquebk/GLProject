@@ -1,16 +1,16 @@
 
-#define LIGHT_ON
+//#define LIGHT_ON
 
-#define LIGHTS_COUNT 1
+//#define LIGHTS_COUNT 1
 
 
 uniform lowp vec4 ambient_light_color;
 uniform lowp float ambienIntensity;
 
+#ifdef LIGHT_ON
+
 uniform lowp float specularIntensity;//Shiness
 uniform lowp vec4 light_specular; //Object reflected Color
-
-#ifdef LIGHT_ON
 
 //Lights
 struct Light {

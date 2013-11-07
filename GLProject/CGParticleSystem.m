@@ -18,6 +18,19 @@
                                       ,particle.position.z+ particle.movementDirection.z*dt*6);
 }
 
+-(CGParticle*)createParticleForSystem:(CGParticleSystem *)particleSystem{
+
+    CGParticle* p =[[CGParticle alloc] init];
+    
+    CC3GLMatrix * modelMatrix = [particleSystem transformedMatrix];
+    
+    GLfloat* m = modelMatrix.glMatrix;
+    p.position= CC3VectorMake(m[12],m[13],m[14]);
+    p.startPosition= CC3VectorMake(m[12],m[13],m[14]);
+
+    return p;
+}
+
 @end
 
 @interface CGParticleSystem (){
@@ -132,15 +145,9 @@
         [self.particles removeObjectAtIndex:0];
     }
     
-    CGParticle* p =[[CGParticle alloc] init];
     
-    CC3GLMatrix * modelMatrix = [self transformedMatrix];
-    
-    GLfloat* m = modelMatrix.glMatrix;
-    p.position= CC3VectorMake(m[12],m[13],m[14]);
-    p.startPosition= CC3VectorMake(m[12],m[13],m[14]);
-    
-    [self.particles addObject: p];
+    [self.particles addObject:
+        [self.particleManager createParticleForSystem:self]];
     
 }
 

@@ -401,11 +401,8 @@
 		A7EA75781810A5E900643168 /* RenderPrograms */ = {
 			isa = PBXGroup;
 			children = (
+				A7FC39D6182B2D62000CA7AD /* SimpleRender */,
 				A7EA75791810A5F500643168 /* DefaultRender */,
-				A721AC33182A4F5400AD09FC /* CGSimpleRenderProgram.h */,
-				A721AC34182A4F5400AD09FC /* CGSimpleRenderProgram.m */,
-				A721AC2F182A496300AD09FC /* SimpleShader_f.glsl */,
-				A721AC30182A496300AD09FC /* SimpleShader_v.glsl */,
 			);
 			name = RenderPrograms;
 			sourceTree = "<group>";
@@ -442,6 +439,17 @@
 				A7FBF0C817EBF31900787ABD /* MD2Loader.h */,
 			);
 			name = MD2;
+			sourceTree = "<group>";
+		};
+		A7FC39D6182B2D62000CA7AD /* SimpleRender */ = {
+			isa = PBXGroup;
+			children = (
+				A721AC33182A4F5400AD09FC /* CGSimpleRenderProgram.h */,
+				A721AC34182A4F5400AD09FC /* CGSimpleRenderProgram.m */,
+				A721AC2F182A496300AD09FC /* SimpleShader_f.glsl */,
+				A721AC30182A496300AD09FC /* SimpleShader_v.glsl */,
+			);
+			name = SimpleRender;
 			sourceTree = "<group>";
 		};
 		A7FE405E17D5B034006A0005 /* Textures */ = {

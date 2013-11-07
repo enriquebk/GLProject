@@ -12,18 +12,6 @@
 
 #define MAX_PARTICELS 5000
 
-
-@protocol CGParticleManager
-
-@required
-
-/**
- */
--(void)updateParticle: (CGParticle*)particle deltaTime: (float)dt;
-
-@end
-
-
 @interface CGParticleSystem : CGNode <CGDrawableNode>
 
 /**
@@ -45,9 +33,6 @@
 
 #pragma mark -
 
-@property id<CGParticleManager> particleManager;
-
-
 /**
  *  Updates all particles of the CGParticleSystem.
  */
@@ -67,6 +52,28 @@
  *  Stops particles emission.
  */
 -(void)stopEmission;
+
+@end
+
+
+@protocol CGParticleManager
+
+@required
+
+/**
+ */
+-(CGParticle*)createParticleForSystem:(CGParticleSystem*)particleSystem;
+
+/**
+ */
+-(void)updateParticle: (CGParticle*)particle deltaTime: (float)dt;
+
+@end
+
+
+@interface CGParticleSystem ()
+
+@property id<CGParticleManager> particleManager;
 
 @end
 
