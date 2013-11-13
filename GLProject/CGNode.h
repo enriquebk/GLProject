@@ -90,5 +90,10 @@
  */
 -(CC3GLMatrix *)transformedMatrix;
 
+/**
+ * This method is used to sort the CGRenderer's displayList before been rendered.
+ */
+-(NSComparisonResult)compareBeforeRender:(CGNode*)node;
+
 @end
 

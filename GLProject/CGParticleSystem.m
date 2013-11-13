@@ -177,7 +177,7 @@
 
     //Draw
     
-    glDepthMask(GL_FALSE);
+    glDepthMask(GL_FALSE);// turns off the depth buffer for writing
     
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE);
@@ -219,6 +219,11 @@
 
 -(void)dealloc{
     [self stopEmission];
+}
+
+-(NSComparisonResult)compareBeforeRender:(CGNode*)node{
+    
+    return NSOrderedDescending;
 }
 
 @end

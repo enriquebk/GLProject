@@ -80,7 +80,7 @@
 #pragma mark Primitives
 
 + (CGObject3D*) plane;
-//+ (CGObject3D*) box;
++ (CGObject3D*) cube;
 //+ (CGObject3D*) sphere;
 
 @end

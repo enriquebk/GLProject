@@ -14,6 +14,7 @@
 #import "CGParticleSystem.h"
 
 #import "CGSimpleRenderProgram.h"
+#import "CGSkybox.h"
 
 @interface CGViewController (){
 
@@ -28,12 +29,22 @@
     CGObject3D* plane;
     
     CGLight* light;
+    CGLight* floorLight;
     
     double currentTime;
 	double renderTime;
     double frameTimestamp;
     
-    CGParticleSystem* particleSystem;
+    CGSkybox * skybox;
+    
+    CGParticleSystem* particleSystem1;
+    CGParticleSystem* particleSystem2;
+    CGParticleSystem* particleSystem3;
+    CGParticleSystem* particleSystem4;
+    
+    bool iluminated;
+    
+    CGObject3D* box;
 
 }
 
@@ -42,17 +53,6 @@
 @implementation CGViewController
 
 
-// An array with all the info for each vertex
-const float Vertices[] = {
-    0.5,  -0.5,   0.0,    0.0, 0.0, 1.0,   10.0, 0.0,
-    0.5,   0.5,   0.0,    0.0, 0.0, 1.0,   10.0, 10.0,
-    -0.5,   0.5,   0.0,    0.0, 0.0, 1.0,   0.0, 10.0,
-    -0.5,  -0.5,   0.0,    0.0, 0.0, 1.0,   0.0, 0.0  };
-//TODO: manage structures.. like Vertice...
-GLubyte Indices[] = {
-    0, 1, 2,
-    2, 3, 0
-};
 
 
 - (void)viewDidLoad
@@ -69,14 +69,12 @@ GLubyte Indices[] = {
     
     renderer = cgview.renderer;
     
-    /*
-    CGMesh* mesh = [[CGMesh alloc]
-                    initWithVertexData:
-                    [[  alloc] initWithData:(void*)Vertices
-                                     withCapacity:8*4]];
-    mesh.drawMode = GL_TRIANGLE_FAN;
-    [MeshFactory addMesh:mesh withName:@"CGMeshplane"];
-    floor= [[CGObject3D alloc] initWithMesh:[MeshFactory meshNamed:@"CGMeshplane"]];*/
+    iluminated =YES;
+    
+
+
+    skybox = [[CGSkybox alloc] init];
+    [renderer addNode:skybox];
     
     
     floor = [CGObject3D plane];
@@ -84,8 +82,9 @@ GLubyte Indices[] = {
     [floor setTexture: [[TextureManager sharedInstance] textureFromFileName:@"grassTexture.jpg"]];
     [floor rotate:cc3v(-90, 0, 0)];
     [floor translate:cc3v(2.5, -7.1, -2.5)];
-    [floor scale:CC3VectorMake(200, 200, 200)];
-    floor.textureScale = 10.0f;
+    [floor scale:CC3VectorMake(600, 600, 600)];
+    floor.textureScale = 30.0f;
+    floor.specularFactor = 0.01;
     [renderer addObject:floor];
 
     
@@ -96,59 +95,67 @@ GLubyte Indices[] = {
     [knight scale:CC3VectorMake(0.3, 0.3, 0.3)];
     //[knight setAnimationWithName:@"Stand"];
     [knight setAnimationWithName:@"Run"];
-    //knight.color = (ccColor4F){1,0,1,0.5};
-    knight.specularFactor = 1.0f;
-    [renderer addObject:knight];
-    //[knight translate:CC3VectorMake(0.0, 10, 0.0)];
-    /*
-     CGObject3D* w = [[CGObject3D alloc] initWithMesh:[MeshFactory meshMD2Named:@"weapon"]];
-     [o addChild:w];
-     [cgview.renderer addObject:w];
-     */
+   // knight.color = (ccColor4F){1,0,0,0.2};
+    knight.specularFactor = 0.7;
+   [renderer addObject:knight];
+
     
     light = [[CGLight alloc] init];
-    light.intensity = 0.7f;
-    [light translate:cc3v(0, 10, 0)];
+    [light translate:cc3v(0,10,30)];
     [renderer addLight:light];
+    light.intensity = 0.7f;
     
-    
-    CGLight* light2= [[CGLight alloc] init];
-    light2.intensity = 1.9f;
-    [light2 translate:cc3v(0, 10, 2)];
-    light2.color = ccc3(255, 0,10);
-    [renderer addLight:light2];
-
-    //[light.unAffectedObjects addObject:floor];
-    //light.color = ccGREEN ;
-    //light.intensity = 0.4;
-    
-    renderer.ambientLightIntensity = 0.1f;
-
-    floor.specularFactor = 0.2;
-    //floor.lightAffected = NO;
-   // [light.unAffectedObjects addObject: floor];
-    //floor.renderProgram = [[CGSimpleRenderProgram alloc]init];
+    renderer.ambientLightIntensity = 0.7f;
+    floor.lightAffected = NO;
     
     
     [renderer setClearColor:12.0f/255 g:183.0f/255 b:242.0f/255 a:1.0];
-    [renderer.camera translate:CC3VectorMake(0,-2,0)];
-    
+   
+
     direction =1.0f;
 
-    CGObject3D* sky = [CGObject3D plane];
-    [sky setTexture: [[TextureManager sharedInstance] textureFromFileName:@"SkyBox-Clouds-front.png"]];
-    [sky translate:cc3v(0.0,-5.0, -40)];
-    [sky scale:cc3v(150,150 , 150)];
-    [sky rotate:cc3v(0,0 , 180)];
-    [renderer addObject:sky];
-    sky.lightAffected = NO;
-    //sky.renderProgram = [[CGSimpleRenderProgram alloc]init];
+   
     
-    particleSystem = [[CGParticleSystem alloc] init];
-    [particleSystem startEmission];
-    [particleSystem translate:CC3VectorMake(0, 10, 0)];
-    [renderer addNode:particleSystem];
+    CGObject3D* sh = [CGObject3D plane];
     
+    [sh setTexture: [[TextureManager sharedInstance] textureFromFileName:@"Shadow.png"]];
+    [sh rotate:cc3v(-90, 0, 0)];
+    [sh translate:cc3v(0.0, -6.9, 0.0)];
+    [sh scale:CC3VectorMake(9, 9, 9)];
+    sh.color = (ccColor4F){1,1,1,0.3};
+    sh.lightAffected = NO;
+    [renderer addObject:sh];
+
+    
+    particleSystem1 = [[CGParticleSystem alloc] init];
+    [particleSystem1 startEmission];
+    [particleSystem1 translate:CC3VectorMake(10, -5, -10)];
+    [renderer addNode:particleSystem1];
+
+    particleSystem2 = [[CGParticleSystem alloc] init];
+    [particleSystem2 startEmission];
+    [particleSystem2 translate:CC3VectorMake(10, -5, 10)];
+    [renderer addNode:particleSystem2];
+    
+    particleSystem3 = [[CGParticleSystem alloc] init];
+    [particleSystem3 startEmission];
+    [particleSystem3 translate:CC3VectorMake(-10, -5, -10)];
+    [renderer addNode:particleSystem3];
+    
+    particleSystem4 = [[CGParticleSystem alloc] init];
+    [particleSystem4 startEmission];
+    [particleSystem4 translate:CC3VectorMake(-10, -5, 10)];
+    [renderer addNode:particleSystem4];
+    
+    
+    box = [CGObject3D cube];
+    
+    [box setTexture: [[TextureManager sharedInstance] textureFromFileName:@"tile_floor.png"]];
+    [box rotate:cc3v(30, 10, -30)];
+    [box scale:CC3VectorMake(9, 9, 9)];
+    box.specularFactor = 0.2;
+    box.textureScale = 4;
+    //[renderer addObject:box];
     
     [self runLoop];
 }
@@ -173,7 +180,10 @@ GLubyte Indices[] = {
     [self hadleEvents:displayLink];
     
     
-    [particleSystem update:renderTime];
+    [particleSystem1 update:renderTime];
+    [particleSystem2 update:renderTime];
+    [particleSystem3 update:renderTime];
+    [particleSystem4 update:renderTime];
     
     // ANIMATION STUFF ////////////////////////
     //TODO: Clase que maneje las animaciones (Animation manager) por objeto; (animation completation)
@@ -183,7 +193,7 @@ GLubyte Indices[] = {
     
     if([knight.currentAnimation.name isEqualToString:@"Run"]){
         pers    += 0.3f*renderTime;
-        if(pers >1.0f){
+        if(pers >=1.0f){
             pers = 0.0f;
         }
     }else if([knight.currentAnimation.name isEqualToString:@"Stand"]){
@@ -198,9 +208,11 @@ GLubyte Indices[] = {
         }
     }
     
+    [box rotate:cc3v(1, 1, 1)];
+    
     knight.animationCompletePercentage = pers;
-   [light translate:cc3v(0.00, 0.0, 0.1)];
-    [particleSystem translate:cc3v(0.00, 0.0, -0.1)];
+  // [light translate:cc3v(0.00, 0.0, 0.1)];
+  //  [particleSystem translate:cc3v(0.00, 0.0, -0.1)];
     
     ////////////////////////////////////////////////////
     [cgview.renderer render];
@@ -251,6 +263,22 @@ GLubyte Indices[] = {
     }
 }
 
+- (IBAction)changeIlumination:(id)sender {
+    
+    if(iluminated){
+    
+        renderer.ambientLightIntensity = 0.4f;
+        [skybox setColor:(ccColor4F){0.5,0.5,0.5,1.0}];
+        floor.lightAffected = YES;
+    }else{
+        
+        renderer.ambientLightIntensity = 0.7f;
+        [skybox setColor:(ccColor4F){1.0,1.0,1.0,1.0}];
+        floor.lightAffected = NO;
+    }
+    
+    iluminated = !iluminated;
+}
 
 - (IBAction)rotUpTouchUp:(id)sender {rotUp = false;}
 - (IBAction)rotUpTouchDown:(id)sender {rotUp = true;}

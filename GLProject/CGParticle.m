@@ -28,8 +28,8 @@
     self.movementDirection = CC3VectorMake((double)rand() / (double)RAND_MAX, (double)rand() / (double)RAND_MAX, (double)rand() / (double)RAND_MAX);
     self.position = CC3VectorMake(0.0f,0.0f,0.0f);
     self.startPosition = CC3VectorMake(0.0f,0.0f,0.0f);
-    self.color = CCC4FMake((double)rand() / (double)RAND_MAX, (double)rand() / (double)RAND_MAX, (double)rand() / (double)RAND_MAX, 1.0f);
-    //self.color = CCC4FMake(1.0,0.0,0.0, 1.0f);
+    //self.color = CCC4FMake((double)rand() / (double)RAND_MAX, (double)rand() / (double)RAND_MAX, (double)rand() / (double)RAND_MAX, 1.0f);
+    self.color = rand()%2 ? CCC4FMake(0.5,0.5,0.0, 1.0f):CCC4FMake(1,0.1,0.05, 1.0f);
 }
 
 @end

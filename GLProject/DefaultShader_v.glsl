@@ -32,6 +32,7 @@ void main(void) {
     pointPosition = modelViewMatrix*vertexPos;
     pointNormal = mat3(modelViewMatrix)*pointNormal;//Operamos solo con xyz para no contemlar la trasalacion y asi no deformar el vector//TODO normalizar
 #endif
+    
     gl_Position = modelViewProjectionMatrix  * vertexPos;
     
     TexCoordOut = TexCoordIn*textureScale;

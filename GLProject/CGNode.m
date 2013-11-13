@@ -134,4 +134,9 @@
     return [self.matrix copy];
 }
 
+-(NSComparisonResult)compareBeforeRender:(CGNode*)node{
+    
+    return NSOrderedSame;
+}
+
 @end

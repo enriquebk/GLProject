@@ -38,7 +38,7 @@
         
         float h = 4.0f * self.layer.frame.size.height / self.layer.frame.size.width;
         self.camera  = [[CGCamera alloc] init];        
-        [self.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:3 andFar:90];
+        [self.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:3 andFar:200];
         [self.camera translate:CC3VectorMake(0, 0, -20)];
         
         [self setupContext];
@@ -51,7 +51,6 @@
         glViewport(0, 0, layer.frame.size.width/d , layer.frame.size.height/d );
         
         self.displayList = [[NSMutableArray alloc] init];
-        self.displayListSortSelector = nil;
         self.lights = [[NSMutableArray alloc] init];
         
         // Enable depth buffer
@@ -119,9 +118,8 @@
 
 -(void)render{
     
-    if(self.displayListSortSelector){
-        [self.displayList sortUsingSelector:self.displayListSortSelector];
-    }
+   /* self.displayList = [[NSMutableArray alloc] initWithArray:[self.displayList sortedArrayUsingSelector:@selector(compareBeforeRender:)]];
+*/
     
     for (CGNode<CGDrawableNode>* n in self.displayList) {
         [n drawWithRenderer:self];
@@ -134,6 +132,11 @@
     
     glClearColor(r, g, b, a);//Call glClearColor to specify the RGB and alpha (transparency) values to use when clearing the screen.
     
+}
+
+- (NSComparisonResult)defaultSortSelector: (NSString*) aString;
+{
+
 }
 
 -(void)clear{
@@ -170,6 +173,9 @@
     [self.lights removeObject:light];
 }
 
+-(EAGLContext*)getGLContext{
+    return _context;
+}
 
 @end
 

@@ -126,7 +126,7 @@
         self.shader = shaderTwoLights;
     }else if(lightsCount == 3){
         self.shader = shaderThreeLights;
-    }else if(lightsCount == 4){
+    }else {
         self.shader = shaderFourLights;
     }
     
@@ -157,7 +157,7 @@
     
     CC3GLMatrix * modelMatrix = [object transformedMatrix]; //World space
     
-    CC3GLMatrix * modelViewMatrix = [renderer.camera.viewMatrix copy];
+    CC3GLMatrix * modelViewMatrix = [renderer.camera.viewMatrix  copy];
     
     [modelViewMatrix multiplyByMatrix:modelMatrix];//Camera space
     
@@ -259,10 +259,7 @@
                     
             }
             
-            if(lightIndex+1>=lightsCount){
-                break;
-            }
-            
+
             lightIndex++;
         }
 
@@ -336,8 +333,20 @@
     
     _nextFrameNormalSlot = glGetAttribLocation(self.shader.handler,"nextFrameNormal");
     
+    int lightsCount = 0;
+    
+    if(self.shader == shaderOneLight){
+        lightsCount = 1;
+    }else if(self.shader == shaderTwoLights){
+        lightsCount = 2;
+    }else if(self.shader == shaderThreeLights){
+        lightsCount = 3;
+    }else if(self.shader == shaderFourLights){
+        lightsCount = 4;
+    }
+    
     //Lights
-    for (int i = 0; i < CGDefaultRenderProgram_max_lights; i++) {
+    for (int i = 0; i < lightsCount; i++) {
         
 		NSString * lightIndex = [NSString stringWithFormat:@"lights[%i].", i];
 		

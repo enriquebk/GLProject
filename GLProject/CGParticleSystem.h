@@ -10,7 +10,7 @@
 #import "CGTexture.h"
 #import "CGParticle.h"
 
-#define MAX_PARTICELS 5000
+#define MAX_PARTICELS 40
 
 @interface CGParticleSystem : CGNode <CGDrawableNode>
 

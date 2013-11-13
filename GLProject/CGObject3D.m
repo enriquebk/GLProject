@@ -82,7 +82,9 @@
 
 + (CGObject3D*) plane{
  
-    CGMesh* planeMesh = [MeshFactory meshNamed:@"CGPlane"];
+    NSString* meshkey = @"CGPlaneMesh";
+    
+    CGMesh* planeMesh = [MeshFactory meshNamed:meshkey];
     
     if(!planeMesh){
         const float vertexs[] = {
@@ -109,16 +111,92 @@
         planeMesh = [[CGMesh alloc] initWithVertexData: vertexData indices: indexData];
         
         planeMesh.drawMode = GL_TRIANGLE_FAN;
+        
+        [MeshFactory addMesh:planeMesh withName:meshkey];
     }
 
     return [[CGObject3D alloc] initWithMesh:planeMesh];
 }
 
-+ (CGObject3D*) box{
++ (CGObject3D*) cube{
 
-    NSLog(@"method + (CGObject3D*) box - unimplemented");
+    NSString* meshkey = @"CGCubeMesh";
     
-    return nil;
+    CGMesh* cubeMesh = [MeshFactory meshNamed:meshkey];
+    
+    if(!cubeMesh){
+        const float vertexs[] = {
+            //       position              normal       uv coords
+            //    x      y       z      x    y    z      u    v
+            0.5,  -0.5,   0.5,    0.0, 0.0, 1.0,   1.0, 0.0,//Front face
+            0.5,   0.5,   0.5,    0.0, 0.0, 1.0,   1.0, 1.0,
+            -0.5,   0.5,   0.5,    0.0, 0.0, 1.0,   0.0, 1.0,
+            -0.5,  -0.5,   0.5,    0.0, 0.0, 1.0,   0.0, 0.0,
+            
+            0.5,  -0.5,   -0.5,    0.0, 0.0, -1.0,   1.0, 0.0, // Back face
+            0.5,   0.5,   -0.5,    0.0, 0.0, -1.0,   1.0, 1.0,
+            -0.5,   0.5,   -0.5,    0.0, 0.0, -1.0,   0.0, 1.0,
+            -0.5,  -0.5,   -0.5,    0.0, 0.0, -1.0,   0.0, 0.0,
+            
+            0.5,   0.5,   -0.5,    0.0, 1.0, 0.0,   1.0, 0.0, // top face
+            0.5,   0.5,    0.5,    0.0, 1.0, 0.0,   1.0, 1.0,
+           -0.5,   0.5,    0.5,    0.0, 1.0, 0.0,   0.0, 1.0,
+           -0.5,   0.5,   -0.5,    0.0, 1.0, 0.0,   0.0, 0.0,
+            
+            0.5,   -0.5,   -0.5,    0.0, -1.0, 0.0,   1.0, 0.0, // bottom face
+            0.5,   -0.5,    0.5,    0.0, -1.0, 0.0,   1.0, 1.0,
+            -0.5,   -0.5,    0.5,    0.0, -1.0, 0.0,   0.0, 1.0,
+            -0.5,   -0.5,   -0.5,    0.0, -1.0, 0.0,   0.0, 0.0,
+            
+            0.5,    0.5,    -0.5,    1.0, 0.0, 0.0,   1.0, 0.0, // right face
+            0.5,    0.5,    0.5,    1.0, 0.0, 0.0,   1.0, 1.0,
+            0.5,   -0.5,    0.5,    1.0, 0.0, 0.0,   0.0, 1.0,
+            0.5,   -0.5,   -0.5,    1.0, 0.0, 0.0,   0.0, 0.0,
+            
+            -0.5,    0.5,    -0.5,    -1.0, 0.0, 0.0,   1.0, 0.0, // left face
+            -0.5,    0.5,    0.5,    -1.0, 0.0, 0.0,   1.0, 1.0,
+            -0.5,   -0.5,    0.5,    -1.0, 0.0, 0.0,   0.0, 1.0,
+            -0.5,   -0.5,   -0.5,    -1.0, 0.0, 0.0,   0.0, 0.0,
+
+        };
+        
+        GLubyte indices[] = {
+            0, 1, 2, // Front face
+            2, 3, 0,
+            
+            6, 5, 4, // Back face
+            4, 7, 6,
+            
+            10, 9, 8, // top face
+            8, 11, 10,
+            
+            12, 13, 14, // bottom face
+            14, 15, 12,
+            
+            16, 17, 18, // right face
+            18, 19, 16,
+            
+            22, 21, 20, // right face
+            20, 23, 22
+        };
+        int indicesCount = 36;
+        int vertexsCount = 24;
+        int floatsPerVertex = 8;
+        int vertexDataFloatsCount = floatsPerVertex*vertexsCount;
+        
+        CGFloatArray* vertexData = [[CGFloatArray alloc] initWithData:(void*)vertexs withCapacity:vertexDataFloatsCount];
+        
+        CGFloatArray* indexData = [[CGFloatArray alloc] initWithData:(void*)indices withCapacity: indicesCount];
+        
+        cubeMesh = [[CGMesh alloc] initWithVertexData: vertexData indices: indexData];
+        
+        cubeMesh.drawMode = GL_TRIANGLES;
+        
+        [MeshFactory addMesh:cubeMesh withName:meshkey];
+    }
+    
+    return [[CGObject3D alloc] initWithMesh:cubeMesh];
+    
 }
 
 @end

@@ -28,6 +28,17 @@
 		A70378B717C33A160074E183 /* CGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A70378B417C33A150074E183 /* CGViewController.m */; };
 		A70EC5071826EEBA007AC170 /* SkyBox-Clouds-front.png in Resources */ = {isa = PBXBuildFile; fileRef = A70EC5061826EEBA007AC170 /* SkyBox-Clouds-front.png */; };
 		A71443CD17ED41FA006478B9 /* knight.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A71443CC17ED41FA006478B9 /* knight.jpg */; };
+		A71BF035182C3B1700239E42 /* skyrender0001.png in Resources */ = {isa = PBXBuildFile; fileRef = A71BF02F182C3B1700239E42 /* skyrender0001.png */; };
+		A71BF036182C3B1700239E42 /* skyrender0002.png in Resources */ = {isa = PBXBuildFile; fileRef = A71BF030182C3B1700239E42 /* skyrender0002.png */; };
+		A71BF037182C3B1700239E42 /* skyrender0003.png in Resources */ = {isa = PBXBuildFile; fileRef = A71BF031182C3B1700239E42 /* skyrender0003.png */; };
+		A71BF038182C3B1700239E42 /* skyrender0004.png in Resources */ = {isa = PBXBuildFile; fileRef = A71BF032182C3B1700239E42 /* skyrender0004.png */; };
+		A71BF039182C3B1700239E42 /* skyrender0005.png in Resources */ = {isa = PBXBuildFile; fileRef = A71BF033182C3B1700239E42 /* skyrender0005.png */; };
+		A71BF03A182C3B1700239E42 /* skyrender0006.png in Resources */ = {isa = PBXBuildFile; fileRef = A71BF034182C3B1700239E42 /* skyrender0006.png */; };
+		A71BF03D182C478B00239E42 /* CGSkybox.m in Sources */ = {isa = PBXBuildFile; fileRef = A71BF03C182C478B00239E42 /* CGSkybox.m */; };
+		A71BF041182C4C2300239E42 /* CGSkyboxRender.m in Sources */ = {isa = PBXBuildFile; fileRef = A71BF040182C4C2300239E42 /* CGSkyboxRender.m */; };
+		A71BF044182C4CCA00239E42 /* SkyboxShader_f.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A71BF042182C4CCA00239E42 /* SkyboxShader_f.glsl */; };
+		A71BF045182C4CCA00239E42 /* SkyboxShader_v.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A71BF043182C4CCA00239E42 /* SkyboxShader_v.glsl */; };
+		A71BF047182C707A00239E42 /* Shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = A71BF046182C707A00239E42 /* Shadow.png */; };
 		A721AC31182A496300AD09FC /* SimpleShader_f.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A721AC2F182A496300AD09FC /* SimpleShader_f.glsl */; };
 		A721AC32182A496300AD09FC /* SimpleShader_v.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A721AC30182A496300AD09FC /* SimpleShader_v.glsl */; };
 		A721AC35182A4F5400AD09FC /* CGSimpleRenderProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = A721AC34182A4F5400AD09FC /* CGSimpleRenderProgram.m */; };
@@ -114,6 +125,19 @@
 		A70378B417C33A150074E183 /* CGViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGViewController.m; sourceTree = "<group>"; };
 		A70EC5061826EEBA007AC170 /* SkyBox-Clouds-front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SkyBox-Clouds-front.png"; sourceTree = "<group>"; };
 		A71443CC17ED41FA006478B9 /* knight.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = knight.jpg; sourceTree = "<group>"; };
+		A71BF02F182C3B1700239E42 /* skyrender0001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyrender0001.png; sourceTree = "<group>"; };
+		A71BF030182C3B1700239E42 /* skyrender0002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyrender0002.png; sourceTree = "<group>"; };
+		A71BF031182C3B1700239E42 /* skyrender0003.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyrender0003.png; sourceTree = "<group>"; };
+		A71BF032182C3B1700239E42 /* skyrender0004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyrender0004.png; sourceTree = "<group>"; };
+		A71BF033182C3B1700239E42 /* skyrender0005.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyrender0005.png; sourceTree = "<group>"; };
+		A71BF034182C3B1700239E42 /* skyrender0006.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyrender0006.png; sourceTree = "<group>"; };
+		A71BF03B182C478B00239E42 /* CGSkybox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGSkybox.h; sourceTree = "<group>"; };
+		A71BF03C182C478B00239E42 /* CGSkybox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGSkybox.m; sourceTree = "<group>"; };
+		A71BF03F182C4C2300239E42 /* CGSkyboxRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGSkyboxRender.h; sourceTree = "<group>"; };
+		A71BF040182C4C2300239E42 /* CGSkyboxRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGSkyboxRender.m; sourceTree = "<group>"; };
+		A71BF042182C4CCA00239E42 /* SkyboxShader_f.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SkyboxShader_f.glsl; sourceTree = "<group>"; };
+		A71BF043182C4CCA00239E42 /* SkyboxShader_v.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SkyboxShader_v.glsl; sourceTree = "<group>"; };
+		A71BF046182C707A00239E42 /* Shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shadow.png; sourceTree = "<group>"; };
 		A721AC2F182A496300AD09FC /* SimpleShader_f.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleShader_f.glsl; sourceTree = "<group>"; };
 		A721AC30182A496300AD09FC /* SimpleShader_v.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleShader_v.glsl; sourceTree = "<group>"; };
 		A721AC33182A4F5400AD09FC /* CGSimpleRenderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGSimpleRenderProgram.h; sourceTree = "<group>"; };
@@ -263,6 +287,13 @@
 		A703787317C32CFE0074E183 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A71BF046182C707A00239E42 /* Shadow.png */,
+				A71BF02F182C3B1700239E42 /* skyrender0001.png */,
+				A71BF030182C3B1700239E42 /* skyrender0002.png */,
+				A71BF031182C3B1700239E42 /* skyrender0003.png */,
+				A71BF032182C3B1700239E42 /* skyrender0004.png */,
+				A71BF033182C3B1700239E42 /* skyrender0005.png */,
+				A71BF034182C3B1700239E42 /* skyrender0006.png */,
 				A70EC5061826EEBA007AC170 /* SkyBox-Clouds-front.png */,
 				A7601B751822F80F00CBF37A /* grassTexture.jpg */,
 				A73AB8021822D6440021F85E /* 1pixel-wit.png */,
@@ -322,6 +353,17 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
+		A71BF03E182C4BED00239E42 /* SkyboxRender */ = {
+			isa = PBXGroup;
+			children = (
+				A71BF042182C4CCA00239E42 /* SkyboxShader_f.glsl */,
+				A71BF043182C4CCA00239E42 /* SkyboxShader_v.glsl */,
+				A71BF03F182C4C2300239E42 /* CGSkyboxRender.h */,
+				A71BF040182C4C2300239E42 /* CGSkyboxRender.m */,
+			);
+			name = SkyboxRender;
+			sourceTree = "<group>";
+		};
 		A76FDADE17C966B900A6F8E4 /* CGFramework */ = {
 			isa = PBXGroup;
 			children = (
@@ -335,6 +377,8 @@
 				A76FDAE317C9983B00A6F8E4 /* CGRenderer.m */,
 				A70378AE17C32F220074E183 /* CGView.h */,
 				A70378AF17C32F220074E183 /* CGView.m */,
+				A71BF03B182C478B00239E42 /* CGSkybox.h */,
+				A71BF03C182C478B00239E42 /* CGSkybox.m */,
 			);
 			name = CGFramework;
 			sourceTree = "<group>";
@@ -401,6 +445,7 @@
 		A7EA75781810A5E900643168 /* RenderPrograms */ = {
 			isa = PBXGroup;
 			children = (
+				A71BF03E182C4BED00239E42 /* SkyboxRender */,
 				A7FC39D6182B2D62000CA7AD /* SimpleRender */,
 				A7EA75791810A5F500643168 /* DefaultRender */,
 			);
@@ -511,6 +556,11 @@
 				CLASSPREFIX = CG;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Enrique Bermudez";
+				TargetAttributes = {
+					A703786817C32CFD0074E183 = {
+						DevelopmentTeam = VB2B85C3L8;
+					};
+				};
 			};
 			buildConfigurationList = A703786417C32CFD0074E183 /* Build configuration list for PBXProject "GLProject" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -535,9 +585,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A71BF035182C3B1700239E42 /* skyrender0001.png in Resources */,
 				A7289B4617E56B6C00DD5BCA /* arrow-right.png in Resources */,
 				A703787717C32CFE0074E183 /* InfoPlist.strings in Resources */,
 				A7FBF0CC17EBF53500787ABD /* knight.md2 in Resources */,
+				A71BF03A182C3B1700239E42 /* skyrender0006.png in Resources */,
 				A721AC32182A496300AD09FC /* SimpleShader_v.glsl in Resources */,
 				A70EC5071826EEBA007AC170 /* SkyBox-Clouds-front.png in Resources */,
 				A7C6F86F17E6C4E900F3FB0A /* tile_floor.png in Resources */,
@@ -546,21 +598,28 @@
 				A7289B4417E56B6C00DD5BCA /* arrow-down.png in Resources */,
 				A73AB8081822DD790021F85E /* ParticleSystemShader_f.glsl in Resources */,
 				A721AC31182A496300AD09FC /* SimpleShader_f.glsl in Resources */,
+				A71BF038182C3B1700239E42 /* skyrender0004.png in Resources */,
+				A71BF045182C4CCA00239E42 /* SkyboxShader_v.glsl in Resources */,
+				A71BF047182C707A00239E42 /* Shadow.png in Resources */,
+				A71BF036182C3B1700239E42 /* skyrender0002.png in Resources */,
 				A7EA757618109E8300643168 /* DefaultShader_v.glsl in Resources */,
 				A703788117C32CFE0074E183 /* Default@2x.png in Resources */,
 				A7601B761822F80F00CBF37A /* grassTexture.jpg in Resources */,
 				A73D80B417CC65F200939BB0 /* TODO in Resources */,
 				A703788317C32CFE0074E183 /* Default-568h@2x.png in Resources */,
 				A73AB8051822D6440021F85E /* particle.png in Resources */,
+				A71BF044182C4CCA00239E42 /* SkyboxShader_f.glsl in Resources */,
 				A70378B617C33A160074E183 /* CGViewController.xib in Resources */,
 				A7289B4717E56B6C00DD5BCA /* arrow-up.png in Resources */,
 				A7D046EB17C40E53007390B0 /* SimpleVertex.glsl in Resources */,
 				A7289B4517E56B6C00DD5BCA /* arrow-left.png in Resources */,
+				A71BF039182C3B1700239E42 /* skyrender0005.png in Resources */,
 				A71443CD17ED41FA006478B9 /* knight.jpg in Resources */,
 				A7D046ED17C40F85007390B0 /* SimpleFragment.glsl in Resources */,
 				A73AB8041822D6440021F85E /* 1pixel-wit.png in Resources */,
 				A7EA757518109E8300643168 /* DefaultShader_f.glsl in Resources */,
 				A73AB8091822DD790021F85E /* ParticleSystemShader_v.glsl in Resources */,
+				A71BF037182C3B1700239E42 /* skyrender0003.png in Resources */,
 				A7E17CB6180E290400FA6802 /* knight_retocado.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -614,11 +673,13 @@
 				A7DAD79017C48A1B000FE1B7 /* CC3Kazmath.c in Sources */,
 				A7FBF0C917EBF31900787ABD /* MD2Loader.c in Sources */,
 				A7C5151917E4A9E400F8F6EE /* CGUtils.m in Sources */,
+				A71BF041182C4C2300239E42 /* CGSkyboxRender.m in Sources */,
 				A7DAD79117C48A1B000FE1B7 /* CC3Math.m in Sources */,
 				A73EE5A917C6E751009C1E5E /* TextureManager.m in Sources */,
 				A7EA71A917D9536E007E6E0E /* CGArray.m in Sources */,
 				A73EE5AB17C6E751009C1E5E /* MeshFactory.m in Sources */,
 				A7EA7571181095FB00643168 /* CGDefaultRenderProgram.m in Sources */,
+				A71BF03D182C478B00239E42 /* CGSkybox.m in Sources */,
 				A76FDAE417C9983B00A6F8E4 /* CGRenderer.m in Sources */,
 				A7C5916517FB77B500045DB8 /* CGKeyFrameAnimation.m in Sources */,
 				A7EA756E181082C700643168 /* CGRenderProgram.m in Sources */,
@@ -727,10 +788,13 @@
 		A70378A517C32CFE0074E183 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GLProject/GLProject-Prefix.pch";
 				INFOPLIST_FILE = "GLProject/GLProject-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -738,10 +802,13 @@
 		A70378A617C32CFE0074E183 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GLProject/GLProject-Prefix.pch";
 				INFOPLIST_FILE = "GLProject/GLProject-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

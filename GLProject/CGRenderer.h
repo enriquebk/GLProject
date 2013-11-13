@@ -30,11 +30,6 @@
 @property(strong)NSMutableArray* lights;
 
 /**
- * You can sort the displayList before render by setting the displayListSortSelector property.
- */
-@property SEL displayListSortSelector;
-
-/**
  */
 @property(strong) CGCamera* camera;
 
@@ -121,6 +116,11 @@
  *  @param o Alpha chanel.
  */
 -(void)setClearColor: (GLfloat)r g:(GLfloat)g b:(GLfloat)b a:(GLfloat)a;
+
+/**
+ *
+ */
+-(EAGLContext*)getGLContext;
 
 @end
 
