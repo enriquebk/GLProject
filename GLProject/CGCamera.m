@@ -71,4 +71,10 @@
     NSLog(@"TODO: Unimplemented method setScale:");
 }
 
+-(CC3GLMatrix *) getTransormedViewMatrix{
+    CC3GLMatrix* vm = [self.viewMatrix copy];
+    //[vm invert];
+    return vm;
+}
+
 @end

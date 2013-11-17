@@ -21,7 +21,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Nzb-F8-dhu">
+                <button hidden="YES" opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Nzb-F8-dhu">
                     <rect key="frame" x="142" y="622" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <state key="normal" image="arrow-down.png">
@@ -34,7 +34,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="FGs-Bd-WGe">
-                    <rect key="frame" x="831" y="622" width="40" height="40"/>
+                    <rect key="frame" x="831" y="626" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <state key="normal" image="arrow-down.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -59,7 +59,7 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GYR-eM-gm8">
+                <button hidden="YES" opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GYR-eM-gm8">
                     <rect key="frame" x="142" y="551" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <state key="normal" image="arrow-up.png">
@@ -72,7 +72,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" alpha="0.49999999999999961" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kOF-RB-hLC">
-                    <rect key="frame" x="179" y="584" width="40" height="40"/>
+                    <rect key="frame" x="179" y="568" width="58" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <state key="normal" image="arrow-right.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -84,7 +84,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Xaz-gp-khP">
-                    <rect key="frame" x="105" y="584" width="40" height="40"/>
+                    <rect key="frame" x="87" y="568" width="58" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <state key="normal" image="arrow-left.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -96,7 +96,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="v5Z-Zo-3z8">
-                    <rect key="frame" x="830" y="552" width="40" height="40"/>
+                    <rect key="frame" x="830" y="548" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <state key="normal" image="arrow-up.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -108,7 +108,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SEE-k8-1eU">
-                    <rect key="frame" x="793" y="585" width="40" height="40"/>
+                    <rect key="frame" x="789" y="585" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <state key="normal" image="arrow-left.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -120,7 +120,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="h9Y-Gg-QBv">
-                    <rect key="frame" x="867" y="586" width="40" height="40"/>
+                    <rect key="frame" x="870" y="586" width="40" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <state key="normal" image="arrow-right.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

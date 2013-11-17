@@ -89,7 +89,7 @@
     
     CC3GLMatrix * modelMatrix = [object transformedMatrix]; //World space
     
-    CC3GLMatrix * modelViewMatrix = [renderer.camera.viewMatrix copy];
+    CC3GLMatrix * modelViewMatrix = [renderer.camera  getTransormedViewMatrix];
     
     [modelViewMatrix multiplyByMatrix:modelMatrix];//Camera space
     

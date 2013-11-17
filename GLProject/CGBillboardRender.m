@@ -1,41 +1,48 @@
 //
-//  CGSkyboxRender.m
+//  CGBillboardRender.m
 //  GLProject
 //
-//  Created by Enrique Bermudez on 07/11/13.
+//  Created by Enrique Bermudez on 13/11/13.
 //  Copyright (c) 2013 Enrique Bermudez. All rights reserved.
 //
 
-#import "CGSkyboxRender.h"
+#import "CGBillboardRender.h"
+#import "CGTexture.h"
+
+#define  CGDefaultShaderKey    @"DefaultShader"
 
 #define  CGShaderParameter_position                     "Position"
-#define  CGShaderParameter_ModelViewProjectionMatrix    "modelViewProjectionMatrix"
+#define  CGShaderParameter_ModelProjectionMatrix        "modelProjectionMatrix"
 #define  CGShaderParameter_SourceColor                  "color"
 #define  CGShaderParameter_TextCoord                    "TexCoordIn"
 #define  CGShaderParameter_Texture                      "Texture"
 
-@interface CGSkyboxRender (){
+
+@interface CGBillboardRender (){
     
     GLuint _positionSlot;
     GLuint _texCoordSlot;
+    
+    
     //Globals
     GLuint _colorSlot;
-    GLuint _modelViewProjectionMatrixUniform;
+    GLuint _modelProjectionMatrixUniform;
     
     GLuint _textureUniform;
+
+    
 }
 
 @end
 
-@implementation CGSkyboxRender
+@implementation CGBillboardRender
 
 
 -(id)init{
     
     self = [super init];
     
-    self.shader =[CGShader shaderNamed:@"SkyboxShader"];
-    
+    self.shader =[CGShader shaderNamed:@"BillboardShader"];
     
     [self setupParameters];
     
@@ -46,12 +53,14 @@
     
     [super drawObject:object withRenderer:renderer];
     
-  
+    glDisable(GL_DEPTH_TEST);
+     glBlendFunc( GL_SRC_ALPHA ,GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
     
-  
     //Habilito las variables de vertice (los uniforms no se habilitan)
     glEnableVertexAttribArray(_positionSlot);
     glEnableVertexAttribArray(_texCoordSlot);
+    
     
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, object.texture.handler);
@@ -65,27 +74,23 @@
     
     CC3GLMatrix * modelMatrix = [object transformedMatrix]; //World space
     
-    CC3GLMatrix * modelViewMatrix = [renderer.camera  getTransormedViewMatrix];
-    float* m = modelViewMatrix.glMatrix;
+   // [modelMatrix rotateBy:cc3v(-renderer.camera.rotation.x,-renderer.camera.rotation.y,-renderer.camera.rotation.z)];
     
-    m[12] = 0.0f;
-    m[13] = 0.0f;
-    m[14] = 0.0f;
+    [modelMatrix rotateBy:cc3v(renderer.camera.rotation.x,renderer.camera.rotation.y,renderer.camera.rotation.z)];
+    
+    CC3GLMatrix * modelViewMatrix = [renderer.camera  getTransormedViewMatrix];
     
     [modelViewMatrix multiplyByMatrix:modelMatrix];//Camera space
-    
     
     CC3GLMatrix * modelViewProjectionMatrix = [renderer.camera.porjectionMatrix copy];
     [modelViewProjectionMatrix multiplyByMatrix:modelViewMatrix];
     
+    glUniformMatrix4fv(_modelProjectionMatrixUniform, 1, 0, modelViewProjectionMatrix.glMatrix);
     
+    ///////////////////////////////////////////////////
+
     
-    glUniformMatrix4fv(_modelViewProjectionMatrixUniform, 1, 0, modelViewProjectionMatrix.glMatrix);
-    
-    /////////////////////////////////////////
-    
-    
-    int frameOffset = ((object.frameIndex)*object.mesh.stride*object.mesh.vertexCount);
+    int frameOffset = 0;
     
     
     // Position /////////////////////////////
@@ -95,7 +100,8 @@
     /////////////////////////////////////////
     
     // Color ///////////////////////////////
-    glUniform4f(_colorSlot, object.color.r, object.color.g, object.color.b, object.color.a);
+   // glUniform4f(_colorSlot, object.color.r, object.color.g, object.color.b, object.color.a);
+    glUniform4f(_colorSlot, object.color.r, 0.6,0.0, object.color.a);
     ////////////////////////////////////////
     
     
@@ -105,29 +111,43 @@
     
     //////////////////////////////////////
     
-    
     /* --- Draw --- */
-        
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, [object.mesh indicesHandler]);
-        
-    glDrawElements(object.mesh.drawMode, object.mesh.indices.capacity ,GL_UNSIGNED_BYTE, 0);
     
+    if (object.mesh.indices) {
+        
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, [object.mesh indicesHandler]);
+        
+        glDrawElements(object.mesh.drawMode, object.mesh.indices.capacity ,GL_UNSIGNED_BYTE, 0);
+    }else{
+        
+        if(object.frameIndex<object.mesh.frameCount){
+            glDrawArrays(object.mesh.drawMode, 0, (object.mesh.vertexCount));
+        }else{
+            NSLog(@"[ERROR] current frame is %d and total frame count is %d",object.frameIndex,object.mesh.frameCount);
+        }
+    }
+    /* --- --- --- */
     
     glDisableVertexAttribArray(_positionSlot);
     glDisableVertexAttribArray(_texCoordSlot);
-
+    glDisable(GL_BLEND);
     
-  
+    // Enable depth buffer
+    glEnable(GL_DEPTH_TEST);
     
 }
 
 -(void)setupParameters{
     
     _positionSlot = glGetAttribLocation(self.shader.handler, CGShaderParameter_position);
-    _modelViewProjectionMatrixUniform = glGetUniformLocation(self.shader.handler, CGShaderParameter_ModelViewProjectionMatrix);
+    _modelProjectionMatrixUniform = glGetUniformLocation(self.shader.handler, CGShaderParameter_ModelProjectionMatrix);
+    
     _colorSlot =  glGetUniformLocation(self.shader.handler, CGShaderParameter_SourceColor);
+
     _texCoordSlot = glGetAttribLocation(self.shader.handler, CGShaderParameter_TextCoord);
     _textureUniform = glGetUniformLocation(self.shader.handler, CGShaderParameter_Texture);
+
     
 }
+
 @end

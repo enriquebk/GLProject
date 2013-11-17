@@ -197,10 +197,10 @@
     glBindBuffer(GL_ARRAY_BUFFER, bufferHandler);
     
     
-    glUniformMatrix4fv(_viewMatrixUniform,1, 0, renderer.camera.viewMatrix.glMatrix);
+    glUniformMatrix4fv(_viewMatrixUniform,1, 0, [renderer.camera  getTransormedViewMatrix].glMatrix);
     
     CC3GLMatrix * viewProjectionMatrix =  [renderer.camera.porjectionMatrix copy];
-    [viewProjectionMatrix multiplyByMatrix:renderer.camera.viewMatrix];
+    [viewProjectionMatrix multiplyByMatrix:[renderer.camera  getTransormedViewMatrix]];
     glUniformMatrix4fv(_viewProjectionMatrixUniform, 1, 0, viewProjectionMatrix.glMatrix);
 
     glVertexAttribPointer(_positionSlot, 4, GL_FLOAT, false, 8*sizeof(float), NULL);

@@ -157,7 +157,7 @@
     
     CC3GLMatrix * modelMatrix = [object transformedMatrix]; //World space
     
-    CC3GLMatrix * modelViewMatrix = [renderer.camera.viewMatrix  copy];
+    CC3GLMatrix * modelViewMatrix = [renderer.camera  getTransormedViewMatrix];
     
     [modelViewMatrix multiplyByMatrix:modelMatrix];//Camera space
     
@@ -245,7 +245,7 @@
             if(![l.unAffectedObjects containsObject:object]){
                 
                 CC3GLMatrix * lightModelMatrix = [l transformedMatrix];
-                CC3GLMatrix * lightModelViewMatrix = [renderer.camera.viewMatrix copy];
+                CC3GLMatrix * lightModelViewMatrix = [renderer.camera  getTransormedViewMatrix];
                 [lightModelViewMatrix multiplyByMatrix:lightModelMatrix];
                     
                 GLfloat* m = lightModelViewMatrix.glMatrix;

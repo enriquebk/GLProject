@@ -45,4 +45,10 @@
  */
 -(void)scale:(CC3Vector) aVector;
 
+/**
+ *  Retruns the view matrix that mus be used in the render porgrams.
+ *  @return matrix The transfomed matrix.
+ */
+-(CC3GLMatrix *) getTransormedViewMatrix;
+
 @end

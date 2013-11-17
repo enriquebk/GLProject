@@ -14,7 +14,9 @@
 #import "CGParticleSystem.h"
 
 #import "CGSimpleRenderProgram.h"
+#import "CGBillboardRender.h"
 #import "CGSkybox.h"
+#import "CGFreewayCamera.h"
 
 @interface CGViewController (){
 
@@ -70,29 +72,89 @@
     renderer = cgview.renderer;
     
     iluminated =YES;
-    
 
 
     skybox = [[CGSkybox alloc] init];
     [renderer addNode:skybox];
     
+
     
     floor = [CGObject3D plane];
     
     [floor setTexture: [[TextureManager sharedInstance] textureFromFileName:@"grassTexture.jpg"]];
     [floor rotate:cc3v(-90, 0, 0)];
-    [floor translate:cc3v(2.5, -7.1, -2.5)];
-    [floor scale:CC3VectorMake(600, 600, 600)];
-    floor.textureScale = 30.0f;
+    [floor translate:cc3v(2.5, 0.0/*-7.1*/, -2.5)];
+    [floor scale:CC3VectorMake(1000, 1000, 1000)];
+    floor.textureScale = 40.0f;
     floor.specularFactor = 0.01;
     [renderer addObject:floor];
 
+    
+    for (int i = 0; i<8; i++) {
+        
+        
+        CGObject3D* tree = [CGObject3D plane];
+        
+        [tree setTexture: [[TextureManager sharedInstance] textureFromFileName:@"Tree2.png"]];
+        [tree translate:cc3v(-120 + 40.0*i, 10.0, -180.0)];
+        int rand = RandomUInt()%20;
+        [tree scale:cc3v(45.0+rand,45.0+rand,45.0+rand)];
+        tree.renderProgram = [[CGBillboardRender alloc] init];
+        //tree.renderProgram = [[CGSimpleRenderProgram alloc] init];
+        [renderer addObject:tree];
+    }
+    
+    
+    for (int i = 0; i<8; i++) {
+        
+        
+        CGObject3D* tree = [CGObject3D plane];
+        
+        [tree setTexture: [[TextureManager sharedInstance] textureFromFileName:@"Tree2.png"]];
+        [tree translate:cc3v(-180 , 10.0, -140.0 + 40.0*i)];
+        int rand = RandomUInt()%20;
+        [tree scale:cc3v(45.0+rand,45.0+rand,45.0+rand)];
+        tree.renderProgram = [[CGBillboardRender alloc] init];
+        //tree.renderProgram = [[CGSimpleRenderProgram alloc] init];
+        [renderer addObject:tree];
+    }
+    
+    for (int i = 0; i<8; i++) {
+        
+        
+        CGObject3D* tree = [CGObject3D plane];
+        
+        [tree setTexture: [[TextureManager sharedInstance] textureFromFileName:@"Tree2.png"]];
+        [tree translate:cc3v(180 , 10.0, -140.0 + 40.0*i)];
+        int rand = RandomUInt()%20;
+        [tree scale:cc3v(45.0+rand,45.0+rand,45.0+rand)];
+        tree.renderProgram = [[CGBillboardRender alloc] init];
+        //tree.renderProgram = [[CGSimpleRenderProgram alloc] init];
+        [renderer addObject:tree];
+    }
+    
+    for (int i = 0; i<8; i++) {
+        
+        
+        CGObject3D* tree = [CGObject3D plane];
+        
+        [tree setTexture: [[TextureManager sharedInstance] textureFromFileName:@"Tree2.png"]];
+        [tree translate:cc3v(-180 + 40.0*i, 10.0, 180.0)];
+        int rand = RandomUInt()%20;
+        [tree scale:cc3v(45.0+rand,45.0+rand,45.0+rand)];
+        tree.renderProgram = [[CGBillboardRender alloc] init];
+        //tree.renderProgram = [[CGSimpleRenderProgram alloc] init];
+        [renderer addObject:tree];
+    }
+    
+ 
     
     knight= [CGObject3D MD2ObjectNamed:@"knight"];
 
     [knight setTexture:[[TextureManager sharedInstance] textureFromFileName:@"knight.jpg"]];
     [knight rotate:cc3v(0, 0, 90)];
     [knight scale:CC3VectorMake(0.3, 0.3, 0.3)];
+    [knight translate:cc3v(0, 7.13, 0)];
     //[knight setAnimationWithName:@"Stand"];
     [knight setAnimationWithName:@"Run"];
    // knight.color = (ccColor4F){1,0,0,0.2};
@@ -101,9 +163,9 @@
 
     
     light = [[CGLight alloc] init];
-    [light translate:cc3v(0,10,30)];
+    [light translate:cc3v(0,16,13)];
     [renderer addLight:light];
-    light.intensity = 0.7f;
+    light.intensity = 0.3f;
     
     renderer.ambientLightIntensity = 0.7f;
     floor.lightAffected = NO;
@@ -115,47 +177,65 @@
     direction =1.0f;
 
    
-    
     CGObject3D* sh = [CGObject3D plane];
     
     [sh setTexture: [[TextureManager sharedInstance] textureFromFileName:@"Shadow.png"]];
     [sh rotate:cc3v(-90, 0, 0)];
-    [sh translate:cc3v(0.0, -6.9, 0.0)];
+    [sh translate:cc3v(0.0, 0.06, 0.0)];
     [sh scale:CC3VectorMake(9, 9, 9)];
-    sh.color = (ccColor4F){1,1,1,0.3};
+    sh.color = (ccColor4F){1,1,1,0.6};
     sh.lightAffected = NO;
     [renderer addObject:sh];
-
     
-    particleSystem1 = [[CGParticleSystem alloc] init];
-    [particleSystem1 startEmission];
-    [particleSystem1 translate:CC3VectorMake(10, -5, -10)];
-    [renderer addNode:particleSystem1];
-
-    particleSystem2 = [[CGParticleSystem alloc] init];
-    [particleSystem2 startEmission];
-    [particleSystem2 translate:CC3VectorMake(10, -5, 10)];
-    [renderer addNode:particleSystem2];
-    
-    particleSystem3 = [[CGParticleSystem alloc] init];
-    [particleSystem3 startEmission];
-    [particleSystem3 translate:CC3VectorMake(-10, -5, -10)];
-    [renderer addNode:particleSystem3];
-    
-    particleSystem4 = [[CGParticleSystem alloc] init];
-    [particleSystem4 startEmission];
-    [particleSystem4 translate:CC3VectorMake(-10, -5, 10)];
-    [renderer addNode:particleSystem4];
     
     
     box = [CGObject3D cube];
-    
     [box setTexture: [[TextureManager sharedInstance] textureFromFileName:@"tile_floor.png"]];
-    [box rotate:cc3v(30, 10, -30)];
-    [box scale:CC3VectorMake(9, 9, 9)];
-    box.specularFactor = 0.2;
-    box.textureScale = 4;
-    //[renderer addObject:box];
+    [box translate:CC3VectorMake(15, 1, -15)];
+    [box scale:CC3VectorMake(2, 2, 2)];
+    [renderer addObject:box];
+    
+    
+    particleSystem1 = [[CGParticleSystem alloc] init];
+    [particleSystem1 startEmission];
+    [particleSystem1 translate:CC3VectorMake(15, 2.5, -15)];
+    [renderer addNode:particleSystem1];
+    
+    CGObject3D* box2 = [CGObject3D cube];
+    [box2 setTexture: [[TextureManager sharedInstance] textureFromFileName:@"tile_floor.png"]];
+    [box2 translate:CC3VectorMake(15, 1, 15)];
+    [box2 scale:CC3VectorMake(2, 2, 2)];
+    [renderer addObject:box2];
+
+    particleSystem2 = [[CGParticleSystem alloc] init];
+    [particleSystem2 startEmission];
+    [particleSystem2 translate:CC3VectorMake(15, 2.5, 15)];
+    [renderer addNode:particleSystem2];
+    
+    CGObject3D* box3 = [CGObject3D cube];
+    [box3 setTexture: [[TextureManager sharedInstance] textureFromFileName:@"tile_floor.png"]];
+    [box3 translate:CC3VectorMake(-15, 1, -15)];
+    [box3 scale:CC3VectorMake(2, 2, 2)];
+    [renderer addObject:box3];
+    
+    particleSystem3 = [[CGParticleSystem alloc] init];
+    [particleSystem3 startEmission];
+    [particleSystem3 translate:CC3VectorMake(-15, 2.5, -15)];
+    [renderer addNode:particleSystem3];
+    
+    
+    CGObject3D* box4 = [CGObject3D cube];
+    [box4 setTexture: [[TextureManager sharedInstance] textureFromFileName:@"tile_floor.png"]];
+    [box4 translate:CC3VectorMake(-15, 1, 15)];
+    [box4 scale:CC3VectorMake(2, 2, 2)];
+    [renderer addObject:box4];
+    
+    particleSystem4 = [[CGParticleSystem alloc] init];
+    [particleSystem4 startEmission];
+    [particleSystem4 translate:CC3VectorMake(-15, 2.5, 15)];
+    [renderer addNode:particleSystem4];
+    
+
     
     [self runLoop];
 }
@@ -208,7 +288,7 @@
         }
     }
     
-    [box rotate:cc3v(1, 1, 1)];
+   // [box rotate:cc3v(1, 1, 1)];
     
     knight.animationCompletePercentage = pers;
   // [light translate:cc3v(0.00, 0.0, 0.1)];
@@ -225,41 +305,28 @@
         
         float rotation = 50.0f*renderTime;
         
-        CC3Vector p = renderer.camera.position;
-        CC3Vector r = renderer.camera.rotation;
-        
-        [renderer.camera translate:CC3VectorMake(
-                                                       -cgview.renderer.camera.position.x,
-                                                       -cgview.renderer.camera.position.y,
-                                                       -cgview.renderer.camera.position.z)];
         if(rotUp || rotDown ){
         
             //Respect the rotation YXZ order
-            
-            [renderer.camera.viewMatrix rotateByY:-cgview.renderer.camera.rotation.y];
-        
-            [renderer.camera rotate:CC3VectorMake(rotUp?-rotation:rotation,0,0)];
-            
-            [renderer.camera.viewMatrix rotateByY:r.y];
 
+            [(CGFreewayCamera*)renderer.camera rotateByX:rotUp?rotation:-rotation];
         
         }else if(rotLeft || rotRight ){
             
-            [renderer.camera rotate:CC3VectorMake(0,rotLeft?-rotation:rotation,0)];
+            [(CGFreewayCamera*)renderer.camera rotateByY:rotLeft?rotation:-rotation];
             
         }
         
-        [renderer.camera translate:CC3VectorMake( p.x, p.y, p.z)];
     }
 
     float movement = 10.0f*renderTime;
     
     if(moveBwd || moveFwd){
-        [renderer.camera translate:CC3VectorMake(0, 0, moveFwd?movement:-movement)];
+        [renderer.camera translate:CC3VectorMake(0, 0, moveFwd?-movement:movement)];
     }
     
     if(moveRight || moveLeft){
-        [renderer.camera translate:CC3VectorMake(moveRight?-movement:movement,0, 0)];
+        [renderer.camera translate:CC3VectorMake(moveRight?movement:-movement,0, 0)];
     }
 }
 
@@ -303,5 +370,52 @@
 
 - (IBAction)moveLeftTouchUp:(id)sender{moveLeft = false;}
 - (IBAction)moveLeftTouchDown:(id)sender{moveLeft = true;}
+
+/*
+- (void)hadleEvents:(CADisplayLink*)displayLink{
+    
+    if(rotUp || rotDown || rotLeft || rotRight ){
+        
+        float rotation = 50.0f*renderTime;
+        
+        CC3Vector p = renderer.camera.position;
+        CC3Vector r = renderer.camera.rotation;
+        
+        [renderer.camera translate:CC3VectorMake(
+                                                 -cgview.renderer.camera.position.x,
+                                                 -cgview.renderer.camera.position.y,
+                                                 -cgview.renderer.camera.position.z)];
+        //TODO: ROT Z
+        if(rotUp || rotDown ){
+            
+            //Respect the rotation YXZ order
+            
+            [renderer.camera.viewMatrix rotateByY:-cgview.renderer.camera.rotation.y];
+            
+            [renderer.camera rotate:CC3VectorMake(rotUp?-rotation:rotation,0,0)];
+            
+            [renderer.camera.viewMatrix rotateByY:r.y];
+            
+            
+        }else if(rotLeft || rotRight ){
+            
+            [renderer.camera rotate:CC3VectorMake(0,rotLeft?-rotation:rotation,0)];
+            
+        }
+        
+        [renderer.camera translate:CC3VectorMake( p.x, p.y, p.z)];
+    }
+    
+    float movement = 10.0f*renderTime;
+    
+    if(moveBwd || moveFwd){
+        [renderer.camera translate:CC3VectorMake(0, 0, moveFwd?movement:-movement)];
+    }
+    
+    if(moveRight || moveLeft){
+        [renderer.camera translate:CC3VectorMake(moveRight?-movement:movement,0, 0)];
+    }
+}
+*/
 
 @end

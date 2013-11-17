@@ -8,6 +8,7 @@
 
 #import "CGRenderer.h"
 #import "CGUtils.h"
+#import "CGFreewayCamera.h"
 
 
 @interface CGRenderer (){
@@ -37,9 +38,11 @@
         self.ambientLightIntensity = 1.0;
         
         float h = 4.0f * self.layer.frame.size.height / self.layer.frame.size.width;
-        self.camera  = [[CGCamera alloc] init];        
-        [self.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:3 andFar:200];
-        [self.camera translate:CC3VectorMake(0, 0, -20)];
+        //self.camera  = [[CGCamera alloc] init];
+        self.camera = [[CGFreewayCamera alloc]init];
+        [self.camera setCameraFrustumLeft:-2 andRight:2 andBottom:-h/2 andTop:h/2 andNear:3 andFar:350];
+        //[self.camera translate:CC3VectorMake(0, -8, -20)];
+        [self.camera translate:CC3VectorMake(0, 8, 20)];
         
         [self setupContext];
         [self setupDepthBuffer];
@@ -92,7 +95,7 @@
    
     glGenRenderbuffers(1, &_colorRenderBuffer);//Create a new render buffer object. This returns a unique integer for the the render buffer (we store it here in _colorRenderBuffer). Sometimes you’ll see this unique integer referred to as an “OpenGL name.”
     
-    glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer);// Call glBindRenderbuffer to tell OpenGL “whenever I refer to GL_RENDERBUFFER, I really mean _colorRenderBuffer.”
+    glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer); // Call glBindRenderbuffer to tell OpenGL “whenever I refer to GL_RENDERBUFFER, I really mean _colorRenderBuffer.”
     
     [_context renderbufferStorage:GL_RENDERBUFFER fromDrawable:drawble];//Finally, allocate some storage for the render buffer. The EAGLContext you created earlier has a method you can use for this called renderbufferStorage.
 }

@@ -27,6 +27,7 @@
 		A70378B617C33A160074E183 /* CGViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A70378B217C33A150074E183 /* CGViewController.xib */; };
 		A70378B717C33A160074E183 /* CGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A70378B417C33A150074E183 /* CGViewController.m */; };
 		A70EC5071826EEBA007AC170 /* SkyBox-Clouds-front.png in Resources */ = {isa = PBXBuildFile; fileRef = A70EC5061826EEBA007AC170 /* SkyBox-Clouds-front.png */; };
+		A710E418183419190035BA3C /* CGFreewayCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = A710E417183419190035BA3C /* CGFreewayCamera.m */; };
 		A71443CD17ED41FA006478B9 /* knight.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A71443CC17ED41FA006478B9 /* knight.jpg */; };
 		A71BF035182C3B1700239E42 /* skyrender0001.png in Resources */ = {isa = PBXBuildFile; fileRef = A71BF02F182C3B1700239E42 /* skyrender0001.png */; };
 		A71BF036182C3B1700239E42 /* skyrender0002.png in Resources */ = {isa = PBXBuildFile; fileRef = A71BF030182C3B1700239E42 /* skyrender0002.png */; };
@@ -80,6 +81,11 @@
 		A7EA7571181095FB00643168 /* CGDefaultRenderProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EA7570181095FB00643168 /* CGDefaultRenderProgram.m */; };
 		A7EA757518109E8300643168 /* DefaultShader_f.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A7EA757218109E8300643168 /* DefaultShader_f.glsl */; };
 		A7EA757618109E8300643168 /* DefaultShader_v.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A7EA757318109E8300643168 /* DefaultShader_v.glsl */; };
+		A7F3752418342A9600154715 /* CGBillboardRender.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F3752318342A9600154715 /* CGBillboardRender.m */; };
+		A7F3752718342AD900154715 /* BillboardShader_f.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A7F3752518342AD900154715 /* BillboardShader_f.glsl */; };
+		A7F3752818342AD900154715 /* BillboardShader_v.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A7F3752618342AD900154715 /* BillboardShader_v.glsl */; };
+		A7F3752A18345C2400154715 /* Tree.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F3752918345C2400154715 /* Tree.png */; };
+		A7F3752C18347E9400154715 /* Tree2.png in Resources */ = {isa = PBXBuildFile; fileRef = A7F3752B18347E9400154715 /* Tree2.png */; };
 		A7F67B94181ECBF6007BF7B5 /* CGParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F67B93181ECBF6007BF7B5 /* CGParticle.m */; };
 		A7F67B97181EE88B007BF7B5 /* CGParticleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F67B96181EE88B007BF7B5 /* CGParticleSystem.m */; };
 		A7FBF0C917EBF31900787ABD /* MD2Loader.c in Sources */ = {isa = PBXBuildFile; fileRef = A7FBF0C717EBF31900787ABD /* MD2Loader.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -124,6 +130,8 @@
 		A70378B317C33A150074E183 /* CGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGViewController.h; sourceTree = "<group>"; };
 		A70378B417C33A150074E183 /* CGViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGViewController.m; sourceTree = "<group>"; };
 		A70EC5061826EEBA007AC170 /* SkyBox-Clouds-front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SkyBox-Clouds-front.png"; sourceTree = "<group>"; };
+		A710E416183419190035BA3C /* CGFreewayCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGFreewayCamera.h; sourceTree = "<group>"; };
+		A710E417183419190035BA3C /* CGFreewayCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGFreewayCamera.m; sourceTree = "<group>"; };
 		A71443CC17ED41FA006478B9 /* knight.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = knight.jpg; sourceTree = "<group>"; };
 		A71BF02F182C3B1700239E42 /* skyrender0001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyrender0001.png; sourceTree = "<group>"; };
 		A71BF030182C3B1700239E42 /* skyrender0002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = skyrender0002.png; sourceTree = "<group>"; };
@@ -201,6 +209,12 @@
 		A7EA7570181095FB00643168 /* CGDefaultRenderProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGDefaultRenderProgram.m; sourceTree = "<group>"; };
 		A7EA757218109E8300643168 /* DefaultShader_f.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DefaultShader_f.glsl; sourceTree = "<group>"; };
 		A7EA757318109E8300643168 /* DefaultShader_v.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DefaultShader_v.glsl; sourceTree = "<group>"; };
+		A7F3752218342A9600154715 /* CGBillboardRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGBillboardRender.h; sourceTree = "<group>"; };
+		A7F3752318342A9600154715 /* CGBillboardRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGBillboardRender.m; sourceTree = "<group>"; };
+		A7F3752518342AD900154715 /* BillboardShader_f.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BillboardShader_f.glsl; sourceTree = "<group>"; };
+		A7F3752618342AD900154715 /* BillboardShader_v.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BillboardShader_v.glsl; sourceTree = "<group>"; };
+		A7F3752918345C2400154715 /* Tree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tree.png; sourceTree = "<group>"; };
+		A7F3752B18347E9400154715 /* Tree2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tree2.png; sourceTree = "<group>"; };
 		A7F67B92181ECBF6007BF7B5 /* CGParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGParticle.h; sourceTree = "<group>"; };
 		A7F67B93181ECBF6007BF7B5 /* CGParticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGParticle.m; sourceTree = "<group>"; };
 		A7F67B95181EE88B007BF7B5 /* CGParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGParticleSystem.h; sourceTree = "<group>"; };
@@ -287,6 +301,8 @@
 		A703787317C32CFE0074E183 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7F3752B18347E9400154715 /* Tree2.png */,
+				A7F3752918345C2400154715 /* Tree.png */,
 				A71BF046182C707A00239E42 /* Shadow.png */,
 				A71BF02F182C3B1700239E42 /* skyrender0001.png */,
 				A71BF030182C3B1700239E42 /* skyrender0002.png */,
@@ -379,6 +395,8 @@
 				A70378AF17C32F220074E183 /* CGView.m */,
 				A71BF03B182C478B00239E42 /* CGSkybox.h */,
 				A71BF03C182C478B00239E42 /* CGSkybox.m */,
+				A710E416183419190035BA3C /* CGFreewayCamera.h */,
+				A710E417183419190035BA3C /* CGFreewayCamera.m */,
 			);
 			name = CGFramework;
 			sourceTree = "<group>";
@@ -445,6 +463,7 @@
 		A7EA75781810A5E900643168 /* RenderPrograms */ = {
 			isa = PBXGroup;
 			children = (
+				A7F3751D183429D300154715 /* BillboardRender */,
 				A71BF03E182C4BED00239E42 /* SkyboxRender */,
 				A7FC39D6182B2D62000CA7AD /* SimpleRender */,
 				A7EA75791810A5F500643168 /* DefaultRender */,
@@ -461,6 +480,17 @@
 				A7EA757218109E8300643168 /* DefaultShader_f.glsl */,
 			);
 			name = DefaultRender;
+			sourceTree = "<group>";
+		};
+		A7F3751D183429D300154715 /* BillboardRender */ = {
+			isa = PBXGroup;
+			children = (
+				A7F3752518342AD900154715 /* BillboardShader_f.glsl */,
+				A7F3752618342AD900154715 /* BillboardShader_v.glsl */,
+				A7F3752218342A9600154715 /* CGBillboardRender.h */,
+				A7F3752318342A9600154715 /* CGBillboardRender.m */,
+			);
+			name = BillboardRender;
 			sourceTree = "<group>";
 		};
 		A7F67B98181EE89E007BF7B5 /* ParticleSystem */ = {
@@ -607,6 +637,7 @@
 				A7601B761822F80F00CBF37A /* grassTexture.jpg in Resources */,
 				A73D80B417CC65F200939BB0 /* TODO in Resources */,
 				A703788317C32CFE0074E183 /* Default-568h@2x.png in Resources */,
+				A7F3752718342AD900154715 /* BillboardShader_f.glsl in Resources */,
 				A73AB8051822D6440021F85E /* particle.png in Resources */,
 				A71BF044182C4CCA00239E42 /* SkyboxShader_f.glsl in Resources */,
 				A70378B617C33A160074E183 /* CGViewController.xib in Resources */,
@@ -614,12 +645,15 @@
 				A7D046EB17C40E53007390B0 /* SimpleVertex.glsl in Resources */,
 				A7289B4517E56B6C00DD5BCA /* arrow-left.png in Resources */,
 				A71BF039182C3B1700239E42 /* skyrender0005.png in Resources */,
+				A7F3752A18345C2400154715 /* Tree.png in Resources */,
 				A71443CD17ED41FA006478B9 /* knight.jpg in Resources */,
 				A7D046ED17C40F85007390B0 /* SimpleFragment.glsl in Resources */,
 				A73AB8041822D6440021F85E /* 1pixel-wit.png in Resources */,
+				A7F3752818342AD900154715 /* BillboardShader_v.glsl in Resources */,
 				A7EA757518109E8300643168 /* DefaultShader_f.glsl in Resources */,
 				A73AB8091822DD790021F85E /* ParticleSystemShader_v.glsl in Resources */,
 				A71BF037182C3B1700239E42 /* skyrender0003.png in Resources */,
+				A7F3752C18347E9400154715 /* Tree2.png in Resources */,
 				A7E17CB6180E290400FA6802 /* knight_retocado.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -665,6 +699,7 @@
 				A7F67B97181EE88B007BF7B5 /* CGParticleSystem.m in Sources */,
 				A70378B017C32F220074E183 /* CGView.m in Sources */,
 				A7E0438E17D01AF800D07BB2 /* CGLight.m in Sources */,
+				A710E418183419190035BA3C /* CGFreewayCamera.m in Sources */,
 				A7E0438117D0129100D07BB2 /* CGMesh.m in Sources */,
 				A70378B717C33A160074E183 /* CGViewController.m in Sources */,
 				A7DAD78E17C48A1B000FE1B7 /* CC3Foundation.m in Sources */,
@@ -683,6 +718,7 @@
 				A76FDAE417C9983B00A6F8E4 /* CGRenderer.m in Sources */,
 				A7C5916517FB77B500045DB8 /* CGKeyFrameAnimation.m in Sources */,
 				A7EA756E181082C700643168 /* CGRenderProgram.m in Sources */,
+				A7F3752418342A9600154715 /* CGBillboardRender.m in Sources */,
 				A7E0437B17CFFE2200D07BB2 /* CGNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
