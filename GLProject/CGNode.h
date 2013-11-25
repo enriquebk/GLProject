@@ -27,7 +27,7 @@
 #pragma mark -
 #pragma mark CGNode
 
-@interface CGNode : NSObject
+@interface CGNode : NSObject <CGDrawableNode>
 
 @property(strong)NSMutableArray* childs;
 
@@ -84,16 +84,11 @@
 -(void)scale:(CC3Vector) aVector;
 
 /**
- *  Returns the node's matrix applying parent's transformations.
+ *  Returns the node matrix applying parent transformations.
  *
- *  @return A copy of the node's matrix with the parent's transformations.
+ *  @return A copy of the node matrix with the parent transformations.
  */
 -(CC3GLMatrix *)transformedMatrix;
-
-/**
- * This method is used to sort the CGRenderer's displayList before been rendered.
- */
--(NSComparisonResult)compareBeforeRender:(CGNode*)node;
 
 @end
 

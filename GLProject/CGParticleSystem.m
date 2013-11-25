@@ -121,9 +121,9 @@
     particlesVertexData = malloc(sizeof(float)*8* [self.particles count]);
     int i = 0;
     for (CGParticle*p in self.particles) {
-        particlesVertexData[0+ 8*i]=p.position.x;
-        particlesVertexData[1+ 8*i]=p.position.y;
-        particlesVertexData[2+ 8*i]=p.position.z;
+        particlesVertexData[0+ 8*i]=p.position.x*p.size;
+        particlesVertexData[1+ 8*i]=p.position.y*p.size;
+        particlesVertexData[2+ 8*i]=p.position.z*p.size;
         particlesVertexData[3+ 8*i]=1.0f;
         particlesVertexData[4+ 8*i]=p.color.r;
         particlesVertexData[5+ 8*i]=p.color.g;
@@ -219,11 +219,6 @@
 
 -(void)dealloc{
     [self stopEmission];
-}
-
--(NSComparisonResult)compareBeforeRender:(CGNode*)node{
-    
-    return NSOrderedDescending;
 }
 
 @end

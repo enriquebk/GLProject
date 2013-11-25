@@ -12,7 +12,7 @@
 
 #define MAX_PARTICELS 40
 
-@interface CGParticleSystem : CGNode <CGDrawableNode>
+@interface CGParticleSystem : CGNode 
 
 /**
  */
@@ -23,13 +23,12 @@
 #pragma mark -
 #pragma mark Particles properties
 
-@property float particlesSize;
+@property float particlesMaxLifeTime; //remove
 
-@property float particlesMaxLifeTime;
-
+/**
+ *  Particles texture.
+ */
 @property (strong)CGTexture* particlesTexture;
-
-@property (strong)NSMutableArray* particlesColors;
 
 #pragma mark -
 
@@ -56,7 +55,7 @@
 @end
 
 
-@protocol CGParticleManager
+@protocol CGParticleSystemManager
 
 @required
 
@@ -68,15 +67,17 @@
  */
 -(void)updateParticle: (CGParticle*)particle deltaTime: (float)dt;
 
+//-(float) maxParticleLife;
+
 @end
 
 
 @interface CGParticleSystem ()
 
-@property id<CGParticleManager> particleManager;
+@property id<CGParticleSystemManager> particleManager;
 
 @end
 
-@interface CGDefaultParticleManager : NSObject  <CGParticleManager>
+@interface CGDefaultParticleManager : NSObject  <CGParticleSystemManager>
 
 @end

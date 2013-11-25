@@ -82,7 +82,7 @@
 
     NSString* fshaderString = [NSString stringWithContentsOfFile:shaderPath
                                                         encoding:NSUTF8StringEncoding error:&error];
-    
+    /*TODO: Hacer array...*/
     shaderOneLight = [CGShader shaderWithvertexSource:[@"#define LIGHT_ON " stringByAppendingString:vshaderString]
                                 withFragmentSource:[@"#define LIGHT_ON \n #define LIGHTS_COUNT 1" stringByAppendingString:fshaderString]];
     
@@ -206,9 +206,11 @@
     if (!object.mesh.indices) {
         int nextFrameOffset = (object.mesh.frameCount>1?object.nextFrameOffSet:0);
         //Next frame position and normal
+        
         glVertexAttribPointer(_nextFramePosSlot, VBO_POSITION_SIZE,
                           GL_FLOAT, GL_FALSE,  object.mesh.stride  ,
                           (GLvoid*) ((object.frameIndex+nextFrameOffset)* object.mesh.stride*(object.mesh.vertexCount) ));
+        
         glVertexAttribPointer(_nextFrameNormalSlot, VBO_NORMAL_SIZE,
                               GL_FLOAT, GL_FALSE,  object.mesh.stride  ,
                               (GLvoid*) ((object.frameIndex+nextFrameOffset)* object.mesh.stride*(object.mesh.vertexCount)
@@ -305,7 +307,7 @@
     glDisableVertexAttribArray(_nextFramePosSlot);
     glDisableVertexAttribArray(_normalSlot);
     glDisableVertexAttribArray(_nextFrameNormalSlot);
-    glDisableVertexAttribArray(_nextFramePosSlot);
+    
     glDisable(GL_BLEND);
 
 }

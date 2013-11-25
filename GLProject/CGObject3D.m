@@ -51,9 +51,9 @@
 
     _frameIndex = floorf( _currentAnimation.initialFrame + ((float)(_currentAnimation.finalFrame + 1 - _currentAnimation.initialFrame))*(animationCompletePercentage));
     
-    _frameFactor = fabsf((float)(_frameIndex-_currentAnimation.initialFrame) - (_currentAnimation.finalFrame + 1 - _currentAnimation.initialFrame)*animationCompletePercentage);
+    _frameFactor = fabsf((float)(_frameIndex-_currentAnimation.initialFrame) - (_currentAnimation.finalFrame + 1.0f - _currentAnimation.initialFrame)*animationCompletePercentage);
 
-    if(_frameIndex==_currentAnimation.finalFrame){
+    if(_frameIndex >=_currentAnimation.finalFrame){
         _nextFrameOffSet = (_currentAnimation.initialFrame-_currentAnimation.finalFrame);
     }else{
         _nextFrameOffSet = 1;

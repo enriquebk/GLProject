@@ -11,6 +11,7 @@
 @interface CGTexture : NSObject
 
 @property(strong)NSString* filename;
+
 @property(assign)GLuint handler;
 
 @end

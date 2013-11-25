@@ -1,22 +1,115 @@
-AGREGAR LISTA DE SHADERS POR DEFECTO
+
+TODO: VERSION 1.0
+
+[Utils.h]
+- Agregar import al CGArray.
+
+[CGParticle]
+- init at position
+- inicializarparticula en blanco
+- utilizar cache de shader
+
+[CGParticleSystem:]
+- Implementar maxParticleLife dentro del delegado CGParticleSystemManager
+- Eliminar el NSTimer
+
+[TextureManager y CGtexture]
+- Documentar
+
+[MESH:]
+- Agregar dyinamic_draw
+- Agregar AABB
+
+[MeshFactory]
+-* Hacer un metodo meshNamed: q carge el mesh segun la extencion.
+-* Permitir animationes md2 segun el nombre de la animacion
+-* Cargar OBJ mesh
+-* Cargar 3DS mesh
+-* Cargar md5 mesh
+
+[CGSHADER:]
+- Cachear los shaders
+- Documentar
+
+[CGRenderProgram]
+- Continuar cache (no cambiar de shader si no es necesario)
+
+[CGBillboardRender y SkyboxRender]
+- Utilizar simpleShader y cambiar el color ambiente en el render program
+
+[CGSimpleRenderProgram]
+- Se puede eliminar
+
+[CGDefaultrender]
+-- Construir de cero (paso por paso hasta arreglar el artefacto (provar con varios objetos)
+-- Keyframe animation con indices..
+-- Distancia de las luces
+-- Array de shaders con luces (max lights)
+-- Comentar
+
+[CGNode]
+- Eliminar posicion rotacion y escala...
+- Documentar
+- Remove CGDrawableNode protocol..
+
+[CGCAMERA]
+- Documentar
+- Crear una camera freeway
+- Rotate pasa a ser rotx, roty, rotz...
+
+[CGLight]
+- Documentar
+_**Luces direccionales
+
+[OBject3D]
+- Documentar
+-* Primitivas (sphere obj 3ds)
+
+[cgrenderer]
+-- Agregar ray picking (crear el rayo porlomenos)
+-- Camara inicia en el 0,0
+-- Ordenar array (permitir orden costumizable)
+-- Pemover add object y dejar el add node.
+-- protocol renderer (will render... etc)
+
+[CGView]
+- Eliminar
+
+[CGSkybox
+- Color como propiedad
+-* Usar Cubemap...
+
+[cgviewcontroller]
+-- Emprolijar
+-- Solo importar CGRenderer.h...
 
 
-- DEFAULT RENDER UN SOLO SHADER...! (SI ESTA AFECTADO POR LAS LUCES Y NO RIENE LICES QUE LO AFECTEN INTENCIDAD CERO!)
 
 
-- Agregar ray pick
-- Utilizar mesh con indices (mas performante!)...
-- textures parameters!
+
+
+
+
+
+
+
+
+
+[Version 2.0]
+
+- Anti alaising
+- Bump
+- Shadow mapping
+- enviroment map
+- reflection
+
+ 
+
+- LOD
+- textures parameters
+
 - DOCUMENTAR (metodos, clases propiedades y progmarks)
 - worldSpace position - readonly...
-- Luces direccionales 
-- LOD
-
-
-//
-Clase 
-hay que tener cuidado con las luces(estan en wordspace y deberían estar en camera space)
-el shader modificado va estar para este finde semana
 
 Propiedades de la camara:
 Posicion

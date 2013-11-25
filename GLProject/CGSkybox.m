@@ -88,7 +88,6 @@
 }
 
 -(void)drawWithRenderer:(CGRenderer *)renderer{
-
     
     [skyboxRender drawObject:face1 withRenderer:renderer];
     [skyboxRender drawObject:face2 withRenderer:renderer];
@@ -98,13 +97,7 @@
     [skyboxRender drawObject:face6 withRenderer:renderer];
     
     glClear (GL_DEPTH_BUFFER_BIT);
-    
-     //[renderer.getGLContext presentRenderbuffer:GL_RENDERBUFFER];
-}
 
--(NSComparisonResult)compareBeforeRender:(CGNode*)node{
-    
-    return NSOrderedAscending;
 }
 
 

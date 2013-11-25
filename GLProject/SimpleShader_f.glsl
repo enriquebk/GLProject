@@ -1,9 +1,19 @@
+/* 
+ * Constants
+ */
 
-//'Constants'
-uniform sampler2D Texture;
+// Object's texture
+uniform sampler2D texture;
+
+// Object's color
 uniform mediump vec4 color;
-//Pre-calculeted values
-varying lowp vec2 TexCoordOut;
+
+/*
+ * Pre-calculeted values 
+ */
+
+// Fragment's uv coords
+varying lowp vec2 texCoordOut;
 
 
 void main(void) {

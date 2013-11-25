@@ -17,12 +17,23 @@
 #define VBO_NULL_ELEMENT       -1
 
 
-
 @interface CGMesh : NSObject
 
+/**
+ * Initializes a mesh with a raw vertex array.
+ *
+ * @param vertexData Vertex array.
+ */
 
 -(id)initWithVertexData:(CGFloatArray*)vertexData;
 
+/**
+ * Initializes a mesh with a raw vertex array and a indices array. This mesh will be draw 
+ * with the openGL primitive glDrawElements.
+ *
+ * @param vertexData Array that contains all the vertex data.
+ * @param indices Indices of the mesh.
+ */
 -(id)initWithVertexData:(CGFloatArray*)vertexData indices: (CGFloatArray*)indices;
 
 /**
@@ -39,7 +50,6 @@
  * An array that have all the possible animations that the mesh can make.
  */
 @property(strong)NSMutableArray* animations;
-
 
 /**
  * Indicates if the mesh can make animations
@@ -82,29 +92,28 @@
  */
 @property (nonatomic) int uvOffset;
 
-
 /**
  *  Draw mode [GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, GL_TRIANGLES], by default the draw mode is GL_TRIANGLES.
  */
 @property (nonatomic) GLenum drawMode;
 
 /**
- * Buffer that keep track of the vertex data in the gpu memory
+ * Buffer that keep track of the vertex data in the gpu memory.
  */
 -(GLuint) VBOHandler;
 
 /**
- * VBOHandler reference
+ * VBOHandler reference.
  */
 -(GLuint*) VBOHandlerRef;
 
 /**
- * Buffer that keep track of the indices in the gpu memory
+ * Buffer that keep track of the indices in the gpu memory.
  */
 -(GLuint) indicesHandler;
 
 /**
- * indicesHandler reference
+ * Indices handler reference.
  */
 -(GLuint*) indicesHandlerRef;
 

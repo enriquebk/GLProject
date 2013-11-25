@@ -15,7 +15,7 @@
 @class CGRenderProgram;
 
 
-@interface CGObject3D : CGNode <CGDrawableNode>
+@interface CGObject3D : CGNode 
 
 @property(strong)CGMesh* mesh;
 

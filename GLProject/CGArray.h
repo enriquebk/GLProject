@@ -1,5 +1,5 @@
 //
-//  CGFloatArray.h
+//  CGArray.h
 //  GLProject
 //
 //  Created by Enrique Bermudez on 05/09/13.
@@ -13,7 +13,7 @@
 /**
  * Initialises an CGArray for a given data with a specified capacity.
  * @param array The raw array of data.
- * @param capacity The initial capacity (nuber of obejcts) of the array.
+ * @param capacity The initial capacity (number of obejcts) of the array.
  */
 - (id) initWithData:(void *)array withCapacity:(unsigned int)capacity;
 

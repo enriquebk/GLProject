@@ -55,7 +55,7 @@ void main(void) {
         
         lowp float lightIntensity = lights[i].intensity;
         
-        lowp vec3 lightVector = (lights[i].position - pointPosition.xyz);
+        lowp vec3 lightVector = (lights[i].position - pointPosition.xyz);// distance 
         lowp float lamberFactor  =  max( dot(normalize(lightVector), normal), 0.0 ); //Producto punto nos da el cos del angulo entere 2 vectores
         
         //Obtengo el color de la luz

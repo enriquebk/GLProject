@@ -30,7 +30,7 @@
     [self.porjectionMatrix populateFromFrustumLeft:left andRight:right andBottom:bottom andTop:top andNear:near andFar:far];
 }
 
--(void)translate:(CC3Vector) aVector{
+-(void)translate:(CC3Vector) aVector{ // this method moves around local axis...
     [self.viewMatrix translateBy:aVector];
     
     _position.x+=aVector.x;

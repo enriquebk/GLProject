@@ -10,6 +10,9 @@
 
 @interface CGSkybox : CGNode <CGDrawableNode>
 
+/**
+ *
+ */
 -(void)setColor:(ccColor4F) color;
 
 @end

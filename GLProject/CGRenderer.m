@@ -16,6 +16,7 @@
     EAGLContext* _context;
     GLuint _colorRenderBuffer;
     GLuint _depthRenderBuffer;
+    GLuint framebuffer;
     
 }
 
@@ -102,7 +103,6 @@
 
 /*  A frame buffer is an OpenGL object that contains a render buffer, and some other buffers you’ll learn about later such as a depth buffer, stencil buffer, and accumulation buffer.*/
 - (void)setupFrameBuffer {
-    GLuint framebuffer;
     glGenFramebuffers(1, &framebuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
     //The first two steps for creating a frame buffer is very similar to creating a render buffer – it uses the glGen and glBind like you’ve seen before, just ending with “Framebuffer/s” instead of “Renderbuffer/s”.
@@ -111,6 +111,7 @@
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
                               GL_RENDERBUFFER, _colorRenderBuffer);// It lets you attach the render buffer you created earlier to the frame buffer’s GL_COLOR_ATTACHMENT0 slot.
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _depthRenderBuffer);
+    
 }
 
 - (void)setupDepthBuffer {
@@ -120,9 +121,6 @@
 }
 
 -(void)render{
-    
-   /* self.displayList = [[NSMutableArray alloc] initWithArray:[self.displayList sortedArrayUsingSelector:@selector(compareBeforeRender:)]];
-*/
     
     for (CGNode<CGDrawableNode>* n in self.displayList) {
         [n drawWithRenderer:self];
@@ -137,14 +135,10 @@
     
 }
 
-- (NSComparisonResult)defaultSortSelector: (NSString*) aString;
-{
-
-}
 
 -(void)clear{
     
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//Call glClear to actually perform the clearing. Remember that there can be different types of buffers, such as the render/color buffer we’re displaying, and others we’re not using yet such as depth or stencil buffers. Here we use the GL_COLOR_BUFFER_BIT to specify what exactly to clear – in this case, the current render/color buffer.
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT );//Call glClear to actually perform the clearing. Remember that there can be different types of buffers, such as the render/color buffer we’re displaying, and others we’re not using yet such as depth or stencil buffers. Here we use the GL_COLOR_BUFFER_BIT to specify what exactly to clear – in this case, the current render/color buffer.
 }
 
 
@@ -178,6 +172,33 @@
 
 -(EAGLContext*)getGLContext{
     return _context;
+}
+
+-(CC3Vector*)getWorldSpacePointFromImageSpaceCoord:(CGPoint)point{
+
+    float d = (([CGUtils isRetinaDisplay])?0.5f:1.0f);
+    
+    float x = point.x;
+    float y = self.layer.frame.size.height - point.y;
+    float z= 1;
+    
+     Byte pixelColor[4] = {0,};
+    
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glPixelStorei(GL_PACK_ALIGNMENT, 1);
+
+    
+    //glBindRenderbuffer(GL_RENDERBUFFER, _depthRenderBuffer);
+    
+    glBindFramebuffer(GL_FRAMEBUFFER, _depthRenderBuffer);
+   // glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer);
+   // glReadPixels(x, y,1,1, GL_RGBA, GL_UNSIGNED_BYTE, pixelColor);
+   // glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+    
+   // NSLog(@"");
+   // NSLog(@"%hhu,%hhu,%hhu, %hhu  ",  pixelColor[0],pixelColor[1],pixelColor[2], pixelColor[3]);
+    
+    
 }
 
 @end

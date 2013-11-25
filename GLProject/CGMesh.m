@@ -61,7 +61,7 @@
     
     self.drawMode = GL_TRIANGLES;
     
-    [self updateVertexStrideAndStride];
+    [self updateVertexCountAndStride];
     
     [self loadVertexData: vertexData.array capacity:vertexData.capacity];
     
@@ -104,26 +104,26 @@
 
 -(void)setPositionOffset:(int)positionOffset{
     _positionOffset = positionOffset;
-    [self updateVertexStrideAndStride];
+    [self updateVertexCountAndStride];
 }
 
 -(void)setNormalOffset:(int)normalOffset{
     _normalOffset = normalOffset;
-    [self updateVertexStrideAndStride];
+    [self updateVertexCountAndStride];
 }
 
 -(void)setUvOffset:(int)uvOffset{
     _uvOffset = uvOffset;
-    [self updateVertexStrideAndStride];
+    [self updateVertexCountAndStride];
 }
 
 
 -(void)setFrameCount:(int)frameCount{
     _frameCount = frameCount;
-    [self updateVertexStrideAndStride];
+    [self updateVertexCountAndStride];
 }
 
--(void)updateVertexStrideAndStride{
+-(void)updateVertexCountAndStride{
 
     strideFloatsCount = ((self.positionOffset!=VBO_NULL_ELEMENT)?VBO_POSITION_SIZE:0) +
                         ((self.uvOffset!=VBO_NULL_ELEMENT)?VBO_UV_SIZE:0) +

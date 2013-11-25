@@ -1,23 +1,30 @@
+/*
+ * Vertex attributes 
+ */
 
+// Vertex's position
+attribute vec4 position;
 
-attribute vec4 Position;
-uniform float kf_factor;
-attribute vec4 nextFramePosition;
+// Vertex's coord uv
+attribute vec2 texCoordIn;
 
-//Texture stuff
-attribute vec2 TexCoordIn;
-uniform float textureScale;
-varying vec2 TexCoordOut; //Fragment shader params
+/* 
+ * Constants 
+ */
 
-uniform mat4 modelViewProjectionMatrix;
+// Object's transformation matrix
+uniform mat4 transformationMatrix;
+
+/*
+ * Fragment shader params
+ */
+
+varying vec2 texCoordOut;
 
 void main(void) {
 
-    vec4 vertexPos = mix(Position, nextFramePosition, kf_factor);
-    vertexPos.w = 1.0;    //Make sure w is exactly 1.0
-
-    gl_Position = modelViewProjectionMatrix  * vertexPos;
+    texCoordOut = texCoordIn;
     
-    TexCoordOut = TexCoordIn*textureScale;
+    gl_Position = transformationMatrix  * position;
     
 }

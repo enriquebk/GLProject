@@ -31,7 +31,6 @@
     CGObject3D* plane;
     
     CGLight* light;
-    CGLight* floorLight;
     
     double currentTime;
 	double renderTime;
@@ -161,13 +160,15 @@
     knight.specularFactor = 0.7;
    [renderer addObject:knight];
 
+    knight.specularColor = ccc3(255, 0, 0);
     
     light = [[CGLight alloc] init];
     [light translate:cc3v(0,16,13)];
     [renderer addLight:light];
-    light.intensity = 0.3f;
+    light.intensity = 1.0f;
+    light.color = ccc3(255, 0, 0);
     
-    renderer.ambientLightIntensity = 0.7f;
+    renderer.ambientLightIntensity = 0.3f;
     floor.lightAffected = NO;
     
     
@@ -203,9 +204,13 @@
     
     CGObject3D* box2 = [CGObject3D cube];
     [box2 setTexture: [[TextureManager sharedInstance] textureFromFileName:@"tile_floor.png"]];
+    
+    [knight addChild:box2];
+    
     [box2 translate:CC3VectorMake(15, 1, 15)];
     [box2 scale:CC3VectorMake(2, 2, 2)];
     [renderer addObject:box2];
+    //[knight addChild:box2];
 
     particleSystem2 = [[CGParticleSystem alloc] init];
     [particleSystem2 startEmission];
@@ -268,7 +273,7 @@
     // ANIMATION STUFF ////////////////////////
     //TODO: Clase que maneje las animaciones (Animation manager) por objeto; (animation completation)
     
-    float pers = knight.animationCompletePercentage;
+    double pers = knight.animationCompletePercentage;
 
     
     if([knight.currentAnimation.name isEqualToString:@"Run"]){
@@ -288,9 +293,9 @@
         }
     }
     
-   // [box rotate:cc3v(1, 1, 1)];
+   [knight rotate:cc3v(1, 0, 0)];
     
-    knight.animationCompletePercentage = pers;
+    knight.animationCompletePercentage = (float)pers;
   // [light translate:cc3v(0.00, 0.0, 0.1)];
   //  [particleSystem translate:cc3v(0.00, 0.0, -0.1)];
     
@@ -370,6 +375,13 @@
 
 - (IBAction)moveLeftTouchUp:(id)sender{moveLeft = false;}
 - (IBAction)moveLeftTouchDown:(id)sender{moveLeft = true;}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+
+    UITouch *touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInView:self.view];
+    [renderer getWorldSpacePointFromImageSpaceCoord:touchPoint];
+}
 
 /*
 - (void)hadleEvents:(CADisplayLink*)displayLink{

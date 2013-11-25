@@ -30,10 +30,12 @@
 @property(strong)NSMutableArray* lights;
 
 /**
+ * Camera of the scene.
  */
 @property(strong) CGCamera* camera;
 
 /**
+ * Cached shader.
  */
 @property(assign)GLuint currentShaderHandler;
 
@@ -50,7 +52,7 @@
 
 /**
  *  Initializes the renderer.
- *  @param layer -.
+ *  @param layer CAEAGLLayer layer.
  */
 -(id)initWithLayer:(CAEAGLLayer*)layer;
 
@@ -66,7 +68,7 @@
  *  Removess an object from the displayList.
  *  @param object Object to be removed.
  */
--(void)removeObject:(CGObject3D*)object;
+-(void)removeObject:(CGObject3D*)object;//remove
 
 
 /**
@@ -84,14 +86,14 @@
 
 
 /**
- *  Adds a light to the render.
+ *  Adds a light to the renderer.
  *  @param light Light to be added.
  */
 -(void)addLight:(CGLight*)light;
 
 
 /**
- *  Adds a light to the render.
+ *  Adds a light to the renderer.
  *  @param light Light to be added.
  */
 -(void)removeLight:(CGLight*)light;
@@ -118,9 +120,14 @@
 -(void)setClearColor: (GLfloat)r g:(GLfloat)g b:(GLfloat)b a:(GLfloat)a;
 
 /**
- *
+ *  GL context.
  */
 -(EAGLContext*)getGLContext;
+
+/**
+ *
+ */
+-(CC3Vector*)getWorldSpacePointFromImageSpaceCoord:(CGPoint)point;
 
 @end
 

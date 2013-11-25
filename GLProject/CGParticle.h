@@ -17,7 +17,7 @@
 
 /**
  */
-@property CC3Vector movementDirection;
+@property CC3Vector movementDirection;//remove?
 
 /**
  */
@@ -30,5 +30,9 @@
 /**
  */
 @property ccColor4F color;
+
+/**
+ */
+@property float size;
 
 @end
