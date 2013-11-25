@@ -8,7 +8,7 @@
 
 #import "CGNode.h"
 
-@interface CGSkybox : CGNode <CGDrawableNode>
+@interface CGSkybox : CGNode
 
 /**
  *

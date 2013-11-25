@@ -114,25 +114,6 @@
 -(void)removeAllChilds{
     [self.childs removeAllObjects];
 }
-/*
--(CC3GLMatrix *)transformedMatrix{
-
-    if(self.parent){
-        
-        CC3GLMatrix * newMatrix = self.matrix;
-        
-        CGNode* parent = self.parent;
-        while (parent) {
-            newMatrix = [newMatrix copy];
-            [newMatrix multiplyByMatrix:parent.matrix];
-            parent = parent.parent;
-        }
-        
-        return newMatrix;
-    }
-    
-    return [self.matrix copy];
-}*/
 
 -(CC3GLMatrix *)transformedMatrix{
     
@@ -147,9 +128,7 @@
             
             CC3GLMatrix * parentM = [parent.matrix copy];
             
-            [parentM multiplyByMatrix:newMatrix];//la transformacion del padre tiene que ser mas a la izquierda porq es lo ultimo q se aplica
-            
-            //Si yo quiero rotar y trasladar hagp  mr x mt x p (primero p x mt y el relultado por mr).
+            [parentM multiplyByMatrix:newMatrix];
             
             newMatrix = parentM;
             
@@ -160,6 +139,10 @@
     }
     
     return [self.matrix copy];
+}
+    
+-(void)drawWithRenderer:(CGRenderer *)renderer{
+
 }
 
 @end

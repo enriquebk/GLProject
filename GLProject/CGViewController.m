@@ -114,7 +114,6 @@
         int rand = RandomUInt()%20;
         [tree scale:cc3v(45.0+rand,45.0+rand,45.0+rand)];
         tree.renderProgram = [[CGBillboardRender alloc] init];
-        //tree.renderProgram = [[CGSimpleRenderProgram alloc] init];
         [renderer addObject:tree];
     }
     
@@ -128,7 +127,6 @@
         int rand = RandomUInt()%20;
         [tree scale:cc3v(45.0+rand,45.0+rand,45.0+rand)];
         tree.renderProgram = [[CGBillboardRender alloc] init];
-        //tree.renderProgram = [[CGSimpleRenderProgram alloc] init];
         [renderer addObject:tree];
     }
     
@@ -142,7 +140,6 @@
         int rand = RandomUInt()%20;
         [tree scale:cc3v(45.0+rand,45.0+rand,45.0+rand)];
         tree.renderProgram = [[CGBillboardRender alloc] init];
-        //tree.renderProgram = [[CGSimpleRenderProgram alloc] init];
         [renderer addObject:tree];
     }
     
@@ -158,17 +155,15 @@
     [knight setAnimationWithName:@"Run"];
    // knight.color = (ccColor4F){1,0,0,0.2};
     knight.specularFactor = 0.7;
-   [renderer addObject:knight];
+    [renderer addObject:knight];
 
-    knight.specularColor = ccc3(255, 0, 0);
     
     light = [[CGLight alloc] init];
     [light translate:cc3v(0,16,13)];
     [renderer addLight:light];
-    light.intensity = 1.0f;
-    light.color = ccc3(255, 0, 0);
+    light.intensity = 0.3f;
     
-    renderer.ambientLightIntensity = 0.3f;
+    renderer.ambientLightIntensity = 0.7f;
     floor.lightAffected = NO;
     
     
@@ -204,13 +199,9 @@
     
     CGObject3D* box2 = [CGObject3D cube];
     [box2 setTexture: [[TextureManager sharedInstance] textureFromFileName:@"tile_floor.png"]];
-    
-    [knight addChild:box2];
-    
     [box2 translate:CC3VectorMake(15, 1, 15)];
     [box2 scale:CC3VectorMake(2, 2, 2)];
     [renderer addObject:box2];
-    //[knight addChild:box2];
 
     particleSystem2 = [[CGParticleSystem alloc] init];
     [particleSystem2 startEmission];
@@ -271,7 +262,6 @@
     [particleSystem4 update:renderTime];
     
     // ANIMATION STUFF ////////////////////////
-    //TODO: Clase que maneje las animaciones (Animation manager) por objeto; (animation completation)
     
     double pers = knight.animationCompletePercentage;
 
@@ -293,13 +283,8 @@
         }
     }
     
-   [knight rotate:cc3v(1, 0, 0)];
-    
     knight.animationCompletePercentage = (float)pers;
-  // [light translate:cc3v(0.00, 0.0, 0.1)];
-  //  [particleSystem translate:cc3v(0.00, 0.0, -0.1)];
     
-    ////////////////////////////////////////////////////
     [cgview.renderer render];
 }
 
@@ -376,58 +361,6 @@
 - (IBAction)moveLeftTouchUp:(id)sender{moveLeft = false;}
 - (IBAction)moveLeftTouchDown:(id)sender{moveLeft = true;}
 
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
 
-    UITouch *touch = [touches anyObject];
-    CGPoint touchPoint = [touch locationInView:self.view];
-    [renderer getWorldSpacePointFromImageSpaceCoord:touchPoint];
-}
-
-/*
-- (void)hadleEvents:(CADisplayLink*)displayLink{
-    
-    if(rotUp || rotDown || rotLeft || rotRight ){
-        
-        float rotation = 50.0f*renderTime;
-        
-        CC3Vector p = renderer.camera.position;
-        CC3Vector r = renderer.camera.rotation;
-        
-        [renderer.camera translate:CC3VectorMake(
-                                                 -cgview.renderer.camera.position.x,
-                                                 -cgview.renderer.camera.position.y,
-                                                 -cgview.renderer.camera.position.z)];
-        //TODO: ROT Z
-        if(rotUp || rotDown ){
-            
-            //Respect the rotation YXZ order
-            
-            [renderer.camera.viewMatrix rotateByY:-cgview.renderer.camera.rotation.y];
-            
-            [renderer.camera rotate:CC3VectorMake(rotUp?-rotation:rotation,0,0)];
-            
-            [renderer.camera.viewMatrix rotateByY:r.y];
-            
-            
-        }else if(rotLeft || rotRight ){
-            
-            [renderer.camera rotate:CC3VectorMake(0,rotLeft?-rotation:rotation,0)];
-            
-        }
-        
-        [renderer.camera translate:CC3VectorMake( p.x, p.y, p.z)];
-    }
-    
-    float movement = 10.0f*renderTime;
-    
-    if(moveBwd || moveFwd){
-        [renderer.camera translate:CC3VectorMake(0, 0, moveFwd?movement:-movement)];
-    }
-    
-    if(moveRight || moveLeft){
-        [renderer.camera translate:CC3VectorMake(moveRight?-movement:movement,0, 0)];
-    }
-}
-*/
 
 @end

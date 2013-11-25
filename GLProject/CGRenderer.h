@@ -75,14 +75,14 @@
  *  Adds a node to the displayList.
  *  @param node Node to be added.
  */
--(void)addNode:(CGNode<CGDrawableNode>*)node;
+-(void)addNode:(CGNode*)node;
 
 
 /**
  *  Adds a node to the displayList.
  *  @param node Node to be added.
  */
--(void)removeNode:(CGNode<CGDrawableNode>*)node;
+-(void)removeNode:(CGNode*)node;
 
 
 /**
@@ -124,10 +124,7 @@
  */
 -(EAGLContext*)getGLContext;
 
-/**
- *
- */
--(CC3Vector*)getWorldSpacePointFromImageSpaceCoord:(CGPoint)point;
+
 
 @end
 

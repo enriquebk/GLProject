@@ -12,22 +12,9 @@
 @class CGRenderer;
 
 #pragma mark -
-#pragma mark Protocol CGDrawableNode
-
-/**
- */
-@protocol CGDrawableNode <NSObject>
-
-@required
-
--(void)drawWithRenderer:(CGRenderer *)renderer;
-
-@end
-
-#pragma mark -
 #pragma mark CGNode
 
-@interface CGNode : NSObject <CGDrawableNode>
+@interface CGNode : NSObject
 
 @property(strong)NSMutableArray* childs;
 
@@ -90,5 +77,9 @@
  */
 -(CC3GLMatrix *)transformedMatrix;
 
+/* 
+ * Every node needs to implements this method.
+ */
+-(void)drawWithRenderer:(CGRenderer *)renderer;
 @end
 

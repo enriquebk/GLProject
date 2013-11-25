@@ -122,7 +122,7 @@
 
 -(void)render{
     
-    for (CGNode<CGDrawableNode>* n in self.displayList) {
+    for (CGNode* n in self.displayList) {
         [n drawWithRenderer:self];
     }
     
@@ -142,12 +142,12 @@
 }
 
 
--(void)addNode:(CGNode<CGDrawableNode>*)node{
+-(void)addNode:(CGNode*)node{
     
     [self.displayList addObject:node];
 }
 
--(void)removeNode:(CGNode<CGDrawableNode>*)node{
+-(void)removeNode:(CGNode*)node{
     
     [self.displayList removeObject:node];
 }
@@ -174,32 +174,7 @@
     return _context;
 }
 
--(CC3Vector*)getWorldSpacePointFromImageSpaceCoord:(CGPoint)point{
 
-    float d = (([CGUtils isRetinaDisplay])?0.5f:1.0f);
-    
-    float x = point.x;
-    float y = self.layer.frame.size.height - point.y;
-    float z= 1;
-    
-     Byte pixelColor[4] = {0,};
-    
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glPixelStorei(GL_PACK_ALIGNMENT, 1);
-
-    
-    //glBindRenderbuffer(GL_RENDERBUFFER, _depthRenderBuffer);
-    
-    glBindFramebuffer(GL_FRAMEBUFFER, _depthRenderBuffer);
-   // glBindRenderbuffer(GL_RENDERBUFFER, _colorRenderBuffer);
-   // glReadPixels(x, y,1,1, GL_RGBA, GL_UNSIGNED_BYTE, pixelColor);
-   // glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-    
-   // NSLog(@"");
-   // NSLog(@"%hhu,%hhu,%hhu, %hhu  ",  pixelColor[0],pixelColor[1],pixelColor[2], pixelColor[3]);
-    
-    
-}
 
 @end
 
