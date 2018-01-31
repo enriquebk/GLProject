@@ -44,13 +44,6 @@
  */
 +(void) addMesh:(CGMesh*)mesh withName:(NSString*)name;
 
-
-
-
-
-
-
-//Remove:
 +(CGMesh*) meshMD2Named: (NSString*)name;// remove
 //+(CGMesh*) meshOBJNamed: (NSString*)name;
 

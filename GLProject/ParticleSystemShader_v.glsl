@@ -1,5 +1,4 @@
 
-// El que recive es el vertex shader
 attribute vec4 Position;
 attribute vec4 sourceColor;
 

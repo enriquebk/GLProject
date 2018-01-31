@@ -79,9 +79,9 @@
 
 -(void)loadIndicesData:(GLubyte* )indices capacity:(int)cpacity{
     
-    glGenBuffers(1, [self indicesHandlerRef]); // idem vertexBuffer
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, [self indicesHandler]); // idem vertexBuffer
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte)*cpacity, indices, GL_STATIC_DRAW); // idem vertexBuffer
+    glGenBuffers(1, [self indicesHandlerRef]);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, [self indicesHandler]);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLubyte)*cpacity, indices, GL_STATIC_DRAW); 
 }
 
 -(GLuint) VBOHandler{

@@ -1,6 +1,4 @@
 
-
-
 uniform sampler2D Texture;
 varying lowp vec4 outColor;
 

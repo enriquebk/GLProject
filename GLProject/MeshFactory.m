@@ -14,7 +14,6 @@ _Vec3 _anorms_table[162] = {
 #include "anorms.h"
 };
 
-
 @implementation MeshFactory
 
 static MeshFactory* _meshFactory;

@@ -74,8 +74,6 @@
     
     CC3GLMatrix * modelMatrix = [object transformedMatrix]; //World space
     
-   // [modelMatrix rotateBy:cc3v(-renderer.camera.rotation.x,-renderer.camera.rotation.y,-renderer.camera.rotation.z)];
-    
     [modelMatrix rotateBy:cc3v(renderer.camera.rotation.x,renderer.camera.rotation.y,renderer.camera.rotation.z)];
     
     CC3GLMatrix * modelViewMatrix = [renderer.camera  getTransormedViewMatrix];
@@ -147,7 +145,6 @@
     _texCoordSlot = glGetAttribLocation(self.shader.handler, CGShaderParameter_TextCoord);
     _textureUniform = glGetUniformLocation(self.shader.handler, CGShaderParameter_Texture);
 
-    
 }
 
 @end

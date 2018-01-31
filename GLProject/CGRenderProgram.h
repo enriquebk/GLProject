@@ -15,11 +15,11 @@
 @class CGRenderer;
 @class CGShader;
 
-@interface CGRenderProgram : NSObject //TODO: Make protocol, revisar... que tenga la logica del drawableNode...
+@interface CGRenderProgram : NSObject 
 
 @property(strong)CGShader* shader;
 
-/* Overide me */
+/* Override me */
 -(void)drawObject:(CGObject3D*) object withRenderer:(CGRenderer*)renderer;
 
 @end

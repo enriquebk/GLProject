@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CGArray.h"
+#include <OpenGLES/ES2/gl.h>
 #import "CGKeyFrameAnimation.h"
 
 #define VBO_POSITION_SIZE       3

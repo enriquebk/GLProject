@@ -52,8 +52,8 @@ static TextureManager* textureManager;
     }
     
     // 2
-    size_t width = [self nearestPowerOf2: CGImageGetWidth(imageRef)];
-    size_t height = [self nearestPowerOf2:CGImageGetHeight(imageRef)];
+    size_t width = (size_t)[self nearestPowerOf2: CGImageGetWidth(imageRef)];
+    size_t height = (size_t)[self nearestPowerOf2:CGImageGetHeight(imageRef)];
     
     void * spriteData =  malloc(width*height*4);
     

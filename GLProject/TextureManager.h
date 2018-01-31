@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CGTexture.h"
+#include <OpenGLES/ES2/gl.h>
 
 @interface TextureManager : NSObject{
     

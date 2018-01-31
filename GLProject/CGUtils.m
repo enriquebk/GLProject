@@ -10,7 +10,6 @@
 
 @implementation CGUtils
 
-
 + (BOOL) isRetinaDisplay
 {
 	int scale = 1.0;

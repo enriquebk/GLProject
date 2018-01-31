@@ -74,7 +74,7 @@
 
 + (CGObject3D*) MD2ObjectNamed:(NSString*) filename;
 
-//+ (CGObject3D*) WaveFontObjectNamed:(NSString*) filename;
+//+ (CGObject3D*) waveFontObjectNamed:(NSString*) filename;
 
 #pragma mark -
 #pragma mark Primitives

@@ -35,14 +35,11 @@
 /* */
 + (GLuint)compileShaderSource:(NSString*)source withType:(GLenum)shaderType;
 
-/* TODO: Explain... */
 + (CGShader*)shaderNamed:(NSString*)shaderFiles;
 
-/* TODO: Explain... */
 + (CGShader*)shaderWithvertexSource:(NSString*)vs withFragmentSource:(NSString*)fs;
 
 @end
-
 
 /*
  *
