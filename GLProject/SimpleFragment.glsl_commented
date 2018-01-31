@@ -1,7 +1,0 @@
-
-varying lowp vec4 DestinationColor;    // 1 This is the input variable from the vertex shader. It’s the exact same definition as the vetex shader had, except it has an additional keyword: lowp. Turns out when you specify variables in a fragment shader, you need to give it a precision. A good rule of thumb is try to use the lowest precision you can get away with, for a performance bonus. We set it to the lowest precision here, but there’s also medp and highp if you need it.
- 
-void main(void) { 
-    
-    gl_FragColor = DestinationColor;    // 3 Just like you need to set gl_Position in the vertex shader, you have to set gl_FragColor in the fragment shader. This simply sets it to the destination color passed in (interpolated by OpenGL).
-}

@@ -51,7 +51,6 @@
 		A73AB8051822D6440021F85E /* particle.png in Resources */ = {isa = PBXBuildFile; fileRef = A73AB8031822D6440021F85E /* particle.png */; };
 		A73AB8081822DD790021F85E /* ParticleSystemShader_f.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A73AB8061822DD790021F85E /* ParticleSystemShader_f.glsl */; };
 		A73AB8091822DD790021F85E /* ParticleSystemShader_v.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A73AB8071822DD790021F85E /* ParticleSystemShader_v.glsl */; };
-		A73D80B417CC65F200939BB0 /* TODO in Resources */ = {isa = PBXBuildFile; fileRef = A73D80B317CC65F200939BB0 /* TODO */; };
 		A73EE5A917C6E751009C1E5E /* TextureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A73EE5A617C6E74F009C1E5E /* TextureManager.m */; };
 		A73EE5AA17C6E751009C1E5E /* TextureManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A73EE5A617C6E74F009C1E5E /* TextureManager.m */; };
 		A73EE5AB17C6E751009C1E5E /* MeshFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = A73EE5A817C6E750009C1E5E /* MeshFactory.m */; };
@@ -63,8 +62,6 @@
 		A7C5151917E4A9E400F8F6EE /* CGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C5151817E4A9E400F8F6EE /* CGUtils.m */; };
 		A7C5916517FB77B500045DB8 /* CGKeyFrameAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C5916417FB77B500045DB8 /* CGKeyFrameAnimation.m */; };
 		A7C6F86F17E6C4E900F3FB0A /* tile_floor.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C6F86E17E6C4E900F3FB0A /* tile_floor.png */; };
-		A7D046EB17C40E53007390B0 /* SimpleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A7D046EA17C40E53007390B0 /* SimpleVertex.glsl */; };
-		A7D046ED17C40F85007390B0 /* SimpleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = A7D046EC17C40F85007390B0 /* SimpleFragment.glsl */; };
 		A7DAD78E17C48A1B000FE1B7 /* CC3Foundation.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DAD78517C48A1B000FE1B7 /* CC3Foundation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A7DAD78F17C48A1B000FE1B7 /* CC3GLMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = A7DAD78717C48A1B000FE1B7 /* CC3GLMatrix.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A7DAD79017C48A1B000FE1B7 /* CC3Kazmath.c in Sources */ = {isa = PBXBuildFile; fileRef = A7DAD78817C48A1B000FE1B7 /* CC3Kazmath.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -158,7 +155,6 @@
 		A73AB8031822D6440021F85E /* particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle.png; sourceTree = "<group>"; };
 		A73AB8061822DD790021F85E /* ParticleSystemShader_f.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ParticleSystemShader_f.glsl; sourceTree = "<group>"; };
 		A73AB8071822DD790021F85E /* ParticleSystemShader_v.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ParticleSystemShader_v.glsl; sourceTree = "<group>"; };
-		A73D80B317CC65F200939BB0 /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		A73EE5A517C6E74F009C1E5E /* TextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureManager.h; sourceTree = "<group>"; };
 		A73EE5A617C6E74F009C1E5E /* TextureManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextureManager.m; sourceTree = "<group>"; };
 		A73EE5A717C6E750009C1E5E /* MeshFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeshFactory.h; sourceTree = "<group>"; };
@@ -175,10 +171,6 @@
 		A7C5916317FB77B500045DB8 /* CGKeyFrameAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGKeyFrameAnimation.h; sourceTree = "<group>"; };
 		A7C5916417FB77B500045DB8 /* CGKeyFrameAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGKeyFrameAnimation.m; sourceTree = "<group>"; };
 		A7C6F86E17E6C4E900F3FB0A /* tile_floor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile_floor.png; sourceTree = "<group>"; };
-		A7D046EA17C40E53007390B0 /* SimpleVertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleVertex.glsl; sourceTree = "<group>"; };
-		A7D046EC17C40F85007390B0 /* SimpleFragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleFragment.glsl; sourceTree = "<group>"; };
-		A7D046EE17C427D5007390B0 /* SimpleFragment.glsl_commented */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleFragment.glsl_commented; sourceTree = "<group>"; };
-		A7D046EF17C427D5007390B0 /* SimpleVertex.glsl_commented */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleVertex.glsl_commented; sourceTree = "<group>"; };
 		A7DAD78417C48A1B000FE1B7 /* CC3Foundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC3Foundation.h; sourceTree = "<group>"; };
 		A7DAD78517C48A1B000FE1B7 /* CC3Foundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CC3Foundation.m; sourceTree = "<group>"; };
 		A7DAD78617C48A1B000FE1B7 /* CC3GLMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CC3GLMatrix.h; sourceTree = "<group>"; };
@@ -286,7 +278,7 @@
 		A703787217C32CFE0074E183 /* GLProject */ = {
 			isa = PBXGroup;
 			children = (
-				A73D80B317CC65F200939BB0 /* TODO */,
+				CDEB1A5A20227A6700A4E235 /* Assets */,
 				A76FDADE17C966B900A6F8E4 /* CGFramework */,
 				A70378B317C33A150074E183 /* CGViewController.h */,
 				A70378B417C33A150074E183 /* CGViewController.m */,
@@ -301,39 +293,10 @@
 		A703787317C32CFE0074E183 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A7F3752B18347E9400154715 /* Tree2.png */,
-				A7F3752918345C2400154715 /* Tree.png */,
-				A71BF046182C707A00239E42 /* Shadow.png */,
-				A71BF02F182C3B1700239E42 /* skyrender0001.png */,
-				A71BF030182C3B1700239E42 /* skyrender0002.png */,
-				A71BF031182C3B1700239E42 /* skyrender0003.png */,
-				A71BF032182C3B1700239E42 /* skyrender0004.png */,
-				A71BF033182C3B1700239E42 /* skyrender0005.png */,
-				A71BF034182C3B1700239E42 /* skyrender0006.png */,
-				A70EC5061826EEBA007AC170 /* SkyBox-Clouds-front.png */,
-				A7601B751822F80F00CBF37A /* grassTexture.jpg */,
-				A73AB8021822D6440021F85E /* 1pixel-wit.png */,
-				A73AB8031822D6440021F85E /* particle.png */,
-				A7D046EA17C40E53007390B0 /* SimpleVertex.glsl */,
-				A7D046EC17C40F85007390B0 /* SimpleFragment.glsl */,
-				A7E17CB3180DFF8700FA6802 /* weapon.md2 */,
-				A7E17CB5180E290400FA6802 /* knight_retocado.jpg */,
-				A71443CC17ED41FA006478B9 /* knight.jpg */,
-				A7C6F86E17E6C4E900F3FB0A /* tile_floor.png */,
-				A7289B4017E56B6C00DD5BCA /* arrow-down.png */,
-				A7FBF0CA17EBF53500787ABD /* knight.md2 */,
-				A7289B4117E56B6C00DD5BCA /* arrow-left.png */,
-				A7289B4217E56B6C00DD5BCA /* arrow-right.png */,
-				A7289B4317E56B6C00DD5BCA /* arrow-up.png */,
-				A7D046EE17C427D5007390B0 /* SimpleFragment.glsl_commented */,
-				A7D046EF17C427D5007390B0 /* SimpleVertex.glsl_commented */,
+				A703787817C32CFE0074E183 /* main.m */,
 				A703787417C32CFE0074E183 /* GLProject-Info.plist */,
 				A703787517C32CFE0074E183 /* InfoPlist.strings */,
-				A703787817C32CFE0074E183 /* main.m */,
 				A703787A17C32CFE0074E183 /* GLProject-Prefix.pch */,
-				A703787E17C32CFE0074E183 /* Default.png */,
-				A703788017C32CFE0074E183 /* Default@2x.png */,
-				A703788217C32CFE0074E183 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -538,6 +501,38 @@
 			name = Textures;
 			sourceTree = "<group>";
 		};
+		CDEB1A5A20227A6700A4E235 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				A7F3752B18347E9400154715 /* Tree2.png */,
+				A7F3752918345C2400154715 /* Tree.png */,
+				A71BF046182C707A00239E42 /* Shadow.png */,
+				A71BF02F182C3B1700239E42 /* skyrender0001.png */,
+				A71BF030182C3B1700239E42 /* skyrender0002.png */,
+				A71BF031182C3B1700239E42 /* skyrender0003.png */,
+				A71BF032182C3B1700239E42 /* skyrender0004.png */,
+				A71BF033182C3B1700239E42 /* skyrender0005.png */,
+				A71BF034182C3B1700239E42 /* skyrender0006.png */,
+				A70EC5061826EEBA007AC170 /* SkyBox-Clouds-front.png */,
+				A7601B751822F80F00CBF37A /* grassTexture.jpg */,
+				A73AB8021822D6440021F85E /* 1pixel-wit.png */,
+				A73AB8031822D6440021F85E /* particle.png */,
+				A7E17CB3180DFF8700FA6802 /* weapon.md2 */,
+				A7E17CB5180E290400FA6802 /* knight_retocado.jpg */,
+				A71443CC17ED41FA006478B9 /* knight.jpg */,
+				A7C6F86E17E6C4E900F3FB0A /* tile_floor.png */,
+				A7289B4017E56B6C00DD5BCA /* arrow-down.png */,
+				A7FBF0CA17EBF53500787ABD /* knight.md2 */,
+				A7289B4117E56B6C00DD5BCA /* arrow-left.png */,
+				A7289B4217E56B6C00DD5BCA /* arrow-right.png */,
+				A7289B4317E56B6C00DD5BCA /* arrow-up.png */,
+				A703787E17C32CFE0074E183 /* Default.png */,
+				A703788017C32CFE0074E183 /* Default@2x.png */,
+				A703788217C32CFE0074E183 /* Default-568h@2x.png */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -635,19 +630,16 @@
 				A7EA757618109E8300643168 /* DefaultShader_v.glsl in Resources */,
 				A703788117C32CFE0074E183 /* Default@2x.png in Resources */,
 				A7601B761822F80F00CBF37A /* grassTexture.jpg in Resources */,
-				A73D80B417CC65F200939BB0 /* TODO in Resources */,
 				A703788317C32CFE0074E183 /* Default-568h@2x.png in Resources */,
 				A7F3752718342AD900154715 /* BillboardShader_f.glsl in Resources */,
 				A73AB8051822D6440021F85E /* particle.png in Resources */,
 				A71BF044182C4CCA00239E42 /* SkyboxShader_f.glsl in Resources */,
 				A70378B617C33A160074E183 /* CGViewController.xib in Resources */,
 				A7289B4717E56B6C00DD5BCA /* arrow-up.png in Resources */,
-				A7D046EB17C40E53007390B0 /* SimpleVertex.glsl in Resources */,
 				A7289B4517E56B6C00DD5BCA /* arrow-left.png in Resources */,
 				A71BF039182C3B1700239E42 /* skyrender0005.png in Resources */,
 				A7F3752A18345C2400154715 /* Tree.png in Resources */,
 				A71443CD17ED41FA006478B9 /* knight.jpg in Resources */,
-				A7D046ED17C40F85007390B0 /* SimpleFragment.glsl in Resources */,
 				A73AB8041822D6440021F85E /* 1pixel-wit.png in Resources */,
 				A7F3752818342AD900154715 /* BillboardShader_v.glsl in Resources */,
 				A7EA757518109E8300643168 /* DefaultShader_f.glsl in Resources */,

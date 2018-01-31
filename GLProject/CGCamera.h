@@ -20,8 +20,6 @@
 @property(assign,nonatomic)CC3Vector  rotation;
 @property(assign,nonatomic)CC3Vector  scale;
 
-
-
 -(void) setCameraFrustumLeft: (GLfloat) left
                     andRight: (GLfloat) right
                    andBottom: (GLfloat) bottom
