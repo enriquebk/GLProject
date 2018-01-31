@@ -11,5 +11,6 @@ GLProject was my student project for the assignature Computer Graphics in the Un
 
 
 Screenshot:
+
 ![Screenshot](Screenshot.png)
 
