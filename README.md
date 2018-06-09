@@ -1,17 +1,17 @@
 # GLProject
 
-GLProject was my student project for the assignature Computer Graphics in the Univerity. Basically is an openGL ES 2.0 app that have some nice features like:
+GLProject is a project that I did for the course Computer Graphics in my days as a university student. Basically is an openGL ES 2.0 app that implements the next features:
 
 - Scene graph
 - Loads MD2 objects
 - Keyframe aniamtion
-- Manages multiple lights
+- Multiple lights managment
 - Particles system
 - Billboard textures
-- Skybox
+- Skybox implementation
 
 
 Screenshot:
 
-![Screenshot](Screenshot.png)
+![Screenshot](demo.gif)
 
